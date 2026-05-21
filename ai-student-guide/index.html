@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Student Guide — Panduan Lengkap AI untuk Siswa SMA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #17171f;
+    --card: #1c1c26;
+    --card2: #22222e;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0f0f5;
+    --muted: #8888a0;
+    --dim: #55556a;
+    --purple: #8b5cf6;
+    --purple2: #a78bfa;
+    --cyan: #22d3ee;
+    --cyan2: #67e8f9;
+    --pink: #f472b6;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --blue: #60a5fa;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size:16px; line-height:1.7; overflow-x:hidden; }
+
+  /* ── NOISE OVERLAY ── */
+  body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; }
+
+  /* ── GLOW BLOBS ── */
+  .blob { position:fixed; border-radius:50%; filter:blur(120px); pointer-events:none; z-index:0; }
+  .blob-1 { width:600px; height:600px; background:rgba(139,92,246,0.12); top:-200px; left:-200px; }
+  .blob-2 { width:500px; height:500px; background:rgba(34,211,238,0.08); bottom:-100px; right:-100px; }
+  .blob-3 { width:400px; height:400px; background:rgba(244,114,182,0.06); top:40%; left:50%; transform:translateX(-50%); }
+
+  /* ── NAV ── */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(10,10,15,0.85); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-inner { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; align-items:center; justify-content:space-between; height:60px; }
+  .nav-logo { font-family:var(--font-head); font-weight:800; font-size:1.1rem; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:8px; }
+  .nav-logo span { background:linear-gradient(135deg,var(--purple),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .nav-links { display:flex; gap:4px; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:.85rem; padding:6px 12px; border-radius:6px; transition:all .2s; font-weight:400; }
+  .nav-links a:hover, .nav-links a.active { color:var(--text); background:var(--card); }
+  .nav-badge { background:linear-gradient(135deg,var(--purple),var(--pink)); color:#fff; font-size:.7rem; font-weight:700; padding:3px 8px; border-radius:100px; font-family:var(--font-head); }
+
+  /* ── LAYOUT ── */
+  main { max-width:1200px; margin:0 auto; padding:0 2rem; position:relative; z-index:1; }
+  section { padding:100px 0 60px; }
+  section:first-child { padding-top:120px; }
+
+  /* ── SECTION LABELS ── */
+  .section-label { font-family:var(--font-head); font-size:.7rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--purple); margin-bottom:.75rem; display:flex; align-items:center; gap:8px; }
+  .section-label::before { content:''; width:24px; height:2px; background:var(--purple); border-radius:2px; }
+  .section-title { font-family:var(--font-head); font-size:clamp(2rem,5vw,3.2rem); font-weight:800; line-height:1.1; color:var(--text); margin-bottom:1rem; }
+  .section-title .accent { background:linear-gradient(135deg,var(--purple),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .section-sub { font-size:1.05rem; color:var(--muted); max-width:600px; margin-bottom:3rem; }
+
+  /* ── HERO ── */
+  .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:100px 0 60px; position:relative; }
+  .hero-kicker { display:inline-flex; align-items:center; gap:8px; background:var(--card); border:1px solid var(--border2); border-radius:100px; padding:6px 16px 6px 6px; font-size:.8rem; color:var(--muted); margin-bottom:2rem; }
+  .hero-kicker .dot { width:6px; height:6px; background:var(--green); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+  .hero-title { font-family:var(--font-head); font-size:clamp(3rem,8vw,6rem); font-weight:800; line-height:1; color:var(--text); margin-bottom:1.5rem; }
+  .hero-title .line2 { background:linear-gradient(135deg,var(--purple) 0%,var(--cyan) 60%,var(--pink) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; display:block; }
+  .hero-desc { font-size:1.1rem; color:var(--muted); max-width:540px; margin-bottom:2.5rem; line-height:1.8; }
+  .hero-ctas { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:4rem; }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:10px; font-family:var(--font-head); font-weight:700; font-size:.9rem; text-decoration:none; cursor:pointer; transition:all .2s; border:none; }
+  .btn-primary { background:linear-gradient(135deg,var(--purple),var(--cyan)); color:#fff; }
+  .btn-primary:hover { opacity:.9; transform:translateY(-1px); }
+  .btn-ghost { background:var(--card); color:var(--text); border:1px solid var(--border2); }
+  .btn-ghost:hover { background:var(--card2); border-color:var(--border2); }
+  .hero-stats { display:flex; gap:2rem; flex-wrap:wrap; }
+  .hero-stat { }
+  .hero-stat-num { font-family:var(--font-head); font-size:1.8rem; font-weight:800; background:linear-gradient(135deg,var(--purple),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .hero-stat-label { font-size:.8rem; color:var(--muted); margin-top:2px; }
+
+  /* ── PLATFORM CARDS ── */
+  .platforms-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+  .platform-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1.5rem; cursor:pointer; transition:all .3s; position:relative; overflow:hidden; }
+  .platform-card::before { content:''; position:absolute; inset:0; opacity:0; transition:opacity .3s; border-radius:16px; pointer-events:none; }
+  .platform-card > * { position:relative; z-index:1; }
+  .platform-card:hover { border-color:var(--border2); transform:translateY(-4px); }
+  .platform-card:hover::before { opacity:1; }
+  .pc-chatgpt::before { background:radial-gradient(circle at 30% 30%,rgba(16,163,127,0.12),transparent 70%); }
+  .pc-claude::before { background:radial-gradient(circle at 30% 30%,rgba(204,116,73,0.12),transparent 70%); }
+  .pc-gemini::before { background:radial-gradient(circle at 30% 30%,rgba(66,133,244,0.12),transparent 70%); }
+  .pc-deepseek::before { background:radial-gradient(circle at 30% 30%,rgba(99,102,241,0.12),transparent 70%); }
+  .pc-copilot::before { background:radial-gradient(circle at 30% 30%,rgba(0,120,212,0.12),transparent 70%); }
+  .platform-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:1rem; }
+  .platform-name { font-family:var(--font-head); font-weight:700; font-size:1.1rem; margin-bottom:.3rem; }
+  .platform-maker { font-size:.75rem; color:var(--dim); margin-bottom:.75rem; text-transform:uppercase; letter-spacing:.08em; }
+  .platform-desc { font-size:.85rem; color:var(--muted); line-height:1.6; margin-bottom:1rem; }
+  .platform-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .tag { font-size:.7rem; padding:3px 10px; border-radius:100px; font-weight:500; background:var(--bg3); border:1px solid var(--border); color:var(--muted); }
+  .tag.hot { background:rgba(251,191,36,0.1); border-color:rgba(251,191,36,0.2); color:var(--amber); }
+  .tag.free { background:rgba(52,211,153,0.1); border-color:rgba(52,211,153,0.2); color:var(--green); }
+  .tag.pro { background:rgba(139,92,246,0.1); border-color:rgba(139,92,246,0.2); color:var(--purple2); }
+  .platform-link { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; color:var(--muted); text-decoration:none; margin-top:.5rem; padding:6px 12px; background:var(--bg3); border:1px solid var(--border); border-radius:8px; transition:all .2s; }
+  .platform-link:hover { color:var(--text); border-color:var(--border2); }
+
+  /* ── RCSO BUILDER ── */
+  .rcso-builder { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2rem; }
+  .rcso-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:1.5rem; }
+  .rcso-field { }
+  .rcso-label { font-family:var(--font-head); font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.5rem; display:flex; align-items:center; gap:8px; }
+  .rcso-label .badge { width:22px; height:22px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:800; }
+  .rcso-input, .rcso-select { width:100%; background:var(--bg3); border:1px solid var(--border2); border-radius:10px; padding:10px 14px; color:var(--text); font-family:var(--font-body); font-size:.9rem; outline:none; transition:border-color .2s; resize:none; }
+  .rcso-input:focus, .rcso-select:focus { border-color:var(--purple); }
+  .rcso-select option { background:var(--bg); }
+  .rcso-output-wrap { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:1.25rem; margin-top:1rem; }
+  .rcso-output-label { font-size:.75rem; color:var(--dim); margin-bottom:.5rem; font-family:var(--font-head); text-transform:uppercase; letter-spacing:.08em; }
+  #rcso-result { font-size:.95rem; color:var(--text); line-height:1.8; min-height:80px; font-style:italic; white-space:pre-wrap; }
+  .copy-btn { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; padding:8px 14px; background:var(--purple); color:#fff; border:none; border-radius:8px; cursor:pointer; font-family:var(--font-head); font-weight:600; margin-top:.75rem; transition:all .2s; }
+  .copy-btn:hover { background:var(--purple2); }
+  .copy-btn.copied { background:var(--green); }
+  .prompt-copy-btn { align-self:flex-start; }
+  .cs-item { flex-wrap:wrap; }
+  .cs-item .prompt-copy-btn { margin-top:.25rem; margin-left:auto; padding:5px 10px; font-size:.72rem; flex-shrink:0; }
+
+  /* ── TECHNIQUE CARDS ── */
+  .techniques-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
+  .technique-card { background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:all .3s; }
+  .technique-card:hover { border-color:var(--border2); transform:translateY(-2px); }
+  .tc-header { padding:1.5rem 1.5rem 1rem; display:flex; align-items:flex-start; gap:12px; }
+  .tc-icon-wrap { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+  .tc-title { font-family:var(--font-head); font-weight:700; font-size:1rem; margin-bottom:.25rem; }
+  .tc-sub { font-size:.8rem; color:var(--muted); }
+  .tc-body { padding:0 1.5rem 1.5rem; }
+  .tc-prompt { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:1rem; font-size:.85rem; color:var(--cyan2); font-style:italic; line-height:1.6; margin-bottom:.75rem; }
+  .tc-result { font-size:.82rem; color:var(--muted); line-height:1.6; }
+  .tc-divider { height:1px; background:var(--border); margin:1rem 0; }
+
+  /* ── DO/DONT ── */
+  .dodont-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .dodont-card { border-radius:14px; padding:1.5rem; }
+  .dodont-card.do { background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.2); }
+  .dodont-card.dont { background:rgba(248,113,113,0.06); border:1px solid rgba(248,113,113,0.2); }
+  .dodont-header { display:flex; align-items:center; gap:8px; margin-bottom:1rem; font-family:var(--font-head); font-weight:700; font-size:.9rem; }
+  .dodont-header.do { color:var(--green); }
+  .dodont-header.dont { color:var(--red); }
+  .dodont-icon { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.9rem; }
+  .dodont-card.do .dodont-icon { background:rgba(52,211,153,0.2); }
+  .dodont-card.dont .dodont-icon { background:rgba(248,113,113,0.2); }
+  .dodont-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .dodont-list li { font-size:.88rem; color:var(--muted); display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
+  .dodont-list li::before { content:''; width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:7px; }
+  .do .dodont-list li::before { background:var(--green); }
+  .dont .dodont-list li::before { background:var(--red); }
+
+  /* ── USE CASE TABS ── */
+  .usecase-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:2rem; }
+  .uc-tab { padding:8px 18px; border-radius:100px; font-size:.85rem; font-family:var(--font-head); font-weight:600; background:var(--card); border:1px solid var(--border); color:var(--muted); cursor:pointer; transition:all .2s; }
+  .uc-tab:hover { border-color:var(--border2); color:var(--text); }
+  .uc-tab.active { background:var(--purple); border-color:var(--purple); color:#fff; }
+  .usecase-panels { }
+  .uc-panel { display:none; }
+  .uc-panel.active { display:block; }
+  .uc-examples { display:flex; flex-direction:column; gap:12px; }
+  .uc-example { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.25rem; }
+  .uc-example-subj { font-size:.75rem; font-family:var(--font-head); font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--purple2); margin-bottom:.5rem; }
+  .uc-example-prompt { font-size:.9rem; color:var(--cyan2); font-style:italic; margin-bottom:.75rem; padding:10px 14px; background:var(--bg3); border-radius:8px; border-left:2px solid var(--cyan); }
+  .uc-example-why { font-size:.83rem; color:var(--muted); }
+
+  /* ── SAFETY ACCORDION ── */
+  .accordions { display:flex; flex-direction:column; gap:8px; }
+  .accordion { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .accordion-header { display:flex; align-items:center; justify-content:space-between; padding:1.1rem 1.5rem; cursor:pointer; transition:background .2s; }
+  .accordion-header:hover { background:var(--card2); }
+  .accordion-left { display:flex; align-items:center; gap:12px; }
+  .accordion-emoji { font-size:1.2rem; }
+  .accordion-title { font-family:var(--font-head); font-weight:700; font-size:.95rem; }
+  .accordion-chevron { color:var(--dim); font-size:1rem; transition:transform .3s; }
+  .accordion.open .accordion-chevron { transform:rotate(180deg); }
+  .accordion-body { padding:0 1.5rem 1.25rem; font-size:.9rem; color:var(--muted); line-height:1.7; display:none; }
+  .accordion.open .accordion-body { display:block; }
+  .accordion-body .highlight { background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.2); border-radius:8px; padding:.75rem 1rem; margin:.75rem 0; font-size:.88rem; color:var(--purple2); }
+
+  /* ── QUIZ ── */
+  .quiz-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2rem; max-width:700px; }
+  .quiz-progress { display:flex; gap:6px; margin-bottom:1.5rem; }
+  .quiz-dot { height:4px; flex:1; background:var(--bg3); border-radius:2px; transition:background .3s; }
+  .quiz-dot.done { background:var(--green); }
+  .quiz-dot.active { background:var(--purple); }
+  .quiz-q { font-family:var(--font-head); font-weight:700; font-size:1.1rem; margin-bottom:1.5rem; line-height:1.4; }
+  .quiz-options { display:flex; flex-direction:column; gap:8px; margin-bottom:1rem; }
+  .quiz-opt { background:var(--bg3); border:1.5px solid var(--border); border-radius:12px; padding:12px 16px; cursor:pointer; transition:all .2s; font-size:.9rem; display:flex; align-items:center; gap:10px; }
+  .quiz-opt:hover { border-color:var(--border2); background:var(--card2); }
+  .quiz-opt.selected { border-color:var(--purple); background:rgba(139,92,246,0.1); color:var(--text); }
+  .quiz-opt.correct { border-color:var(--green); background:rgba(52,211,153,0.1); }
+  .quiz-opt.wrong { border-color:var(--red); background:rgba(248,113,113,0.1); }
+  .quiz-feedback { padding:.75rem 1rem; border-radius:10px; font-size:.88rem; margin-bottom:1rem; display:none; }
+  .quiz-feedback.show { display:block; }
+  .quiz-feedback.correct { background:rgba(52,211,153,0.1); border:1px solid rgba(52,211,153,0.2); color:var(--green); }
+  .quiz-feedback.wrong { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.2); color:var(--red); }
+  #quiz-next { display:none; }
+  .quiz-score { text-align:center; padding:2rem 0; }
+  .quiz-score-num { font-family:var(--font-head); font-size:3rem; font-weight:800; background:linear-gradient(135deg,var(--purple),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .quiz-score-label { color:var(--muted); font-size:.9rem; margin-top:.5rem; }
+
+  /* ── CHEATSHEET ── */
+  .cheatsheet-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+  .cs-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.25rem; }
+  .cs-title { font-family:var(--font-head); font-weight:700; font-size:.95rem; margin-bottom:.75rem; display:flex; align-items:center; gap:8px; }
+  .cs-title-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .cs-list { display:flex; flex-direction:column; gap:6px; }
+  .cs-item { font-size:.83rem; color:var(--muted); display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
+  .cs-item strong { color:var(--text); }
+
+  /* ── TEACHER GUIDE ── */
+  .teacher-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+  .teacher-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.25rem; }
+  .teacher-title { font-family:var(--font-head); font-weight:700; font-size:.95rem; margin-bottom:.8rem; display:flex; align-items:center; gap:8px; }
+  .teacher-title-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .teacher-list { display:flex; flex-direction:column; gap:8px; }
+  .teacher-item { font-size:.86rem; color:var(--muted); display:flex; align-items:flex-start; gap:8px; line-height:1.55; }
+  .teacher-item::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--purple2); flex-shrink:0; margin-top:8px; }
+  .teacher-note { background:rgba(34,211,238,0.07); border:1px solid rgba(34,211,238,0.18); border-radius:14px; padding:1.35rem; margin-top:16px; }
+  .teacher-note-title { font-family:var(--font-head); font-weight:700; font-size:1rem; margin-bottom:.5rem; color:var(--cyan2); }
+  .teacher-note-text { font-size:.9rem; color:var(--muted); line-height:1.7; }
+
+  /* ── FOOTER ── */
+  footer { background:var(--bg2); border-top:1px solid var(--border); padding:3rem 0; margin-top:4rem; position:relative; z-index:1; }
+  .footer-inner { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+  .footer-brand { font-family:var(--font-head); font-weight:800; font-size:1.1rem; }
+  .footer-brand span { background:linear-gradient(135deg,var(--purple),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .footer-copy { font-size:.8rem; color:var(--dim); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity:0; transform:translateY(24px); transition:all .6s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  /* ── MOBILE ── */
+  @media(max-width:768px) {
+    .nav-links { display:none; }
+    .rcso-grid { grid-template-columns:1fr; }
+    .dodont-grid { grid-template-columns:1fr; }
+    .hero-title { font-size:clamp(2.4rem,10vw,4rem); }
+    main { padding:0 1rem; }
+  }
+  @media(max-width:500px) {
+    .platforms-grid { grid-template-columns:1fr; }
+  }
+
+  /* ── MISC ── */
+  .divider { height:1px; background:var(--border); margin:1rem 0; }
+  .chip { display:inline-flex; align-items:center; gap:6px; font-size:.78rem; padding:4px 12px; border-radius:100px; background:var(--card); border:1px solid var(--border); color:var(--muted); }
+  .chip.purple { background:rgba(139,92,246,0.1); border-color:rgba(139,92,246,0.25); color:var(--purple2); }
+  .chip.cyan { background:rgba(34,211,238,0.1); border-color:rgba(34,211,238,0.25); color:var(--cyan2); }
+  .chip.green { background:rgba(52,211,153,0.1); border-color:rgba(52,211,153,0.25); color:var(--green); }
+  .chip.amber { background:rgba(251,191,36,0.1); border-color:rgba(251,191,36,0.25); color:var(--amber); }
+  .number-badge { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:8px; font-family:var(--font-head); font-size:.85rem; font-weight:800; flex-shrink:0; }
+</style>
+</head>
+<body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">🤖 <span>AI Student Guide</span></a>
+    <div class="nav-links">
+      <a href="#platforms" class="nav-link">Platform AI</a>
+      <a href="#prompt" class="nav-link">Prompt Builder</a>
+      <a href="#teknik" class="nav-link">Teknik Belajar</a>
+      <a href="#etika" class="nav-link">Etika & Safety</a>
+      <a href="#usecase" class="nav-link">Use Cases</a>
+      <a href="#guru" class="nav-link">Guru</a>
+      <a href="#quiz" class="nav-link">Quiz</a>
+    </div>
+    <span class="nav-badge">Edisi SMA 2026</span>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="home">
+  <div class="hero-kicker">
+    <span class="dot"></span>
+    Panduan resmi untuk siswa SMA Indonesia
+  </div>
+  <h1 class="hero-title">
+    Kuasai AI,<br>
+    <span class="line2">Kuasai Masa Depan</span>
+  </h1>
+  <p class="hero-desc">
+    Panduan lengkap menggunakan ChatGPT, Claude AI, Gemini, DeepSeek &amp; lebih banyak lagi — secara produktif, etis, dan kritis untuk kemajuan belajarmu.
+  </p>
+  <div class="hero-ctas">
+    <a href="#platforms" class="btn btn-primary">🚀 Mulai Belajar</a>
+    <a href="#prompt" class="btn btn-ghost">✨ Coba Prompt Builder</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">5+</div>
+      <div class="hero-stat-label">Platform AI Dibahas</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">20+</div>
+      <div class="hero-stat-label">Contoh Prompt Siap Pakai</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">Modul Lengkap</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Gratis & Open</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PLATFORMS ══════ -->
+<section id="platforms">
+  <div class="reveal">
+    <div class="section-label">Modul 1</div>
+    <h2 class="section-title">Platform AI yang <span class="accent">Perlu Kamu Tahu</span></h2>
+    <p class="section-sub">Setiap AI punya keunggulan masing-masing. Pilih yang tepat untuk tugasmu!</p>
+  </div>
+  <div class="platforms-grid reveal">
+
+    <div class="platform-card pc-chatgpt">
+      <div class="platform-icon" style="background:rgba(16,163,127,0.15);">🟢</div>
+      <div class="platform-name">ChatGPT</div>
+      <div class="platform-maker">OpenAI</div>
+      <div class="platform-desc">Terkuat untuk agentic workflows dan multi-step automation. Sangat baik untuk boilerplate code, browsing/computer use, dan tugas yang butuh iterasi cepat.</div>
+      <div class="platform-tags">
+        <span class="tag free">Gratis</span>
+        <span class="tag hot">🔥 Paling Populer</span>
+        <span class="tag">Coding</span>
+        <span class="tag">Menulis</span>
+        <span class="tag">Logika</span>
+      </div>
+      <br>
+      <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="platform-link">🔗 Buka ChatGPT →</a>
+    </div>
+
+    <div class="platform-card pc-claude">
+      <div class="platform-icon" style="background:rgba(204,116,73,0.15);">🟠</div>
+      <div class="platform-name">Claude AI</div>
+      <div class="platform-maker">Anthropic</div>
+      <div class="platform-desc">Terkuat untuk production-level coding dan multi-file reasoning. Jago debugging kompleks, refactoring, architectural decisions, dan tool integration.</div>
+      <div class="platform-tags">
+        <span class="tag free">Gratis</span>
+        <span class="tag pro">⭐ Etis & Aman</span>
+        <span class="tag">Analisis</span>
+        <span class="tag">Esai</span>
+        <span class="tag">Dokumen</span>
+      </div>
+      <br>
+      <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="platform-link">🔗 Buka Claude →</a>
+    </div>
+
+    <div class="platform-card pc-gemini">
+      <div class="platform-icon" style="background:rgba(66,133,244,0.15);">🔵</div>
+      <div class="platform-name">Gemini</div>
+      <div class="platform-maker">Google</div>
+      <div class="platform-desc">Terintegrasi dengan Google Docs, Drive, dan Search. Terbaik untuk riset dengan info terkini dari web.</div>
+      <div class="platform-tags">
+        <span class="tag free">Gratis</span>
+        <span class="tag hot">Google Ekosistem</span>
+        <span class="tag">Riset</span>
+        <span class="tag">Terkini</span>
+        <span class="tag">Google Docs</span>
+      </div>
+      <br>
+      <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="platform-link">🔗 Buka Gemini →</a>
+    </div>
+
+    <div class="platform-card pc-deepseek">
+      <div class="platform-icon" style="background:rgba(99,102,241,0.15);">🔮</div>
+      <div class="platform-name">DeepSeek</div>
+      <div class="platform-maker">DeepSeek AI</div>
+      <div class="platform-desc">Terbaik untuk STEM, matematika, dan reasoning. Dikenal kuat untuk penyelesaian soal logika, coding kompetitif, dan efisiensi biaya. Cocok untuk siswa yang fokus pada sains, matematika, dan pemrograman.</div>
+      <div class="platform-tags">
+        <span class="tag free">Gratis</span>
+        <span class="tag hot">🔥 STEM Jago</span>
+        <span class="tag">Matematika</span>
+        <span class="tag">Sains</span>
+        <span class="tag">Reasoning</span>
+      </div>
+      <br>
+      <a href="https://chat.deepseek.com" target="_blank" rel="noopener noreferrer" class="platform-link">🔗 Buka DeepSeek →</a>
+    </div>
+
+    <div class="platform-card pc-copilot">
+      <div class="platform-icon" style="background:rgba(0,120,212,0.15);">💠</div>
+      <div class="platform-name">Copilot</div>
+      <div class="platform-maker">Microsoft</div>
+      <div class="platform-desc">Terbaik untuk coding langsung di IDE seperti VS Code dan JetBrains. Cocok untuk autocompletion real-time, inline suggestions, dan workflow coding dari issue sampai pull request.</div>
+      <div class="platform-tags">
+        <span class="tag free">Gratis di Windows</span>
+        <span class="tag">Office 365</span>
+        <span class="tag">Browser</span>
+        <span class="tag">Windows</span>
+      </div>
+      <br>
+      <a href="https://copilot.microsoft.com" target="_blank" rel="noopener noreferrer" class="platform-link">🔗 Buka Copilot →</a>
+    </div>
+
+  </div>
+
+  <!-- Comparison table -->
+  <div class="reveal" style="margin-top:2.5rem;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:.85rem;">
+        <thead>
+          <tr style="background:var(--bg3);">
+            <th style="padding:14px 20px;text-align:left;font-family:var(--font-head);font-weight:700;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Platform</th>
+            <th style="padding:14px 16px;text-align:left;font-family:var(--font-head);font-weight:700;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Best For</th>
+            <th style="padding:14px 16px;text-align:center;font-family:var(--font-head);font-weight:700;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Math/STEM</th>
+            <th style="padding:14px 16px;text-align:center;font-family:var(--font-head);font-weight:700;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Coding Production</th>
+            <th style="padding:14px 16px;text-align:center;font-family:var(--font-head);font-weight:700;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Agentic Workflow</th>
+            <th style="padding:14px 16px;text-align:center;font-family:var(--font-head);font-weight:700;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Harga Efisiensi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 20px;font-weight:600;">🟢 ChatGPT</td>
+            <td style="padding:14px 16px;">Agentic workflow, automation, brainstorming, coding umum</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--amber);">⭐⭐⭐</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 20px;font-weight:600;">🟠 Claude</td>
+            <td style="padding:14px 16px;">Production coding, debugging kompleks, analisis dokumen panjang</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--amber);">⭐⭐⭐</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 20px;font-weight:600;">🔵 Gemini</td>
+            <td style="padding:14px 16px;">Riset web, Google ecosystem, multimodal learning</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--amber);">⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--amber);">⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 20px;font-weight:600;">🔮 DeepSeek</td>
+            <td style="padding:14px 16px;">STEM, matematika, reasoning, cost-performance</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--amber);">⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐⭐</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 20px;font-weight:600;">💠 Copilot</td>
+            <td style="padding:14px 16px;">Coding di IDE, autocomplete, inline coding, GitHub workflow</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+            <td style="padding:14px 16px;text-align:center;color:var(--green);">⭐⭐⭐⭐</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PROMPT BUILDER ══════ -->
+<section id="prompt">
+  <div class="reveal">
+    <div class="section-label">Modul 2</div>
+    <h2 class="section-title">Interactive <span class="accent">Prompt Builder</span></h2>
+    <p class="section-sub">Gunakan rumus R-C-S-O untuk membuat prompt yang sempurna. Isi formulir di bawah, prompt-mu otomatis terbentuk!</p>
+  </div>
+  <div class="rcso-builder reveal">
+    <div class="rcso-grid">
+      <div class="rcso-field">
+        <div class="rcso-label" style="color:var(--purple2);">
+          <span class="badge number-badge" style="background:rgba(139,92,246,0.2);color:var(--purple2);">R</span>
+          Role — Peran AI
+        </div>
+        <select class="rcso-select" id="rcso-role" onchange="buildPrompt()">
+          <option value="">— Pilih peran AI —</option>
+          <option value="Guru Matematika yang sabar dan detail">👨‍🏫 Guru Matematika</option>
+          <option value="Guru Bahasa Indonesia yang kreatif">✍️ Guru Bahasa Indonesia</option>
+          <option value="Tutor Fisika yang menggunakan analogi kehidupan sehari-hari">⚛️ Tutor Fisika</option>
+          <option value="Ahli Kimia yang menjelaskan dengan cara sederhana">🧪 Tutor Kimia</option>
+          <option value="Tutor Sejarah yang bercerita secara menarik">📜 Tutor Sejarah</option>
+          <option value="Partner latihan soal ujian yang ketat">📝 Partner Ujian</option>
+          <option value="Editor tulisan yang membantu memperbaiki esai">✏️ Editor Esai</option>
+          <option value="Teman diskusi yang membantuku memahami konsep baru">💬 Teman Diskusi</option>
+        </select>
+      </div>
+
+      <div class="rcso-field">
+        <div class="rcso-label" style="color:var(--cyan2);">
+          <span class="badge number-badge" style="background:rgba(34,211,238,0.2);color:var(--cyan2);">C</span>
+          Context — Situasimu
+        </div>
+        <input class="rcso-input" id="rcso-context" placeholder="Contoh: Saya siswa kelas 111 IPA yang sedang persiapan UN..." oninput="buildPrompt()">
+      </div>
+
+      <div class="rcso-field">
+        <div class="rcso-label" style="color:var(--green);">
+          <span class="badge number-badge" style="background:rgba(52,211,153,0.2);color:var(--green);">S</span>
+          Specific Task — Tugas Spesifik
+        </div>
+        <textarea class="rcso-input" id="rcso-task" rows="3" placeholder="Contoh: Jelaskan konsep turunan fungsi dan berikan 3 contoh soal..." oninput="buildPrompt()"></textarea>
+      </div>
+
+      <div class="rcso-field">
+        <div class="rcso-label" style="color:var(--amber);">
+          <span class="badge number-badge" style="background:rgba(251,191,36,0.2);color:var(--amber);">O</span>
+          Output — Format Jawaban
+        </div>
+        <select class="rcso-select" id="rcso-format" onchange="buildPrompt()">
+          <option value="">— Pilih format jawaban —</option>
+          <option value="Gunakan poin-poin yang jelas dan ringkas.">📋 Poin-poin Ringkas</option>
+          <option value="Jelaskan dengan bahasa sederhana seperti untuk anak SMA.">📖 Bahasa Sederhana</option>
+          <option value="Gunakan analogi dan contoh kehidupan sehari-hari.">🌍 Analogi Sehari-hari</option>
+          <option value="Buat dalam format tabel agar mudah dibandingkan.">📊 Format Tabel</option>
+          <option value="Berikan langkah-langkah penyelesaian yang terurut.">🔢 Langkah per Langkah</option>
+          <option value="Berikan ringkasan singkat maksimal 5 poin utama.">📌 Ringkasan 5 Poin</option>
+          <option value="Jangan berikan jawabannya dulu, berikan petunjuk saja agar saya bisa mencoba sendiri.">💡 Petunjuk Saja (Bukan Jawaban)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="rcso-output-wrap">
+      <div class="rcso-output-label">✨ Prompt Otomatis Terbentuk:</div>
+      <div id="rcso-result">Isi form di atas untuk membuat prompt-mu secara otomatis...</div>
+    </div>
+    <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">📋 Salin Prompt</button>
+  </div>
+</section>
+
+<!-- ══════ TEKNIK BELAJAR ══════ -->
+<section id="teknik">
+  <div class="reveal">
+    <div class="section-label">Modul 3</div>
+    <h2 class="section-title">Teknik Belajar <span class="accent">Pakai AI</span></h2>
+    <p class="section-sub">AI bukan mesin copy-paste! Gunakan teknik-teknik ini untuk belajar lebih efektif.</p>
+  </div>
+  <div class="techniques-grid reveal">
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon-wrap" style="background:rgba(34,211,238,0.15);">📝</div>
+        <div>
+          <div class="tc-title">Teknik Merangkum Cerdas</div>
+          <div class="tc-sub">Hemat waktu belajar 10x lebih cepat</div>
+        </div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-prompt">"Saya punya teks tentang [topik]. Tolong buatkan ringkasan dalam 5 poin penting yang paling relevan untuk siswa SMA, dan tandai bagian yang kemungkinan keluar di ujian."</div>
+        <div class="tc-divider"></div>
+        <div class="tc-result">💡 <strong>Tips:</strong> Tempelkan teks materi langsung ke chatbox. AI bisa merangkum halaman buku pelajaran hanya dalam hitungan detik!</div>
+      </div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon-wrap" style="background:rgba(251,191,36,0.15);">👶</div>
+        <div>
+          <div class="tc-title">Teknik ELIF5</div>
+          <div class="tc-sub">Explain Like I'm Five — jelaskan sesederhana mungkin</div>
+        </div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-prompt">"Jelaskan [konsep sulit] seolah-olah kamu bicara dengan anak SD. Gunakan analogi barang yang biasa ada di rumah atau kehidupan sehari-hari."</div>
+        <div class="tc-divider"></div>
+        <div class="tc-result">💡 <strong>Cocok untuk:</strong> Fisika kuantum, konsep kimia abstrak, teori matematika, filosofi, atau materi apa pun yang terasa membingungkan.</div>
+      </div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon-wrap" style="background:rgba(244,114,182,0.15);">🎯</div>
+        <div>
+          <div class="tc-title">Mock Exam / Latihan Soal</div>
+          <div class="tc-sub">Latihan interaktif tanpa batas waktu</div>
+        </div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-prompt">"Berikan 5 soal pilihan ganda tentang [materi] tingkat SMA. Jangan berikan kunci jawaban dulu. Setelah saya menjawab semua, baru koreksi dan jelaskan pembahasannya."</div>
+        <div class="tc-divider"></div>
+        <div class="tc-result">💡 <strong>Pro tip:</strong> Minta AI membuat soal dengan tingkat kesulitan tertentu (mudah/sedang/sulit) atau fokus pada subtopik yang kamu anggap lemah.</div>
+      </div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon-wrap" style="background:rgba(139,92,246,0.15);">💬</div>
+        <div>
+          <div class="tc-title">Teknik Socratic Dialogue</div>
+          <div class="tc-sub">Belajar dengan bertanya terus-menerus</div>
+        </div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-prompt">"Jangan langsung jelaskan jawaban. Bantu saya menemukan jawabannya sendiri dengan memberi pertanyaan-pertanyaan yang mengarahkan, satu per satu."</div>
+        <div class="tc-divider"></div>
+        <div class="tc-result">💡 <strong>Manfaat:</strong> Pemahamanmu jauh lebih dalam karena kamu yang "menemukan" konsepnya sendiri, bukan hanya membaca jawaban jadi.</div>
+      </div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon-wrap" style="background:rgba(52,211,153,0.15);">🔄</div>
+        <div>
+          <div class="tc-title">Feynman Technique</div>
+          <div class="tc-sub">Ajarkan kembali ke AI untuk cek pemahaman</div>
+        </div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-prompt">"Saya akan menjelaskan [konsep] dengan kata-kata saya sendiri. Tolong koreksi jika ada yang salah, dan lengkapi bagian yang saya lewatkan: [penjelasanmu]"</div>
+        <div class="tc-divider"></div>
+        <div class="tc-result">💡 <strong>Rahasia:</strong> Kalau kamu bisa mengajarkan sesuatu dengan bahasa sendiri, berarti kamu benar-benar paham. Ini teknik belajar paling efektif!</div>
+      </div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon-wrap" style="background:rgba(248,113,113,0.15);">📊</div>
+        <div>
+          <div class="tc-title">Mind Map Generator</div>
+          <div class="tc-sub">Buat peta konsep secara instan</div>
+        </div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-prompt">"Buatkan mind map teks untuk bab [topik]. Format: satu konsep utama di tengah, cabang-cabang utama, dan sub-cabang. Gunakan format daftar bertingkat yang jelas."</div>
+        <div class="tc-divider"></div>
+        <div class="tc-result">💡 <strong>Cara pakai:</strong> Salin output AI ke aplikasi mind map seperti Canva, MindMeister, atau XMind untuk divisualisasikan lebih menarik!</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════ USE CASES ══════ -->
+<section id="usecase">
+  <div class="reveal">
+    <div class="section-label">Contoh Nyata</div>
+    <h2 class="section-title">Contoh Prompt <span class="accent">per Mata Pelajaran</span></h2>
+    <p class="section-sub">Pilih mata pelajaran favoritmu dan lihat contoh prompt yang bisa langsung kamu pakai!</p>
+  </div>
+  <div class="reveal">
+    <div class="usecase-tabs">
+      <button class="uc-tab active" onclick="showTab('matematika',this)">📐 Matematika</button>
+      <button class="uc-tab" onclick="showTab('fisika',this)">⚛️ Fisika</button>
+      <button class="uc-tab" onclick="showTab('kimia',this)">🧪 Kimia</button>
+      <button class="uc-tab" onclick="showTab('biologi',this)">🌿 Biologi</button>
+      <button class="uc-tab" onclick="showTab('bahasa',this)">✍️ Bahasa Indo</button>
+      <button class="uc-tab" onclick="showTab('sejarah',this)">📜 Sejarah</button>
+      <button class="uc-tab" onclick="showTab('inggris',this)">🇬🇧 Bahasa Inggris</button>
+    </div>
+    <div class="usecase-panels">
+      <div class="uc-panel active" id="panel-matematika">
+        <div class="uc-examples">
+          <div class="uc-example">
+            <div class="uc-example-subj">Turunan & Integral</div>
+            <div class="uc-example-prompt">"Bertindaklah sebagai tutor matematika. Saya siswa kelas 12 yang kesulitan memahami integral parsial. Jelaskan konsepnya dengan langkah-langkah yang runtut, lalu berikan 2 contoh soal bertingkat dari mudah ke sulit."</div>
+            <div class="uc-example-why">✅ Menggunakan R-C-S-O: Role (tutor math), Context (kelas 12, integral parsial), Specific (langkah runtut + contoh), Output (2 soal bertingkat)</div>
+          </div>
+          <div class="uc-example">
+            <div class="uc-example-subj">Latihan Soal UN</div>
+            <div class="uc-example-prompt">"Berikan saya 5 soal barisan dan deret yang setara level UTBK. Jangan tunjukkan jawaban. Setelah saya selesai menjawab, evaluasi dan jelaskan di mana saya salah."</div>
+            <div class="uc-example-why">✅ Teknik Mock Exam — AI jadi penguji yang sabar tanpa batas waktu</div>
+          </div>
+          <div class="uc-example">
+            <div class="uc-example-subj">Memahami Konsep Abstrak</div>
+            <div class="uc-example-prompt">"Jelaskan konsep limit tak hingga dalam kalkulus dengan analogi yang bisa dimengerti siswa SMA. Gunakan contoh sehari-hari, bukan rumus dulu."</div>
+            <div class="uc-example-why">✅ Teknik ELIF5 — mulai dari intuisi, bukan formula</div>
+          </div>
+        </div>
+      </div>
+      <div class="uc-panel" id="panel-fisika">
+        <div class="uc-examples">
+          <div class="uc-example">
+            <div class="uc-example-subj">Hukum Newton</div>
+            <div class="uc-example-prompt">"Saya siswa kelas 10 yang bingung membedakan Hukum Newton 1, 2, dan 3. Jelaskan perbedaannya menggunakan analogi kendaraan di jalan raya. Kemudian buat tabel perbandingan singkat."</div>
+            <div class="uc-example-why">✅ Analogi kontekstual + output tabel — mudah diingat</div>
+          </div>
+          <div class="uc-example">
+            <div class="uc-example-subj">Elektromagnetisme</div>
+            <div class="uc-example-prompt">"Bantu saya memahami hubungan antara medan listrik dan medan magnet di gelombang elektromagnetik. Jangan terlalu teknis, fokus pada intuisi fisiknya dulu. Setelah saya paham, baru masuk ke persamaan Maxwell."</div>
+            <div class="uc-example-why">✅ Pendekatan bertahap — konsep dulu, rumus kemudian</div>
+          </div>
+        </div>
+      </div>
+      <div class="uc-panel" id="panel-kimia">
+        <div class="uc-examples">
+          <div class="uc-example">
+            <div class="uc-example-subj">Stoikiometri</div>
+            <div class="uc-example-prompt">"Saya kelas 11 dan selalu bingung menghitung mol dalam stoikiometri. Jelaskan konsep mol dengan analogi sederhana, kemudian bimbing saya menyelesaikan soal: 'Berapa gram H2O yang terbentuk jika 4 gram H2 bereaksi dengan O2 berlebih?'"</div>
+            <div class="uc-example-why">✅ Gabungan ELIF5 + latihan soal langsung</div>
+          </div>
+          <div class="uc-example">
+            <div class="uc-example-subj">Tabel Periodik</div>
+            <div class="uc-example-prompt">"Buatkan mnemonik (jembatan keledai) yang mudah diingat untuk unsur-unsur periode 3 tabel periodik: Na, Mg, Al, Si, P, S, Cl, Ar."</div>
+            <div class="uc-example-why">✅ AI jago bikin mnemonik kreatif yang personal dan berkesan</div>
+          </div>
+        </div>
+      </div>
+      <div class="uc-panel" id="panel-biologi">
+        <div class="uc-examples">
+          <div class="uc-example">
+            <div class="uc-example-subj">Genetika & DNA</div>
+            <div class="uc-example-prompt">"Jelaskan proses replikasi DNA dengan cerita yang menarik seolah-olah DNA adalah pabrik. Siapa 'pekerja-pekerjanya' (enzim), apa 'tugasnya', dan bagaimana 'pabrik' berjalan?"</div>
+            <div class="uc-example-why">✅ Storytelling approach — biologi jadi cerita seru, bukan hafalan</div>
+          </div>
+          <div class="uc-example">
+            <div class="uc-example-subj">Sistem Organ</div>
+            <div class="uc-example-prompt">"Buatkan ringkasan terstruktur tentang sistem pencernaan manusia: nama organ, fungsi, enzim yang terlibat, dan hasil pencernaan. Format sebagai tabel."</div>
+            <div class="uc-example-why">✅ Tabel struktur — perfect untuk hafalan ujian yang sistematis</div>
+          </div>
+        </div>
+      </div>
+      <div class="uc-panel" id="panel-bahasa">
+        <div class="uc-examples">
+          <div class="uc-example">
+            <div class="uc-example-subj">Menulis Esai</div>
+            <div class="uc-example-prompt">"Saya harus menulis esai 500 kata tentang 'Dampak Media Sosial bagi Remaja'. Bantu saya membuat outline (kerangka) yang kuat dulu dengan 3 argumen utama dan masing-masing 2 sub-argumen. Jangan tulis esainya — saya mau menulis sendiri."</div>
+            <div class="uc-example-why">✅ Etis: AI bantu struktur, bukan nulis untuk kamu</div>
+          </div>
+          <div class="uc-example">
+            <div class="uc-example-subj">Analisis Puisi</div>
+            <div class="uc-example-prompt">"Berikut puisi [paste puisi]. Bantu saya menganalisis: (1) tema, (2) majas yang digunakan, (3) nada dan suasana, (4) pesan moral. Format sebagai poin-poin dengan penjelasan singkat."</div>
+            <div class="uc-example-why">✅ Upload konten + instruksi spesifik = analisis mendalam dalam detik</div>
+          </div>
+        </div>
+      </div>
+      <div class="uc-panel" id="panel-sejarah">
+        <div class="uc-examples">
+          <div class="uc-example">
+            <div class="uc-example-subj">Sejarah Indonesia</div>
+            <div class="uc-example-prompt">"Ceritakan peristiwa Sumpah Pemuda 1928 seperti kamu adalah reporter yang meliput langsung di sana. Apa yang terjadi, siapa tokoh kuncinya, apa reaksi masyarakat, dan mengapa ini penting bagi Indonesia?"</div>
+            <div class="uc-example-why">✅ Roleplay/storytelling — sejarah jadi hidup dan mudah diingat</div>
+          </div>
+          <div class="uc-example">
+            <div class="uc-example-subj">Persiapan Ujian</div>
+            <div class="uc-example-prompt">"Buat timeline kronologis singkat masa Demokrasi Terpimpin (1959-1965) dengan format: Tahun — Peristiwa — Dampak Singkat. Fokus pada 10 peristiwa terpenting yang sering keluar di ujian."</div>
+            <div class="uc-example-why">✅ Timeline terstruktur — jauh lebih mudah dipelajari daripada teks panjang</div>
+          </div>
+        </div>
+      </div>
+      <div class="uc-panel" id="panel-inggris">
+        <div class="uc-examples">
+          <div class="uc-example">
+            <div class="uc-example-subj">Grammar Practice</div>
+            <div class="uc-example-prompt">"Act as my English grammar coach. I'm an Indonesian high school student who struggles with the difference between Present Perfect and Simple Past tense. Explain the difference with clear examples, then give me 5 sentences to complete using the correct tense."</div>
+            <div class="uc-example-why">✅ Practice in English directly — improves both grammar AND fluency</div>
+          </div>
+          <div class="uc-example">
+            <div class="uc-example-subj">Writing Practice</div>
+            <div class="uc-example-prompt">"Please review my English paragraph below and give me specific suggestions to improve it. Focus on: vocabulary variety, sentence structure, and grammar. [paste paragrafmu]"</div>
+            <div class="uc-example-why">✅ AI sebagai editor pribadi — feedback spesifik, bukan nilai doang</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ETIKA ══════ -->
+<section id="etika">
+  <div class="reveal">
+    <div class="section-label">Modul 4</div>
+    <h2 class="section-title">Etika & <span class="accent">Penggunaan Bijak</span></h2>
+    <p class="section-sub">AI adalah alat bantu yang powerful. Gunakan dengan bijak agar tetap membantu perkembanganmu, bukan menghambat.</p>
+  </div>
+
+  <div class="dodont-grid reveal" style="margin-bottom:2rem;">
+    <div class="dodont-card do">
+      <div class="dodont-header do">
+        <div class="dodont-icon">✅</div>
+        YANG BOLEH DILAKUKAN
+      </div>
+      <ul class="dodont-list">
+        <li>Gunakan AI untuk memahami konsep yang sulit dengan penjelasan lebih mudah</li>
+        <li>Minta AI buatkan outline atau kerangka esai, lalu kamu kembangkan sendiri</li>
+        <li>Jadikan AI sebagai partner latihan soal yang bisa diajak diskusi jawaban</li>
+        <li>Gunakan AI untuk mengecek grammar atau logika tulisanmu sebelum dikumpul</li>
+        <li>Minta AI mencari analogi atau contoh tambahan untuk materi yang bingung</li>
+        <li>Gunakan AI untuk merangkum catatan sendiri sebelum ujian</li>
+        <li>Tanya AI untuk rekomendasi sumber belajar terpercaya tentang suatu topik</li>
+      </ul>
+    </div>
+    <div class="dodont-card dont">
+      <div class="dodont-header dont">
+        <div class="dodont-icon">❌</div>
+        YANG HARUS DIHINDARI
+      </div>
+      <ul class="dodont-list">
+        <li>Menyuruh AI menulis esai/laporan lengkap lalu dikumpul sebagai tugasmu tanpa revisi</li>
+        <li>Salin-tempel jawaban AI untuk PR tanpa memahami isinya terlebih dahulu</li>
+        <li>Percaya 100% pada data angka, tahun, atau nama spesifik yang disebutkan AI</li>
+        <li>Menggunakan AI untuk mencontek saat ujian atau tes online</li>
+        <li>Tanya hal-hal berbahaya atau tidak etis dan mengklaim "untuk tugas sekolah"</li>
+        <li>Mengandalkan AI sepenuhnya sehingga kemampuan berpikir sendiri tidak berkembang</li>
+        <li>Share percakapan AI yang berisi informasi pribadi ke tempat publik</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="accordions reveal">
+    <div class="accordion" onclick="toggleAccordion(this)">
+      <div class="accordion-header">
+        <div class="accordion-left">
+          <span class="accordion-emoji">⚠️</span>
+          <span class="accordion-title">Bahaya Halusinasi AI — AI Bisa Berbohong Tanpa Sadar!</span>
+        </div>
+        <span class="accordion-chevron">▼</span>
+      </div>
+      <div class="accordion-body">
+        AI generatif bisa "mengarang" fakta dengan sangat meyakinkan. Ini disebut <em>hallucination</em>. AI tidak selalu tahu bahwa ia salah — ia hanya menghasilkan teks yang terdengar masuk akal.
+        <div class="highlight">🔍 Selalu verifikasi: tanggal sejarah, nama tokoh, data statistik, referensi buku, dan rumus-rumus spesifik. Gunakan Google atau buku pelajaran sebagai cross-check!</div>
+        <strong>Tanda-tanda AI mungkin sedang "mengarang":</strong> memberikan detail sangat spesifik (nomor halaman, kutipan persis), sangat percaya diri pada fakta yang tidak bisa kamu verifikasi, atau jawabannya berbeda setiap kamu tanya ulang.
+      </div>
+    </div>
+    <div class="accordion" onclick="toggleAccordion(this)">
+      <div class="accordion-header">
+        <div class="accordion-left">
+          <span class="accordion-emoji">🎓</span>
+          <span class="accordion-title">Integritas Akademik — Batas yang Harus Dijaga</span>
+        </div>
+        <span class="accordion-chevron">▼</span>
+      </div>
+      <div class="accordion-body">
+        Menggunakan AI bukan berarti curang — tergantung bagaimana caranya. Patokan utama: <em>apakah kamu benar-benar memahami materi tersebut setelah menggunakan AI?</em>
+        <div class="highlight">💡 Rule of thumb: Kalau besok kamu ditanya guru tentang isi tugasmu dan kamu tidak bisa menjelaskan — berarti kamu sudah melewati batas etika.</div>
+        Di banyak universitas, penggunaan AI untuk tugas tanpa transparansi sudah dianggap plagiarisme. Mulai biasakan diri dengan praktik yang benar sejak SMA.
+      </div>
+    </div>
+    <div class="accordion" onclick="toggleAccordion(this)">
+      <div class="accordion-header">
+        <div class="accordion-left">
+          <span class="accordion-emoji">🔒</span>
+          <span class="accordion-title">Privasi & Keamanan Data Digitalmu</span>
+        </div>
+        <span class="accordion-chevron">▼</span>
+      </div>
+      <div class="accordion-body">
+        Semua yang kamu ketikkan ke AI berpotensi disimpan dan digunakan untuk melatih model AI berikutnya (bergantung platform dan pengaturannya).
+        <div class="highlight">🚫 Jangan pernah ketikkan: nama lengkap + nomor identitas, nomor HP orang tua/keluarga, password atau data rekening, informasi kesehatan atau masalah pribadi sensitif ke AI.</div>
+        Gunakan mode incognito atau fitur "Temporary Chat" di ChatGPT / "Private Mode" di Claude jika kamu tidak ingin percakapan tersimpan.
+      </div>
+    </div>
+    <div class="accordion" onclick="toggleAccordion(this)">
+      <div class="accordion-header">
+        <div class="accordion-left">
+          <span class="accordion-emoji">🧠</span>
+          <span class="accordion-title">Ketergantungan AI — Menjaga Kemampuan Berpikir Sendiri</span>
+        </div>
+        <span class="accordion-chevron">▼</span>
+      </div>
+      <div class="accordion-body">
+        Ini adalah risiko terbesar jangka panjang: siswa yang terlalu bergantung pada AI akhirnya kehilangan kemampuan berpikir kritis dan memecahkan masalah sendiri.
+        <div class="highlight">⚡ Gunakan AI sebagai "guru yang sabar" — bukan sebagai "tukang jawab." Selalu coba dulu sendiri, baru tanya AI. Bukan tanya AI dulu, baru isi jawabannya.</div>
+        Ingat: saat UTBK, OSN, atau wawancara kerja nanti — tidak ada AI yang membantu. Yang terlatih adalah otakmu sendiri!
+      </div>
+    </div>
+    <div class="accordion" onclick="toggleAccordion(this)">
+      <div class="accordion-header">
+        <div class="accordion-left">
+          <span class="accordion-emoji">⚖️</span>
+          <span class="accordion-title">Berpikir Kritis terhadap Output AI</span>
+        </div>
+        <span class="accordion-chevron">▼</span>
+      </div>
+      <div class="accordion-body">
+        AI tidak punya opini — ia menghasilkan teks yang paling "mungkin" benar berdasarkan data pelatihannya. Ini berarti AI bisa memiliki bias, sudut pandang terbatas, atau informasi yang sudah outdated.
+        <div class="highlight">📰 Untuk isu sosial, politik, atau sejarah: jangan jadikan AI sebagai satu-satunya referensi. Bandingkan dengan sumber terpercaya seperti situs pemerintah, jurnal, atau berita media mainstream.</div>
+        Pertanyaan bagus untuk selalu diajukan: "Dari mana AI mendapat informasi ini?" dan "Apakah perspektif ini sudah lengkap?"
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CHEATSHEET ══════ -->
+<section id="cheatsheet">
+  <div class="reveal">
+    <div class="section-label">Quick Reference</div>
+    <h2 class="section-title">Cheatsheet <span class="accent">Prompt Terbaik</span></h2>
+    <p class="section-sub">Koleksi template prompt siap pakai. Copy, modifikasi, dan langsung pakai!</p>
+  </div>
+  <div class="cheatsheet-grid reveal">
+    <div class="cs-card">
+      <div class="cs-title"><span class="cs-title-dot" style="background:var(--cyan);"></span>Prompt Memahami Konsep</div>
+      <div class="cs-list">
+        <div class="cs-item"><span>→</span><span>"Jelaskan [topik] menggunakan analogi [benda sehari-hari]"</span></div>
+        <div class="cs-item"><span>→</span><span>"Apa perbedaan antara [A] dan [B]? Gunakan tabel perbandingan"</span></div>
+        <div class="cs-item"><span>→</span><span>"Mengapa [fenomena] bisa terjadi? Jelaskan step by step"</span></div>
+        <div class="cs-item"><span>→</span><span>"Apa yang paling sering disalahpahami tentang [topik]?"</span></div>
+      </div>
+    </div>
+    <div class="cs-card">
+      <div class="cs-title"><span class="cs-title-dot" style="background:var(--purple2);"></span>Prompt Latihan Soal</div>
+      <div class="cs-list">
+        <div class="cs-item"><span>→</span><span>"Buat 5 soal [mudah/sedang/sulit] tentang [materi]. Jangan kasih jawaban dulu"</span></div>
+        <div class="cs-item"><span>→</span><span>"Saya jawab [A]. Apakah benar? Kalau salah, jelaskan di mana kesalahannya"</span></div>
+        <div class="cs-item"><span>→</span><span>"Buat soal cerita yang menggabungkan [materi A] dan [materi B]"</span></div>
+        <div class="cs-item"><span>→</span><span>"Tiru gaya soal UTBK untuk topik [materi]"</span></div>
+      </div>
+    </div>
+    <div class="cs-card">
+      <div class="cs-title"><span class="cs-title-dot" style="background:var(--green);"></span>Prompt Menulis & Tugas</div>
+      <div class="cs-list">
+        <div class="cs-item"><span>→</span><span>"Buatkan outline 5 paragraf untuk esai tentang [judul]. Jangan tulis esainya"</span></div>
+        <div class="cs-item"><span>→</span><span>"Review tulisanku: [paste teks]. Fokus pada [aspek spesifik]"</span></div>
+        <div class="cs-item"><span>→</span><span>"Berikan 5 judul esai yang menarik tentang [tema]"</span></div>
+        <div class="cs-item"><span>→</span><span>"Bantu saya brainstorm argumen pro dan kontra untuk [isu]"</span></div>
+      </div>
+    </div>
+    <div class="cs-card">
+      <div class="cs-title"><span class="cs-title-dot" style="background:var(--amber);"></span>Prompt Persiapan Ujian</div>
+      <div class="cs-list">
+        <div class="cs-item"><span>→</span><span>"Apa saja materi [mapel] kelas [X] yang paling sering keluar di ujian nasional?"</span></div>
+        <div class="cs-item"><span>→</span><span>"Buatkan ringkasan bab [X] dalam format yang mudah dihafal"</span></div>
+        <div class="cs-item"><span>→</span><span>"Tes saya dengan 10 pertanyaan kilat tentang [materi]. Format: tanya satu-satu"</span></div>
+        <div class="cs-item"><span>→</span><span>"Apa rumus/konsep kunci yang WAJIB hafal untuk [topik]?"</span></div>
+      </div>
+    </div>
+    <div class="cs-card">
+      <div class="cs-title"><span class="cs-title-dot" style="background:var(--pink);"></span>Prompt Berpikir Kritis</div>
+      <div class="cs-list">
+        <div class="cs-item"><span>→</span><span>"Apa kelemahan dari argumen bahwa [klaim]?"</span></div>
+        <div class="cs-item"><span>→</span><span>"Berikan perspektif yang berbeda tentang [isu sosial/sejarah]"</span></div>
+        <div class="cs-item"><span>→</span><span>"Apakah data ini bisa diinterpretasikan dengan cara lain? [paste data]"</span></div>
+        <div class="cs-item"><span>→</span><span>"Apa dampak positif DAN negatif dari [kebijakan/teknologi/peristiwa]?"</span></div>
+      </div>
+    </div>
+    <div class="cs-card">
+      <div class="cs-title"><span class="cs-title-dot" style="background:var(--blue);"></span>Prompt Belajar Bahasa Inggris</div>
+      <div class="cs-list">
+        <div class="cs-item"><span>→</span><span>"Correct my English and explain each error: [paste text]"</span></div>
+        <div class="cs-item"><span>→</span><span>"Give me 10 vocabulary words related to [topic] with example sentences"</span></div>
+        <div class="cs-item"><span>→</span><span>"Let's have a conversation in English about [topic]. Correct me if I make mistakes"</span></div>
+        <div class="cs-item"><span>→</span><span>"Explain the grammar rule for [tense/structure] with 3 examples"</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TEACHER GUIDE ══════ -->
+<section id="guru">
+  <div class="reveal">
+    <div class="section-label">Untuk Guru</div>
+    <h2 class="section-title">Panduan Guru untuk <span class="accent">Workshop AI</span></h2>
+    <p class="section-sub">Gunakan AI Student Guide sebagai media pendukung pembelajaran, literasi digital, dan workshop AI di sekolah.</p>
+  </div>
+  <div class="teacher-grid reveal">
+    <div class="teacher-card">
+      <div class="teacher-title"><span class="teacher-title-dot" style="background:var(--cyan);"></span>Tujuan Pembelajaran</div>
+      <div class="teacher-list">
+        <div class="teacher-item">Siswa mengenal berbagai platform AI populer.</div>
+        <div class="teacher-item">Siswa memahami cara membuat prompt yang jelas.</div>
+        <div class="teacher-item">Siswa mampu menggunakan AI sebagai asisten belajar.</div>
+        <div class="teacher-item">Siswa memahami etika, privasi, halusinasi AI, dan integritas akademik.</div>
+        <div class="teacher-item">Siswa mampu membedakan penggunaan AI yang membantu belajar dan penggunaan AI yang tidak etis.</div>
+      </div>
+    </div>
+
+    <div class="teacher-card">
+      <div class="teacher-title"><span class="teacher-title-dot" style="background:var(--purple2);"></span>Alur Workshop 60–90 Menit</div>
+      <div class="teacher-list">
+        <div class="teacher-item">10 menit: Pengantar AI dan manfaatnya dalam pendidikan.</div>
+        <div class="teacher-item">15 menit: Pengenalan platform AI seperti ChatGPT, Claude, Gemini, DeepSeek, dan Copilot.</div>
+        <div class="teacher-item">20 menit: Praktik Prompt Builder R-C-S-O.</div>
+        <div class="teacher-item">20 menit: Latihan prompt per mata pelajaran.</div>
+        <div class="teacher-item">15 menit: Diskusi etika, privasi, dan halusinasi AI.</div>
+        <div class="teacher-item">10 menit: Quiz AI Literacy dan refleksi.</div>
+      </div>
+    </div>
+
+    <div class="teacher-card">
+      <div class="teacher-title"><span class="teacher-title-dot" style="background:var(--green);"></span>Aktivitas Kelas</div>
+      <div class="teacher-list">
+        <div class="teacher-item">Siswa membuat satu prompt belajar sesuai mata pelajaran.</div>
+        <div class="teacher-item">Siswa mencoba teknik ELIF5 untuk konsep yang sulit.</div>
+        <div class="teacher-item">Siswa membuat soal latihan dengan AI tanpa langsung melihat jawaban.</div>
+        <div class="teacher-item">Siswa membandingkan jawaban AI dengan buku paket atau penjelasan guru.</div>
+        <div class="teacher-item">Siswa menulis refleksi: "Bagaimana AI membantu saya belajar tanpa menggantikan pikiran saya?"</div>
+      </div>
+    </div>
+
+    <div class="teacher-card">
+      <div class="teacher-title"><span class="teacher-title-dot" style="background:var(--amber);"></span>Aturan Penggunaan AI di Kelas</div>
+      <div class="teacher-list">
+        <div class="teacher-item">AI boleh digunakan untuk memahami materi, membuat outline, latihan soal, dan mencari ide.</div>
+        <div class="teacher-item">AI tidak boleh digunakan untuk menyontek atau mengumpulkan tugas tanpa pemahaman.</div>
+        <div class="teacher-item">Siswa wajib memverifikasi fakta penting dari sumber lain.</div>
+        <div class="teacher-item">Siswa tidak boleh memasukkan data pribadi sensitif ke AI.</div>
+        <div class="teacher-item">Guru dapat menentukan batas penggunaan AI sesuai jenis tugas.</div>
+      </div>
+    </div>
+
+    <div class="teacher-card">
+      <div class="teacher-title"><span class="teacher-title-dot" style="background:var(--pink);"></span>Ide Tugas Setelah Workshop</div>
+      <div class="teacher-list">
+        <div class="teacher-item">Buat prompt R-C-S-O untuk satu materi pelajaran.</div>
+        <div class="teacher-item">Bandingkan jawaban dari dua platform AI berbeda.</div>
+        <div class="teacher-item">Buat ringkasan materi dengan AI, lalu koreksi menggunakan buku paket.</div>
+        <div class="teacher-item">Buat refleksi singkat tentang penggunaan AI yang etis.</div>
+        <div class="teacher-item">Presentasikan satu contoh penggunaan AI yang membantu proses belajar.</div>
+      </div>
+    </div>
+  </div>
+  <div class="teacher-note reveal">
+    <div class="teacher-note-title">Pesan untuk Guru</div>
+    <div class="teacher-note-text">AI Student Guide dirancang sebagai media literasi AI, bukan pengganti peran guru. Guru tetap menjadi pembimbing utama dalam membangun pemahaman, karakter, etika, dan kemampuan berpikir kritis siswa.</div>
+  </div>
+</section>
+
+<!-- ══════ QUIZ ══════ -->
+<section id="quiz">
+  <div class="reveal">
+    <div class="section-label">Tes Dirimu</div>
+    <h2 class="section-title">Quiz <span class="accent">AI Literacy</span></h2>
+    <p class="section-sub">Seberapa paham kamu tentang cara menggunakan AI dengan bijak? Jawab 5 pertanyaan berikut!</p>
+  </div>
+  <div class="quiz-card reveal">
+    <div class="quiz-progress" id="quiz-progress"></div>
+    <div id="quiz-container"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">🤖 <span>AI Student Guide</span></div>
+    <div class="footer-copy">Dibuat untuk kemajuan siswa SMA Indonesia · ©2026 × AI Vision · Pontianak, Kalbar</div>
+  </div>
+</footer>
+
+<script>
+// ── PROMPT BUILDER ──
+function buildPrompt() {
+  const role = document.getElementById('rcso-role').value;
+  const context = document.getElementById('rcso-context').value.trim();
+  const task = document.getElementById('rcso-task').value.trim();
+  const output = document.getElementById('rcso-format').value;
+  const el = document.getElementById('rcso-result');
+  if (!role && !context && !task && !output) {
+    el.textContent = 'Isi form di atas untuk membuat prompt-mu secara otomatis...';
+    el.style.color = 'var(--dim)';
+    el.style.fontStyle = 'italic';
+    return;
+  }
+  let parts = [];
+  if (role) parts.push(`Bertindaklah sebagai ${role}.`);
+  if (context) parts.push(context.endsWith('.') ? context : context + '.');
+  if (task) parts.push(task.endsWith('.') || task.endsWith('?') || task.endsWith('!') ? task : task + '.');
+  if (output) parts.push(output);
+  el.textContent = parts.join(' ');
+  el.style.color = 'var(--text)';
+  el.style.fontStyle = 'normal';
+}
+
+function copyPrompt() {
+  const text = document.getElementById('rcso-result').textContent;
+  const btn = document.getElementById('copy-btn');
+  copyTextFromButton(btn, text);
+}
+
+function fallbackCopyText(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.top = '-9999px';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+    const copied = document.execCommand('copy');
+    return copied ? Promise.resolve() : Promise.reject(new Error('Copy command failed'));
+  } catch (err) {
+    return Promise.reject(err);
+  } finally {
+    document.body.removeChild(textarea);
+  }
+}
+
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).catch(() => fallbackCopyText(text));
+  }
+  return fallbackCopyText(text);
+}
+
+function setCopiedState(btn) {
+  const originalText = btn.dataset.defaultText || btn.textContent;
+  btn.dataset.defaultText = originalText;
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.textContent = originalText;
+    btn.classList.remove('copied');
+  }, 1600);
+}
+
+function copyTextFromButton(btn, text) {
+  const value = text.trim();
+  if (!value || value.includes('Isi form')) return;
+  copyTextToClipboard(value).then(() => setCopiedState(btn)).catch(() => {});
+}
+
+function addPromptCopyButton(target, getText) {
+  if (!target || target.dataset.copyReady === 'true') return;
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'copy-btn prompt-copy-btn';
+  btn.textContent = 'Copy Prompt';
+  btn.addEventListener('click', () => copyTextFromButton(btn, getText()));
+  target.insertAdjacentElement('afterend', btn);
+  target.dataset.copyReady = 'true';
+}
+
+function initPromptCopyButtons() {
+  document.querySelectorAll('.tc-prompt, .uc-example-prompt').forEach(promptEl => {
+    addPromptCopyButton(promptEl, () => promptEl.textContent);
+  });
+
+  document.querySelectorAll('.cs-item').forEach(item => {
+    const promptText = item.querySelector('span:last-child');
+    addPromptCopyButton(promptText, () => promptText.textContent);
+  });
+}
+
+initPromptCopyButtons();
+
+// ── USE CASE TABS ──
+function showTab(id, btn) {
+  document.querySelectorAll('.uc-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.uc-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── ACCORDION ──
+function toggleAccordion(el) {
+  el.classList.toggle('open');
+}
+
+// ── QUIZ ──
+const questions = [
+  {
+    q: "Kamu mendapat tugas esai tentang 'Teknologi dan Pendidikan'. Cara yang PALING ETIS menggunakan AI adalah...",
+    opts: [
+      "Minta AI menulis esai lengkap, lalu kumpulkan tanpa diubah",
+      "Minta AI buatkan outline & argumen utama, lalu tulis esainya sendiri",
+      "Baca jawaban AI, pahami isinya, lalu tulis ulang dengan kata dan pemahaman sendiri",
+      "Tidak menggunakan AI sama sekali karena semua penggunaan AI adalah curang"
+    ],
+    correct: 2,
+    feedback: "Benar. Ini pilihan paling etis dan paling mendidik karena siswa membaca, memahami, lalu menulis ulang dengan kata dan pemahaman sendiri. Proses ini melatih berpikir aktif, kemampuan menulis, dan menjaga orisinalitas.",
+    feedbacks: [
+      "Tidak etis. Mengumpulkan esai lengkap dari AI tanpa diubah dan tanpa proses belajar dapat termasuk plagiarisme akademik serta tidak melatih pemahaman siswa.",
+      "Jawaban ini juga etis, karena AI hanya membantu membuat kerangka dan argumen utama. Namun, jika harus memilih yang paling mendidik untuk tujuan belajar, opsi C lebih kuat karena siswa memproses ulang isi dengan pemahamannya sendiri.",
+      "Benar. Ini pilihan paling etis dan paling mendidik karena siswa membaca, memahami, lalu menulis ulang dengan kata dan pemahaman sendiri. Proses ini melatih berpikir aktif, kemampuan menulis, dan menjaga orisinalitas.",
+      "Kurang tepat. Menggunakan AI tidak otomatis curang. AI boleh digunakan sebagai alat bantu belajar selama siswa tetap memahami, menulis sendiri, dan mengikuti aturan guru/sekolah."
+    ]
+  },
+  {
+    q: "AI mengatakan bahwa 'Proklamasi Kemerdekaan Indonesia dibacakan pada tanggal 17 Agustus 1945 di Jalan Pegangsaan Timur No. 55'. Apa yang sebaiknya kamu lakukan?",
+    opts: [
+      "Langsung percaya karena AI pasti akurat",
+      "Verifikasi dengan buku sejarah atau sumber terpercaya meskipun terdengar benar",
+      "Tidak percaya sama sekali karena AI selalu salah",
+      "Tanya AI yang berbeda untuk konfirmasi"
+    ],
+    correct: 1,
+    feedback: "Tepat! Selalu verifikasi fakta spesifik seperti tanggal, nama, dan alamat — meskipun terdengar benar. Dalam kasus ini faktanya memang benar, tapi kebiasaan verifikasi sangat penting untuk menghindari halusinasi AI."
+  },
+  {
+    q: "Dari pilihan berikut, prompt mana yang akan menghasilkan jawaban AI paling BERKUALITAS?",
+    opts: [
+      "\"Jelaskan fotosintesis\"",
+      "\"Apa itu fotosintesis?\"",
+      "\"Bertindaklah sebagai guru biologi. Saya siswa kelas 10 yang bingung dengan proses fotosintesis. Jelaskan dengan analogi sehari-hari dan gambarkan langkah-langkahnya secara berurutan.\"",
+      "\"Tolong jelaskan fotosintesis dengan lengkap dan detail\""
+    ],
+    correct: 2,
+    feedback: "Betul! Prompt ketiga menggunakan rumus R-C-S-O: Role (guru biologi), Context (siswa kelas 10 yang bingung), Specific Task (dengan analogi + langkah berurutan), Output (format jelas). Semakin detail prompt, semakin baik jawaban AI!"
+  },
+  {
+    q: "AI memberikan jawaban yang kelihatannya salah untuk soal matematika yang kamu tanyakan. Apa yang TERBAIK dilakukan?",
+    opts: [
+      "Langsung percaya AI karena komputer tidak bisa salah hitung",
+      "Abaikan AI dan kerjakan sendiri dari awal",
+      "Minta AI jelaskan langkah-langkahnya, lalu cek sendiri di mana kesalahannya",
+      "Tanya ke teman karena AI tidak berguna untuk matematika"
+    ],
+    correct: 2,
+    feedback: "Jawaban terbaik! Minta AI show its work — minta dia jelaskan step by step. Ini membantu kamu (1) menemukan di mana AI salah, (2) belajar proses penyelesaiannya, dan (3) melatih kemampuan verifikasi kritis."
+  },
+  {
+    q: "Temanmu bilang: 'AI itu jahat, bikin siswa jadi malas dan bodoh. Lebih baik tidak usah pakai AI sama sekali.' Respons yang paling tepat adalah...",
+    opts: [
+      "Setuju sepenuhnya — AI memang berbahaya untuk pelajar",
+      "Tidak setuju — AI itu selalu berguna dan tidak ada risikonya",
+      "AI adalah alat: manfaat atau mudaratnya tergantung bagaimana cara kita menggunakannya",
+      "Tergantung platform AI-nya, sebagian aman dan sebagian berbahaya"
+    ],
+    correct: 2,
+    feedback: "Perspektif yang tepat! Seperti kalkulator, internet, atau buku — AI adalah alat. Kalkulator tidak membuat siswa bodoh jika digunakan untuk mengecek jawaban, bukan menggantikan pemahaman. Yang terpenting adalah bagaimana kita menggunakannya secara bijak dan kritis."
+  }
+];
+
+let current = 0, score = 0, answered = false;
+
+function renderQuiz() {
+  const prog = document.getElementById('quiz-progress');
+  prog.innerHTML = questions.map((_, i) =>
+    `<div class="quiz-dot ${i < current ? 'done' : i === current ? 'active' : ''}"></div>`
+  ).join('');
+
+  if (current >= questions.length) {
+    document.getElementById('quiz-container').innerHTML = `
+      <div class="quiz-score">
+        <div class="quiz-score-num">${score}/${questions.length}</div>
+        <div class="quiz-score-label">${score === 5 ? '🏆 Sempurna! Kamu adalah AI Literacy Champion!' : score >= 4 ? '🌟 Luar biasa! Hampir sempurna!' : score >= 3 ? '👍 Bagus! Terus belajar ya!' : '📚 Ayo baca lagi panduan di atas dan coba lagi!'}</div>
+        <br>
+        <button class="copy-btn" style="margin:0 auto" onclick="restartQuiz()">🔄 Coba Lagi</button>
+      </div>
+    `;
+    return;
+  }
+
+  const q = questions[current];
+  document.getElementById('quiz-container').innerHTML = `
+    <div class="quiz-q">Pertanyaan ${current+1} dari ${questions.length}: ${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((opt, i) => `<div class="quiz-opt" id="opt-${i}" onclick="selectOpt(${i})">${['A','B','C','D'][i]}. ${opt}</div>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="quiz-feedback"></div>
+    <button class="btn btn-ghost" id="quiz-next" onclick="nextQ()" style="display:none">Pertanyaan Berikutnya →</button>
+  `;
+  answered = false;
+}
+
+function selectOpt(i) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const fb = document.getElementById('quiz-feedback');
+  document.querySelectorAll('.quiz-opt').forEach((el, j) => {
+    if (j === q.correct) el.classList.add('correct');
+    else if (j === i && i !== q.correct) el.classList.add('wrong');
+  });
+  const feedback = q.feedbacks?.[i] || q.feedback;
+  if (i === q.correct) { score++; fb.className='quiz-feedback show correct'; fb.textContent='✅ ' + feedback; }
+  else { fb.className='quiz-feedback show wrong'; fb.textContent='❌ ' + feedback; }
+  document.getElementById('quiz-next').style.display = 'inline-flex';
+}
+
+function nextQ() { current++; renderQuiz(); }
+function restartQuiz() { current=0; score=0; renderQuiz(); }
+
+renderQuiz();
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── NAV ACTIVE ──
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+  });
+});
+</script>
+</body>
+</html>
