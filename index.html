@@ -592,6 +592,147 @@
   .footer-links a { font-size: .75rem; color: var(--text-dim); text-decoration: none; }
   .footer-links a:hover { color: var(--gold); }
 
+  /* ── VIDEO GALLERY ── */
+  .main-player {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+
+  .main-video-embed {
+    aspect-ratio: 16/9;
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,.2);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .main-video-embed iframe { width:100%; height:100%; border:none; }
+
+  .main-video-info { padding: 1.5rem 0; }
+
+  .main-video-label {
+    font-size: .7rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .5rem;
+  }
+
+  .main-video-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .main-video-desc {
+    font-size: .85rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .video-tabs {
+    display: flex;
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .vtab {
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,.15);
+    color: var(--text-dim);
+    font-family: 'Raleway', sans-serif;
+    font-size: .75rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .5rem 1.2rem;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+
+  .vtab:hover { border-color: var(--gold-dim); color: var(--text); }
+  .vtab.active { background: rgba(201,168,76,.12); border-color: var(--gold); color: var(--gold); }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .vcard {
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,.1);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .25s;
+  }
+
+  .vcard:hover { border-color: rgba(201,168,76,.4); transform: translateY(-3px); }
+  .vcard.active { border-color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,.15); }
+  .vcard.hidden { display: none; }
+
+  .vcard-thumb {
+    aspect-ratio: 16/9;
+    background: var(--dark2);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vcard-thumb img { width:100%; height:100%; object-fit:cover; transition: transform .3s; }
+  .vcard:hover .vcard-thumb img { transform: scale(1.05); }
+
+  .vcard-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.4);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .vcard-play svg { filter: drop-shadow(0 0 8px rgba(201,168,76,.6)); transform: scale(1.5); }
+  .vcard:hover .vcard-play { opacity: 1; }
+  .vcard.active .vcard-play { opacity: 1; background: rgba(201,168,76,.15); }
+
+  .vcard-info { padding: .9rem 1rem; }
+
+  .vcard-tag {
+    font-size: .62rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    background: rgba(201,168,76,.07);
+    border: 1px solid rgba(201,168,76,.12);
+    padding: .2rem .5rem;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: .5rem;
+  }
+
+  .vcard-title { font-size: .85rem; font-weight: 600; line-height: 1.35; color: var(--text); }
+  .vcard-duration { font-size: .72rem; color: var(--text-dim); margin-top: .3rem; }
+
+  @media (max-width: 768px) {
+    .main-player { grid-template-columns: 1fr; }
+    .video-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .video-grid { grid-template-columns: 1fr; }
+  }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -689,7 +830,7 @@
 
       <div class="about-visual reveal">
         <!-- REPLACE src="" dengan gambar karakter kamu -->
-        <img src="TechLabID_Guard_Idle.jpg" alt="TechLabID Guard Character">
+        <!-- <img src="YOUR_GUARD_IMAGE.jpg" alt="TechLabID Guard Character"> -->
         <div class="about-visual-placeholder">
           <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
             <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/>
@@ -714,7 +855,7 @@
       <!-- LEFT: Visual -->
       <div class="asset-visual">
         <!-- REPLACE dengan gambar render terbaik karakter kamu -->
-        <img src="TechLabID_Guard_Idle.jpg" alt="Medieval NPC Guard">
+        <!-- <img src="YOUR_GUARD_RENDER.jpg" alt="Medieval NPC Guard"> -->
         <div class="asset-visual-placeholder">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width=".8" opacity=".5">
             <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/>
@@ -747,7 +888,8 @@
           <li>Demo Scene Included</li>
           <li>URP / Built-in Pipeline Ready</li>
         </ul>
-        <a href="[https://assetstore.unity.com/packages/slug/377956](https://assetstore.unity.com/packages/slug/377956)" class="btn-primary" style="display:inline-block;" target="_blank">
+
+        <a href="#" class="btn-primary" style="display:inline-block;">
           🔗 View on Unity Asset Store
         </a>
         <!-- GANTI href="#" dengan link Unity Asset Store kamu -->
@@ -756,32 +898,125 @@
   </div>
 </section>
 
-<!-- VIDEO DEMO -->
+<!-- VIDEO DEMO GALLERY -->
 <section class="video-section" id="demo">
   <div class="container">
-    <div class="video-wrapper">
-      <div class="reveal" style="text-align:center; margin-bottom: 2.5rem;">
-        <p class="section-label">Animation & Gameplay</p>
-        <h2 class="section-title">Demo & In-Game Preview</h2>
-        <div class="gold-line" style="margin: 0 auto 1rem;"></div>
-      </div>
-
-      <div class="video-embed reveal">
-        <!-- GANTI src dengan embed YouTube video kamu -->
-        <!-- Contoh: src="https://www.youtube.com/embed/YOUR_VIDEO_ID" -->
-        <iframe src="https://www.youtube.com/embed/bPMPlXjvRRw" 
-                title="YouTube video player"
-                style="border:none;"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen>
-        </iframe>
-      </div>
-      
-      <p class="video-note reveal">
-        Includes <span>animation showcase</span> and real-time gameplay demo —
-        WASD movement, attack, and death system.
+    <div class="reveal" style="text-align:center; margin-bottom: 3rem;">
+      <p class="section-label">Animation & Gameplay</p>
+      <h2 class="section-title">Demo & In-Game Preview</h2>
+      <div class="gold-line" style="margin: 0 auto 1rem;"></div>
+      <p style="color:var(--text-dim); font-size:.9rem;">
+        Watch our asset demos, tutorials, and in-game previews
       </p>
     </div>
+
+    <!-- MAIN VIDEO PLAYER -->
+    <div class="main-player reveal">
+      <div class="main-video-embed" id="mainPlayer">
+        <div class="video-placeholder">
+          <div class="play-btn">
+            <svg width="28" height="28" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
+          </div>
+          <p style="color:var(--text-dim); font-size:.85rem; margin-top:.5rem;" id="mainTitle">Select a video below</p>
+        </div>
+      </div>
+      <div class="main-video-info" id="mainInfo">
+        <p class="main-video-label">Featured Demo</p>
+        <h3 class="main-video-title" id="mainVideoTitle">Medieval NPC Guard — Full Demo</h3>
+        <p class="main-video-desc" id="mainVideoDesc">
+          Includes animation showcase and real-time gameplay demo — WASD movement, attack, and death system.
+        </p>
+      </div>
+    </div>
+
+    <!-- VIDEO TABS / FILTER -->
+    <div class="video-tabs reveal">
+      <button class="vtab active" onclick="filterVideos('all', this)">All Videos</button>
+      <button class="vtab" onclick="filterVideos('demo', this)">Asset Demo</button>
+      <button class="vtab" onclick="filterVideos('tutorial', this)">Tutorial</button>
+      <button class="vtab" onclick="filterVideos('showcase', this)">Showcase</button>
+    </div>
+
+    <!-- VIDEO GRID -->
+    <div class="video-grid reveal" id="videoGrid">
+
+      <!-- ═══════════════════════════════════════════
+           CARA TAMBAH VIDEO BARU:
+           1. Copy satu blok <div class="vcard ..."> di bawah
+           2. Ganti data-id="VIDEO_ID" dengan YouTube video ID kamu
+           3. Ganti data-title, data-desc, data-tag sesuai video
+           4. Ganti background thumbnail (opsional)
+           ═══════════════════════════════════════════ -->
+
+      <div class="vcard" data-tag="demo"
+           data-id="YOUR_VIDEO_ID_1"
+           data-title="Medieval NPC Guard — Full Demo"
+           data-desc="Animation showcase and real-time gameplay demo with WASD movement, attack, and death system."
+           onclick="selectVideo(this)">
+        <div class="vcard-thumb">
+          <!-- Auto-load YouTube thumbnail -->
+          <img src="https://img.youtube.com/vi/YOUR_VIDEO_ID_1/mqdefault.jpg"
+               onerror="this.style.display='none'" alt="thumb">
+          <div class="vcard-play">
+            <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
+          </div>
+        </div>
+        <div class="vcard-info">
+          <span class="vcard-tag">Asset Demo</span>
+          <p class="vcard-title">Medieval NPC Guard — Full Demo</p>
+          <p class="vcard-duration">2:30</p>
+        </div>
+      </div>
+
+      <div class="vcard" data-tag="tutorial"
+           data-id="YOUR_VIDEO_ID_2"
+           data-title="How to Setup Guard NPC in Unity"
+           data-desc="Step-by-step tutorial: import the asset, configure the demo controller, and integrate into your scene."
+           onclick="selectVideo(this)">
+        <div class="vcard-thumb">
+          <img src="https://img.youtube.com/vi/YOUR_VIDEO_ID_2/mqdefault.jpg"
+               onerror="this.style.display='none'" alt="thumb">
+          <div class="vcard-play">
+            <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
+          </div>
+        </div>
+        <div class="vcard-info">
+          <span class="vcard-tag">Tutorial</span>
+          <p class="vcard-title">How to Setup Guard NPC in Unity</p>
+          <p class="vcard-duration">5:45</p>
+        </div>
+      </div>
+
+      <div class="vcard" data-tag="showcase"
+           data-id="YOUR_VIDEO_ID_3"
+           data-title="Animation Showcase — All Clips"
+           data-desc="Full animation breakdown: idle, walk, run, attack, and death — recorded in Unity Timeline."
+           onclick="selectVideo(this)">
+        <div class="vcard-thumb">
+          <img src="https://img.youtube.com/vi/YOUR_VIDEO_ID_3/mqdefault.jpg"
+               onerror="this.style.display='none'" alt="thumb">
+          <div class="vcard-play">
+            <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
+          </div>
+        </div>
+        <div class="vcard-info">
+          <span class="vcard-tag">Showcase</span>
+          <p class="vcard-title">Animation Showcase — All Clips</p>
+          <p class="vcard-duration">3:15</p>
+        </div>
+      </div>
+
+      <!-- ADD MORE VIDEOS HERE — copy a vcard block above -->
+
+    </div>
+
+    <!-- ADD VIDEO BUTTON (for your reference only — remove before publish) -->
+    <div class="reveal" style="text-align:center; margin-top:2rem;">
+      <p style="font-size:.75rem; color:var(--gold-dim); letter-spacing:.1em; text-transform:uppercase;">
+        ➕ To add more videos: duplicate a <code style="color:var(--gold);">.vcard</code> block in the HTML and update the <code style="color:var(--gold);">data-id</code>
+      </p>
+    </div>
+
   </div>
 </section>
 
@@ -793,9 +1028,7 @@
         <h2>Ready to level up <span>your game?</span></h2>
         <p>Download the Medieval NPC Pack: Guard — available now on Unity Asset Store.</p>
       </div>
-      <a href="[https://assetstore.unity.com/packages/slug/377956](https://assetstore.unity.com/packages/slug/377956)" class="btn-primary" style="display:inline-block;" target="_blank">
-        🔗 View on Unity Asset Store
-      </a>
+      <a href="#" class="btn-primary">🔗 View on Unity Asset Store</a>
     </div>
   </div>
 </section>
@@ -848,7 +1081,7 @@
           within 48 hours.
         </p>
 
-        <a href="mailto:techlabid77@gmail.com" class="contact-link">
+        <a href="mailto:techlabid@gmail.com" class="contact-link">
           <div class="contact-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.5">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -857,7 +1090,7 @@
           </div>
           <div class="contact-text">
             <strong>Email</strong>
-            <span>techlabid77@gmail.com</span>
+            <span>techlabid@gmail.com</span>
           </div>
         </a>
       </div>
@@ -883,18 +1116,62 @@
   </div>
 </footer>
 
-<!-- SCROLL REVEAL SCRIPT -->
+<!-- SCROLL REVEAL + VIDEO GALLERY SCRIPT -->
 <script>
+  // ── Scroll Reveal ──
   const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
     });
   }, { threshold: 0.12 });
   reveals.forEach(el => io.observe(el));
+
+  // ── Video Gallery ──
+  function selectVideo(card) {
+    // Mark active card
+    document.querySelectorAll('.vcard').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+
+    const id    = card.dataset.id;
+    const title = card.dataset.title;
+    const desc  = card.dataset.desc;
+
+    // Update main player
+    const player = document.getElementById('mainPlayer');
+    if (id && !id.startsWith('YOUR_VIDEO')) {
+      player.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
+    } else {
+      player.innerHTML = `
+        <div class="video-placeholder">
+          <div class="play-btn">
+            <svg width="28" height="28" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
+          </div>
+          <p style="color:var(--text-dim);font-size:.8rem;margin-top:.5rem;">Replace YOUR_VIDEO_ID with real YouTube ID</p>
+        </div>`;
+    }
+
+    // Update info panel
+    document.getElementById('mainVideoTitle').textContent = title;
+    document.getElementById('mainVideoDesc').textContent  = desc;
+
+    // Scroll to player on mobile
+    if (window.innerWidth < 768) {
+      document.getElementById('demo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function filterVideos(tag, btn) {
+    // Update active tab
+    document.querySelectorAll('.vtab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Show/hide cards
+    document.querySelectorAll('.vcard').forEach(card => {
+      const match = tag === 'all' || card.dataset.tag === tag;
+      card.classList.toggle('hidden', !match);
+    });
+  }
 </script>
 
 </body>
