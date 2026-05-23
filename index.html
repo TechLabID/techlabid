@@ -829,14 +829,7 @@
       </div>
 
       <div class="about-visual reveal">
-        <!-- REPLACE src="" dengan gambar karakter kamu -->
-        <img src="TechLabID_Guard_Idle.jpg" alt="TechLabID Guard Character">
-        <div class="about-visual-placeholder">
-          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-            <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/>
-          </svg>
-          <p>Insert Guard Character Image</p>
-        </div>
+        <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/TechLabID_Guard_Idle.jpg" alt="TechLabID Guard Character">
       </div>
     </div>
   </div>
@@ -854,19 +847,7 @@
     <div class="asset-card reveal">
       <!-- LEFT: Visual -->
       <div class="asset-visual">
-        <!-- REPLACE dengan gambar render terbaik karakter kamu -->
-        <img src="TechLabID_Guard_Idle.jpg" alt="Medieval NPC Guard">
-        <div class="asset-visual-placeholder">
-          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width=".8" opacity=".5">
-            <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/>
-            <circle cx="12" cy="10" r="3"/>
-            <path d="M6 20.7A8 8 0 0 1 12 17a8 8 0 0 1 6 3.7"/>
-          </svg>
-          <p style="font-size:.75rem; color:#7a5f20; letter-spacing:.1em; text-transform:uppercase;">
-            Insert Guard Render<br>
-            <span style="color:#c9a84c; font-size:.7rem;">(Best Quality Render)</span>
-          </p>
-        </div>
+        <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/TechLabID_Guard_Idle.jpg" alt="Medieval NPC Guard">
         <div class="asset-tag">Featured</div>
       </div>
 
@@ -889,10 +870,9 @@
           <li>URP / Built-in Pipeline Ready</li>
         </ul>
 
-        <a href="#" class="btn-primary" style="display:inline-block;">
+        <a href="https://assetstore.unity.com/preview/377956/1340742" target="_blank" class="btn-primary" style="display:inline-block;">
           🔗 View on Unity Asset Store
         </a>
-        <!-- GANTI href="#" dengan link Unity Asset Store kamu -->
       </div>
     </div>
   </div>
@@ -913,18 +893,13 @@
     <!-- MAIN VIDEO PLAYER -->
     <div class="main-player reveal">
       <div class="main-video-embed" id="mainPlayer">
-        <div class="video-placeholder">
-          <div class="play-btn">
-            <svg width="28" height="28" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
-          </div>
-          <p style="color:var(--text-dim); font-size:.85rem; margin-top:.5rem;" id="mainTitle">Select a video below</p>
-        </div>
+        <iframe src="https://www.youtube.com/embed/bPMPlXjvRRw?rel=0" allowfullscreen></iframe>
       </div>
       <div class="main-video-info" id="mainInfo">
         <p class="main-video-label">Featured Demo</p>
         <h3 class="main-video-title" id="mainVideoTitle">Medieval NPC Guard — Full Demo</h3>
         <p class="main-video-desc" id="mainVideoDesc">
-          Includes animation showcase and real-time gameplay demo — WASD movement, attack, and death system.
+          Animation showcase and real-time gameplay demo — WASD movement, attack, and death system.
         </p>
       </div>
     </div>
@@ -948,14 +923,13 @@
            4. Ganti background thumbnail (opsional)
            ═══════════════════════════════════════════ -->
 
-      <div class="vcard" data-tag="demo"
-           data-id="YOUR_VIDEO_ID_1"
+      <div class="vcard active" data-tag="demo"
+           data-id="bPMPlXjvRRw"
            data-title="Medieval NPC Guard — Full Demo"
            data-desc="Animation showcase and real-time gameplay demo with WASD movement, attack, and death system."
            onclick="selectVideo(this)">
         <div class="vcard-thumb">
-          <!-- Auto-load YouTube thumbnail -->
-          <img src="https://img.youtube.com/vi/YOUR_VIDEO_ID_1/mqdefault.jpg"
+          <img src="https://img.youtube.com/vi/bPMPlXjvRRw/mqdefault.jpg"
                onerror="this.style.display='none'" alt="thumb">
           <div class="vcard-play">
             <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
@@ -964,7 +938,7 @@
         <div class="vcard-info">
           <span class="vcard-tag">Asset Demo</span>
           <p class="vcard-title">Medieval NPC Guard — Full Demo</p>
-          <p class="vcard-duration">2:30</p>
+          <p class="vcard-duration">—</p>
         </div>
       </div>
 
@@ -1028,7 +1002,7 @@
         <h2>Ready to level up <span>your game?</span></h2>
         <p>Download the Medieval NPC Pack: Guard — available now on Unity Asset Store.</p>
       </div>
-      <a href="#" class="btn-primary">🔗 View on Unity Asset Store</a>
+      <a href="https://assetstore.unity.com/preview/377956/1340742" target="_blank" class="btn-primary">🔗 View on Unity Asset Store</a>
     </div>
   </div>
 </section>
@@ -1140,7 +1114,7 @@
     // Update main player
     const player = document.getElementById('mainPlayer');
     if (id && !id.startsWith('YOUR_VIDEO')) {
-      player.innerHTML = `<iframe src="https://www.youtube.com/embed/${bPMPlXjvRRw}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
+      player.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
     } else {
       player.innerHTML = `
         <div class="video-placeholder">
