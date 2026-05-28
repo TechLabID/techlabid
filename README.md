@@ -58,7 +58,10 @@ TechLabID is an independent developer focused on creating professional Unity ass
 
 Email: techlabid77@gmail.com
        skyhan045@gmail.com
-        
+## Support
+Support TechLabID on Patreon:
+https://patreon.com/techlabid
+https://saweria.co/TechLabID
 
 ---
 
