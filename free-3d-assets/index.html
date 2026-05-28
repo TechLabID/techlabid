@@ -61,6 +61,26 @@
       margin: 40px 0 20px;
       text-align: center;
     }
+    .asset-toolbar {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 0 auto 26px;
+      flex-wrap: wrap;
+    }
+    .asset-toolbar input,
+    .asset-toolbar select {
+      width: min(360px, 100%);
+      padding: 13px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(105,232,255,0.32);
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
+      font-weight: 700;
+      outline: none;
+    }
+    .asset-toolbar input::placeholder { color: #b9d7f0; }
+    .asset-toolbar select option { background: #07111f; color: #ffffff; }
     .asset-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -161,8 +181,19 @@
 
     <h2 id="assets" class="section-title">Available Free 3D Assets</h2>
 
-    <section class="asset-grid">
-      <article class="card">
+    <div class="asset-toolbar">
+      <input id="assetSearch" type="text" placeholder="Search assets..." />
+      <select id="assetFilter">
+        <option value="all">All Categories</option>
+        <option value="character">Characters</option>
+        <option value="animal">Animals</option>
+        <option value="props">Props</option>
+        <option value="medieval">Medieval</option>
+      </select>
+    </div>
+
+    <section class="asset-grid" id="assetGrid">
+      <article class="card asset-item" data-category="character" data-title="3d soccer player football unity mixamo">
         <img src="assets/soccer-player-preview.jpg" alt="Free 3D Soccer Player Asset" />
         <div class="card-content">
           <span class="tag">FREE DOWNLOAD</span>
@@ -179,12 +210,12 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card asset-item" data-category="animal" data-title="3d bird low poly animal unity mixamo">
         <img src="assets/preview_bird.jpg" alt="Free 3D Bird Asset" />
         <div class="card-content">
           <span class="tag">FREE DOWNLOAD</span>
           <h3>3D Bird</h3>
-          <p>Unity ready bird asset with Mixamo skin animation. Suitable for Education Content, prototypes, and AI game developmen.</p>
+          <p>Unity ready low poly bird asset with Mixamo skin animation. Suitable for education content, prototypes, and AI game development.</p>
           <div class="meta">
             <small>FBX</small>
             <small>GLB</small>
@@ -196,7 +227,7 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card asset-item" data-category="props medieval" data-title="fantasy game props medieval unity blender">
         <img src="assets/coming-soon.jpg" alt="Coming Soon Free 3D Asset" />
         <div class="card-content">
           <span class="tag">COMING SOON</span>
@@ -225,5 +256,27 @@
   <footer>
     <p>© 2026 TechLabID. Free 3D Assets for Game Development.</p>
   </footer>
+
+  <script>
+    const searchInput = document.getElementById("assetSearch");
+    const filterSelect = document.getElementById("assetFilter");
+    const items = document.querySelectorAll(".asset-item");
+
+    function filterAssets() {
+      const search = searchInput.value.toLowerCase();
+      const category = filterSelect.value;
+
+      items.forEach(item => {
+        const title = item.dataset.title || "";
+        const itemCategory = item.dataset.category || "";
+        const matchSearch = title.includes(search);
+        const matchCategory = category === "all" || itemCategory.includes(category);
+        item.style.display = matchSearch && matchCategory ? "block" : "none";
+      });
+    }
+
+    searchInput.addEventListener("input", filterAssets);
+    filterSelect.addEventListener("change", filterAssets);
+  </script>
 </body>
 </html>
