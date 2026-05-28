@@ -1,0 +1,38 @@
+TechLabID FREE 3D ASSET LICENSE
+
+Copyright (c) 2026 TechLabID
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this 3D asset package and associated files, to use, modify, and distribute
+the assets for personal and commercial projects, subject to the following conditions:
+
+1. The assets may be used in:
+   - Video games
+   - Applications
+   - Commercial projects
+   - Educational content
+   - Prototypes
+   - Films and animations
+
+2. Redistribution or resale of the original asset files
+   as standalone assets is NOT allowed.
+
+3. Claiming the original assets as your own creation is NOT allowed.
+
+4. Credit is appreciated but not required:
+   "3D Asset by TechLabID"
+
+5. The assets are provided free to use without any warranty or guarantee.
+
+Official Links:
+YouTube:
+https://youtube.com/@techlabgamedev
+
+Website:
+https://techlabid.github.io/techlabid/
+
+Support TechLabID and future free assets:
+https://patreon.com/techlabid
+https://saweria.co/TechLabID
+
+© 2026 TechLabID. All rights reserved.
