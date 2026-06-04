@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechLabID Free 3D Assets</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #17345f, #07111f 55%, #020611);
+      color:white;
+      min-height:100vh;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:min(1280px, 94%);
+      margin:auto;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:24px 0;
+      flex-wrap:wrap;
+      gap:16px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:800;
+      color:#69e8ff;
+    }
+
+    .nav{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .nav a{
+      color:#d6eaff;
+      font-weight:700;
+    }
+
+    .hero{
+      text-align:center;
+      padding:50px 0 40px;
+    }
+
+    .hero h1{
+      font-size:clamp(38px, 6vw, 68px);
+      margin-bottom:18px;
+      line-height:1.05;
+    }
+
+    .hero span{
+      color:#69e8ff;
+    }
+
+    .hero p{
+      max-width:780px;
+      margin:auto;
+      color:#d7e7ff;
+      font-size:18px;
+      line-height:1.7;
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:44px;
+      margin:30px 0 24px;
+      font-weight:800;
+    }
+
+    .asset-toolbar{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      margin-bottom:28px;
+      flex-wrap:wrap;
+    }
+
+    .asset-toolbar input,
+    .asset-toolbar select{
+      padding:14px 18px;
+      border-radius:999px;
+      border:1px solid rgba(105,232,255,0.35);
+      background:rgba(255,255,255,0.08);
+      color:white;
+      min-width:260px;
+      font-weight:700;
+    }
+
+    .asset-toolbar option{
+      background:#07111f;
+    }
+
+    .asset-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:24px;
+      padding-bottom:40px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(105,232,255,0.22);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 18px 40px rgba(0,0,0,0.35);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .card img{
+      width:100%;
+      height:240px;
+      object-fit:cover;
+      background:#0e2037;
+      display:block;
+    }
+
+    .card-content{
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      height:100%;
+    }
+
+    .tag{
+      display:inline-block;
+      width:max-content;
+      padding:7px 14px;
+      border-radius:999px;
+      background:rgba(105,232,255,0.15);
+      border:1px solid rgba(105,232,255,0.3);
+      color:#76efff;
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:14px;
+    }
+
+    .category-link{
+      display:inline-block;
+      width:max-content;
+      align-self:center;
+      margin:4px 0 20px;
+      padding:10px 18px;
+      border-radius:10px;
+      background:rgba(255,255,255,0.06);
+      border:4px solid #09b7f2;
+      color:#e8f7ff;
+      font-weight:800;
+      box-shadow:0 0 18px rgba(9,183,242,0.18);
+    }
+
+    .category-link:hover{
+      background:rgba(9,183,242,0.18);
+      transform:translateY(-2px);
+    }
+
+    .card h3{
+      font-size:22px;
+      margin-bottom:12px;
+    }
+
+    .card p{
+      color:#d6e8ff;
+      line-height:1.6;
+      margin-bottom:18px;
+      flex-grow:1;
+    }
+
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:20px;
+    }
+
+    .meta small{
+      background:rgba(255,255,255,0.08);
+      padding:6px 10px;
+      border-radius:10px;
+      color:#dbeafe;
+    }
+
+    .btn{
+      display:block;
+      width:100%;
+      text-align:center;
+      padding:16px;
+      border-radius:999px;
+      font-weight:800;
+      transition:0.2s;
+    }
+
+    .download{
+      background:#24efaa;
+      color:#03130e;
+    }
+
+    .btn-secondary{
+      border:1px solid #69e8ff;
+      color:#d6f7ff;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      opacity:0.92;
+    }
+
+    .support{
+      margin:45px 0 60px;
+      padding:38px;
+      border-radius:28px;
+      background:linear-gradient(135deg, rgba(255,255,255,0.1), rgba(105,232,255,0.08));
+      border:1px solid rgba(255,255,255,0.14);
+      text-align:center;
+    }
+
+    .support h2{
+      font-size:36px;
+      margin-bottom:12px;
+    }
+
+    .support p{
+      color:#d8ebff;
+      max-width:760px;
+      margin:auto;
+      margin-bottom:24px;
+      line-height:1.8;
+    }
+
+    .support-buttons{
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .saweria{
+      background:#ffcf33;
+      color:#241900;
+    }
+
+    .patreon{
+      background:#ff424d;
+      color:white;
+    }
+
+    footer{
+      text-align:center;
+      padding:26px 0;
+      color:#9bb5d2;
+      border-top:1px solid rgba(255,255,255,0.08);
+    }
+
+    @media(max-width:1200px){
+      .asset-grid{
+        grid-template-columns:repeat(3, 1fr);
+      }
+    }
+
+    @media(max-width:900px){
+      .asset-grid{
+        grid-template-columns:repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width:640px){
+      .asset-grid{
+        grid-template-columns:1fr;
+      }
+
+      header{
+        flex-direction:column;
+      }
+
+      .hero{
+        padding-top:24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <a class="logo" href="https://techlabid.github.io/techlabid/">TechLabID</a>
+
+    <nav class="nav">
+      <a href="#assets">Free Assets</a>
+      <a href="#support">Donate</a>
+      <a href="https://youtube.com/@techlabgamedev" target="_blank">YouTube</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Free 3D Assets for <span>Game Developers</span></h1>
+
+    <p>
+      Download free game-ready 3D assets for Unity, Blender, Godot,
+      Unreal Engine, and indie game projects.
+      FBX, GLB, OBJ, and ZIP formats included.
+    </p>
+  </section>
+
+  <h2 id="assets" class="section-title">Available Free 3D Assets</h2>
+
+  <div class="asset-toolbar">
+    <input id="assetSearch" type="text" placeholder="Search assets..." />
+
+    <select id="assetFilter">
+      <option value="all">All Categories</option>
+      <option value="character">Characters</option>
+      <option value="animal">Animals</option>
+      <option value="props">Props</option>
+      <option value="medieval">Medieval</option>
+    </select>
+  </div>
+
+  <section class="asset-grid">
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="3d soccer player">
+
+      <img src="assets/soccer-player-preview.jpg"
+           alt="Free 3D Soccer Player Asset" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>3D Soccer Player</h3>
+
+        <p>
+          Unity ready soccer player asset with Mixamo skin animation.
+          Suitable for football games, prototypes, and AI game development.
+        </p>
+
+        <a class="category-link" href="#assets" data-filter-link="character">Other Characters</a>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/techlabid/techlabid/releases/download/v1.0/soccer-player-free-3d-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="animal"
+      data-title="3d bird low poly">
+
+      <img src="assets/preview_bird.jpg"
+           alt="Free 3D Bird Asset" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>3D Bird</h3>
+
+        <p>
+          Unity ready low poly bird asset with Mixamo skin animation.
+          Suitable for education content, prototypes, and AI game development.
+        </p>
+
+        <a class="category-link" href="#assets" data-filter-link="animal">Other Animals</a>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v1.1-bird-asset/bird-free-3d-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="props"
+      data-title="fantasy game props">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Fantasy Game Props" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Fantasy Game Props</h3>
+
+        <p>
+          Free props for Unity scenes, fantasy environments,
+          and stylized game prototype development.
+        </p>
+
+        <a class="category-link" href="#assets" data-filter-link="props">Other Props</a>
+
+        <div class="meta">
+          <small>Unity</small>
+          <small>Blender</small>
+          <small>Game Ready</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="medieval"
+      data-title="medieval asset pack">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Medieval Asset Pack" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Medieval Asset Pack</h3>
+
+        <p>
+          Medieval environment assets, castle props,
+          weapons, and stylized game-ready objects.
+        </p>
+
+        <a class="category-link" href="#assets" data-filter-link="medieval">Other Medieval</a>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>OBJ</small>
+          <small>Stylized</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="Lynx 3D character">
+
+      <img src="assets/preview_lynx.jpg"
+           alt="Lynx 3D Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Lynx 3D Character</h3>
+
+        <p>
+          Game-ready stylized female character with rigged animation. 
+          Suitable for Unity, Blender, RPG games, and prototypes.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v1.2-lynx-asset/lynx-free-3d-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+    
+    <article class="card asset-item"
+      data-category="character"
+      data-title="enemy soldier walk character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview_walk.jpg"
+           alt="Enemy Soldier Walk Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Enemy Soldier Walk Character</h3>
+
+        <p>
+          Medieval enemy soldier walk animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v1.3-enemy-free-asset/Enemysoldier-walk-free-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+    
+
+    
+<article class="card asset-item"
+      data-category="character"
+      data-title="enemy soldier run character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview_run.jpg"
+           alt="Enemy Soldier Run Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Enemy Soldier Run Character</h3>
+
+        <p>
+          Medieval enemy soldier run animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v1.4-enemy-free-asset/Enemysoldier-run-free-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="enemy soldier attack character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview_attack.jpg"
+           alt="Enemy Soldier Attack Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Enemy Soldier Attack Character</h3>
+
+        <p>
+          Medieval enemy soldier attack animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v1.5-enemy-free-asset/Enemysoldier-attack-free-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="knight idle character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview_Knight_idle.jpg"
+           alt="Knight Idle Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Knight Idle Character</h3>
+
+        <p>
+          Medieval knight idle animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v1.6-knight-asset/Knight-Idle-3D-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="knight climb character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview-Knight-climb.jpg"
+           alt="Knight Climb Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Knight Climb Character</h3>
+
+        <p>
+          Medieval knight climb animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v1.7-knight-asset/Knight-Climb-3D-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="knight attack character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview-Knight-Attack.jpg"
+           alt="Knight Attack Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Knight Attack Character</h3>
+
+        <p>
+          Medieval knight attack animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v1.8-knight-asset/Knight-Attack-3D-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="knight walk character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview-Knight-walk.jpg"
+           alt="Knight Walk Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Knight Walk Character</h3>
+
+        <p>
+          Medieval knight walk animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v1.9-knight-asset/Knight-Walk-3D-asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="knight jump character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview-Knight-Jump.jpg"
+           alt="Knight Jump Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Knight Jump Character</h3>
+
+        <p>
+          Medieval knight jump animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v2.0-knight-asset/Jump-3D-Asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="knight death character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview-Knight-death.jpg"
+           alt="Knight Death Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Knight Death Character</h3>
+
+        <p>
+          Medieval knight death animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v2.1-knight-asset/death-3D-Asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="knight lead jab character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/free-3d-assets/assets/Preview-Lead_Jab.jpg"
+           alt="Knight Lead Jab Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Knight Lead Jab Character</h3>
+
+        <p>
+          Medieval knight lead jab animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          AI NPC testing, battle prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/v2.2-knight-asset/Lead_Jab-3D-Asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="female knight climbing a rope character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/assets/Preview_FKnight_Climbing_A_Rope.jpg"
+           alt="Female Knight Climbing A Rope Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Female Knight Climbing A Rope</h3>
+
+        <p>
+          Female medieval knight climbing a rope animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          action prototypes, climbing scenes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/V3.0-FKnight-asset/Female_knight_Climbing_A_Rope-3D-Asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="female knight freehang climb character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/assets/Preview-FKnight-Freehang-Climb.jpg"
+           alt="Female Knight Freehang Climb Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Female Knight Freehang Climb</h3>
+
+        <p>
+          Female medieval knight freehang climb animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          parkour scenes, climbing prototypes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/V3.1-FKnight-asset/Female_knight_Freehang_Climb-3D-Asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="female knight moonwalk character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/assets/Preview-Fknight-moonwalk.jpg"
+           alt="Female Knight Moonwalk Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Female Knight Moonwalk</h3>
+
+        <p>
+          Female medieval knight moonwalk animation character.
+          Game-ready asset for Unity, Blender, stylized game scenes,
+          showcase videos, animation tests, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/V3.2-FKnight-asset/Female_knight_Moonwalk-3D-Asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="female knight run character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/assets/Preview-Fknight-Run.jpg"
+           alt="Female Knight Run Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Female Knight Run</h3>
+
+        <p>
+          Female medieval knight run animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          player movement, NPC movement, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/V3.3-FKnight-asset/Female_knight_Run-3D-Asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="female knight spin flip kick character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/assets/Preview-Fknight-Spin-Flip-Kick.jpg"
+           alt="Female Knight Spin Flip Kick Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Female Knight Spin Flip Kick</h3>
+
+        <p>
+          Female medieval knight spin flip kick animation character.
+          Game-ready asset for Unity, Blender, action RPG games,
+          combat prototypes, fighting scenes, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/V3.4-FKnight-asset/Female_knight_Spin_Flip_Kick-3D-Asset.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+    <article class="card asset-item"
+      data-category="character"
+      data-title="female knight walk character">
+
+      <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/assets/Preview-Fknight-Walk.jpg"
+           alt="Female Knight Walk Character" />
+
+      <div class="card-content">
+
+        <span class="tag">FREE DOWNLOAD</span>
+
+        <h3>Female Knight Walk</h3>
+
+        <p>
+          Female medieval knight walk animation character.
+          Game-ready asset for Unity, Blender, RPG games,
+          idle-to-walk movement setup, NPC testing, and Kingdom Siege development.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Mixamo</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn download"
+           href="https://github.com/TechLabID/techlabid/releases/download/V3.5-FKnight-asset/Idle-TPose-Walk-3D-Assets.zip"
+           target="_blank">
+          Download ZIP
+        </a>
+
+      </div>
+    </article>
+
+
+
+    <article class="card asset-item"
+      data-category="animal"
+      data-title="low poly dog animal">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Low Poly Dog" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Low Poly Dog</h3>
+
+        <p>
+          Friendly dog asset concept for AR pet, casual game, learning app, and Unity prototype.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Rig Ready</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="animal"
+      data-title="fantasy dragon animal">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Fantasy Dragon" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Fantasy Dragon</h3>
+
+        <p>
+          Stylized fantasy dragon asset concept for RPG scenes, mascot character, and adventure game prototype.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Rig Ready</small>
+          <small>Unity Ready</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="props"
+      data-title="treasure chest props">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Treasure Chest Props" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Treasure Chest Props</h3>
+
+        <p>
+          Fantasy treasure chest props for dungeon scene, RPG prototype, and stylized environment decoration.
+        </p>
+
+        <div class="meta">
+          <small>Unity</small>
+          <small>Blender</small>
+          <small>Game Ready</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="props"
+      data-title="magic potion props">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Magic Potion Props" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Magic Potion Props</h3>
+
+        <p>
+          Stylized potion bottle props for fantasy shop, inventory UI, RPG game, and learning content.
+        </p>
+
+        <div class="meta">
+          <small>GLB</small>
+          <small>OBJ</small>
+          <small>Stylized</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="props"
+      data-title="wooden crate barrel props">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Wooden Crate & Barrel" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Wooden Crate & Barrel</h3>
+
+        <p>
+          Simple crate and barrel props for medieval village, battle arena, and Unity environment building.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>OBJ</small>
+          <small>Game Ready</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="medieval"
+      data-title="castle gate medieval">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Castle Gate" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Castle Gate</h3>
+
+        <p>
+          Medieval castle gate asset concept for siege arena, fortress entrance, and defense game prototype.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>OBJ</small>
+          <small>Stylized</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="medieval"
+      data-title="watch tower medieval">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Watch Tower" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Watch Tower</h3>
+
+        <p>
+          Medieval watch tower for archer placement, fortress silhouette, and cinematic game environment.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>OBJ</small>
+          <small>Unity</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+    <article class="card asset-item"
+      data-category="medieval"
+      data-title="medieval weapon pack">
+
+      <img src="assets/coming-soon.jpg"
+           alt="Medieval Weapon Pack" />
+
+      <div class="card-content">
+
+        <span class="tag">COMING SOON</span>
+
+        <h3>Medieval Weapon Pack</h3>
+
+        <p>
+          Stylized sword, shield, and weapon props for RPG combat, enemy NPC, and prototype scenes.
+        </p>
+
+        <div class="meta">
+          <small>FBX</small>
+          <small>OBJ</small>
+          <small>Weapon</small>
+        </div>
+
+        <a class="btn btn-secondary"
+           href="https://youtube.com/@techlabgamedev"
+           target="_blank">
+          Follow Update
+        </a>
+
+      </div>
+    </article>
+
+  </section>
+
+  <section id="support" class="support">
+
+    <h2>Support Free Asset Creation</h2>
+
+    <p>
+      If these free 3D assets help your project,
+      you can support TechLabID through Saweria or Patreon.
+      Your support helps create more free assets,
+      tutorials, and GameDev content.
+    </p>
+
+    <div class="support-buttons">
+
+      <a class="btn saweria"
+         href="https://saweria.co/TechLabID"
+         target="_blank">
+        Donate via Saweria
+      </a>
+
+      <a class="btn patreon"
+         href="https://patreon.com/TechLabID"
+         target="_blank">
+        Support on Patreon
+      </a>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 TechLabID. Free 3D Assets for Game Development.</p>
+</footer>
+
+<script>
+  const searchInput = document.getElementById("assetSearch");
+  const filterSelect = document.getElementById("assetFilter");
+  const items = document.querySelectorAll(".asset-item");
+
+  function filterAssets() {
+    const search = searchInput.value.toLowerCase();
+    const category = filterSelect.value;
+
+    items.forEach(item => {
+
+      const title = item.dataset.title || "";
+      const itemCategory = item.dataset.category || "";
+
+      const matchSearch = title.includes(search);
+
+      const matchCategory =
+        category === "all" ||
+        itemCategory.includes(category);
+
+      item.style.display =
+        (matchSearch && matchCategory)
+        ? "flex"
+        : "none";
+    });
+  }
+
+  searchInput.addEventListener("input", filterAssets);
+  filterSelect.addEventListener("change", filterAssets);
+
+  document.querySelectorAll("[data-filter-link]").forEach(link => {
+    link.addEventListener("click", () => {
+      searchInput.value = "";
+      filterSelect.value = link.dataset.filterLink;
+      filterAssets();
+    });
+  });
+</script>
+
+</body>
+</html>
