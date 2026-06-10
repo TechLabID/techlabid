@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TechLabID GitHub Release Download Monitor</title>
 <style>
-body{font-family:Arial;background:#0f172a;color:white;padding:30px}
-.card{background:#1e293b;padding:18px;border-radius:14px;margin-bottom:14px}
-.asset{display:flex;justify-content:space-between;border-top:1px solid #334155;padding:10px 0}
-.total{font-size:28px;color:#38bdf8}
-input,button{padding:10px;border-radius:8px;border:0;margin:5px}
-button{background:#38bdf8;cursor:pointer;font-weight:bold}
+body{font-family:Arial;background:#0f172a;color:white;padding:30px;margin:0}
+.card{background:#1e293b;padding:18px;border-radius:14px;margin-bottom:18px}
+.asset{display:grid;grid-template-columns:45px 1fr 130px;gap:12px;align-items:center;border-top:1px solid #334155;padding:12px 0}
+.rank{font-size:22px;font-weight:bold;color:#38bdf8}
+.downloads{text-align:right;font-weight:bold;color:#38bdf8}
+.total{font-size:32px;color:#38bdf8;font-weight:bold}
+input,button{padding:10px 14px;border-radius:8px;border:0;margin:5px;font-size:16px}
+button{background:#38bdf8;cursor:pointer;font-weight:bold;color:#020617}
+small{color:#94a3b8}
 </style>
 </head>
 <body>
@@ -23,6 +27,15 @@ button{background:#38bdf8;cursor:pointer;font-weight:bold}
 <div id="result"></div>
 
 <script>
+function cleanAssetName(name){
+  return name
+    .replace(/\.zip$/i, "")
+    .replace(/-?3D-?Asset/gi, "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 async function loadStats(){
   const owner = document.getElementById("owner").value.trim();
   const repo = document.getElementById("repo").value.trim();
@@ -40,42 +53,49 @@ async function loadStats(){
 
     const releases = await res.json();
     let total = 0;
-    let html = "";
+    let assets = [];
 
     releases.forEach(release => {
-      let releaseTotal = 0;
-
       release.assets.forEach(asset => {
-        releaseTotal += asset.download_count;
         total += asset.download_count;
+        assets.push({
+          name: cleanAssetName(asset.name),
+          file: asset.name,
+          downloads: asset.download_count,
+          release: release.name || release.tag_name,
+          tag: release.tag_name,
+          url: asset.browser_download_url
+        });
       });
+    });
 
-      html += `
-        <div class="card">
-          <h2>${release.name || release.tag_name}</h2>
-          <p>Tag: ${release.tag_name}</p>
-          <p>Published: ${new Date(release.published_at).toLocaleDateString()}</p>
-          <h3>Release Total: ${releaseTotal}</h3>
-      `;
+    assets.sort((a, b) => b.downloads - a.downloads);
 
-      release.assets.forEach(asset => {
-        html += `
-          <div class="asset">
-            <span>${asset.name}</span>
-            <b>${asset.download_count} downloads</b>
+    let topHtml = "";
+
+    assets.forEach((asset, index) => {
+      topHtml += `
+        <div class="asset">
+          <div class="rank">${index + 1}</div>
+          <div>
+            <div>${asset.name}</div>
+            <small>${asset.release} • ${asset.file}</small>
           </div>
-        `;
-      });
-
-      html += `</div>`;
+          <div class="downloads">${asset.downloads} downloads</div>
+        </div>
+      `;
     });
 
     result.innerHTML = `
       <div class="card">
-        <h2>Total All Downloads</h2>
+        <h2>🏆 Top Downloaded Assets</h2>
+        ${topHtml || "<p>Belum ada asset release.</p>"}
+      </div>
+
+      <div class="card">
+        <h2>Total Downloads</h2>
         <div class="total">${total}</div>
       </div>
-      ${html}
     `;
 
   } catch (err) {
