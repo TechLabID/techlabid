@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TechLabID GitHub Release Download Monitor</title>
+<style>
+body{font-family:Arial;background:#0f172a;color:white;padding:30px}
+.card{background:#1e293b;padding:18px;border-radius:14px;margin-bottom:14px}
+.asset{display:flex;justify-content:space-between;border-top:1px solid #334155;padding:10px 0}
+.total{font-size:28px;color:#38bdf8}
+input,button{padding:10px;border-radius:8px;border:0;margin:5px}
+button{background:#38bdf8;cursor:pointer;font-weight:bold}
+</style>
+</head>
+<body>
+
+<h1>GitHub Release Download Monitor</h1>
+
+<input id="owner" value="TechLabID" placeholder="GitHub Owner">
+<input id="repo" value="techlabid" placeholder="Repo Name">
+<button onclick="loadStats()">Check Downloads</button>
+
+<div id="result"></div>
+
+<script>
+async function loadStats(){
+  const owner = document.getElementById("owner").value.trim();
+  const repo = document.getElementById("repo").value.trim();
+  const url = `https://api.github.com/repos/${owner}/${repo}/releases`;
+
+  const result = document.getElementById("result");
+  result.innerHTML = "Loading...";
+
+  try {
+    const res = await fetch(url, {
+      headers: { "Accept": "application/vnd.github+json" }
+    });
+
+    if (!res.ok) throw new Error("Repo tidak ditemukan / rate limit API");
+
+    const releases = await res.json();
+    let total = 0;
+    let html = "";
+
+    releases.forEach(release => {
+      let releaseTotal = 0;
+
+      release.assets.forEach(asset => {
+        releaseTotal += asset.download_count;
+        total += asset.download_count;
+      });
+
+      html += `
+        <div class="card">
+          <h2>${release.name || release.tag_name}</h2>
+          <p>Tag: ${release.tag_name}</p>
+          <p>Published: ${new Date(release.published_at).toLocaleDateString()}</p>
+          <h3>Release Total: ${releaseTotal}</h3>
+      `;
+
+      release.assets.forEach(asset => {
+        html += `
+          <div class="asset">
+            <span>${asset.name}</span>
+            <b>${asset.download_count} downloads</b>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+    });
+
+    result.innerHTML = `
+      <div class="card">
+        <h2>Total All Downloads</h2>
+        <div class="total">${total}</div>
+      </div>
+      ${html}
+    `;
+
+  } catch (err) {
+    result.innerHTML = `<p style="color:#f87171">${err.message}</p>`;
+  }
+}
+
+loadStats();
+</script>
+
+</body>
+</html>
