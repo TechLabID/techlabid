@@ -82,6 +82,21 @@ function formatDate(dateString){
   return new Date(dateString).toLocaleDateString();
 }
 
+function isRealDownloadAsset(assetName){
+  const name = assetName.toLowerCase();
+
+  // Ignore GitHub default source archives
+  if(name === "source code (zip)" || name === "source code (tar.gz)") return false;
+  if(name.includes("source code")) return false;
+
+  // Count only real TechLabID downloadable asset files
+  return name.endsWith(".zip") && (
+    name.includes("3d-asset") ||
+    name.includes("3d_asset") ||
+    name.includes("free")
+  );
+}
+
 async function fetchAllReleases(owner, repo){
   let page = 1;
   let releases = [];
@@ -128,6 +143,8 @@ async function loadStats(){
 
     releases.forEach(release => {
       release.assets.forEach(asset => {
+        if(!isRealDownloadAsset(asset.name)) return;
+
         const item = {
           name: cleanAssetName(asset.name),
           file: asset.name,
@@ -202,7 +219,7 @@ async function loadStats(){
       <div class="card">
         <h2>🏆 Top Downloaded Assets</h2>
         ${topHtml || `<p class="empty">Belum ada asset yang didownload. Asset 0 download otomatis disembunyikan dari ranking.</p>`}
-        <div class="footer-note">Asset dengan 0 download tidak ditampilkan agar release baru tidak mengubah ranking top download.</div>
+        <div class="footer-note">Asset dengan 0 download dan file bawaan GitHub Source Code otomatis disembunyikan dari ranking.</div>
       </div>
 
       <div class="card">
