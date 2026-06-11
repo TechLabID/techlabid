@@ -5,24 +5,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TechLabID GitHub Release Download Monitor</title>
 <style>
-body{font-family:Arial;background:#0f172a;color:white;padding:30px;margin:0}
-.card{background:#1e293b;padding:18px;border-radius:14px;margin-bottom:18px}
-.asset{display:grid;grid-template-columns:45px 1fr 130px;gap:12px;align-items:center;border-top:1px solid #334155;padding:12px 0}
-.rank{font-size:22px;font-weight:bold;color:#38bdf8}
-.downloads{text-align:right;font-weight:bold;color:#38bdf8}
-.total{font-size:32px;color:#38bdf8;font-weight:bold}
-input,button{padding:10px 14px;border-radius:8px;border:0;margin:5px;font-size:16px}
-button{background:#38bdf8;cursor:pointer;font-weight:bold;color:#020617}
-small{color:#94a3b8}
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --line:#334155;
+  --text:#ffffff;
+  --muted:#94a3b8;
+  --blue:#38bdf8;
+  --green:#22c55e;
+  --orange:#f59e0b;
+  --red:#f87171;
+}
+*{box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);padding:28px;margin:0}
+h1{margin:0 0 24px;font-size:34px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+input,button,select{padding:12px 14px;border-radius:8px;border:0;font-size:16px}
+input{min-width:220px}
+button{background:var(--blue);cursor:pointer;font-weight:bold;color:#020617}
+button:hover{filter:brightness(1.08)}
+.card{background:var(--card);padding:20px;border-radius:14px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.stat-title{color:var(--muted);font-size:14px;margin-bottom:8px}
+.stat-value{font-size:30px;font-weight:bold;color:var(--blue)}
+.stat-green{color:var(--green)}
+.stat-orange{color:var(--orange)}
+.asset{display:grid;grid-template-columns:48px 1fr 140px;gap:12px;align-items:center;border-top:1px solid var(--line);padding:13px 0}
+.rank{font-size:22px;font-weight:bold;color:var(--blue)}
+.asset-name{font-weight:bold;font-size:17px}
+.downloads{text-align:right;font-weight:bold;color:var(--blue)}
+small{color:var(--muted)}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+.empty{color:var(--muted);padding-top:10px}
+.error{color:var(--red);font-weight:bold}
+.footer-note{color:var(--muted);font-size:13px;margin-top:8px}
+@media(max-width:640px){
+  body{padding:18px}
+  h1{font-size:26px}
+  input,button,select{width:100%}
+  .asset{grid-template-columns:36px 1fr;gap:10px}
+  .downloads{grid-column:2;text-align:left}
+}
 </style>
 </head>
 <body>
 
 <h1>GitHub Release Download Monitor</h1>
 
-<input id="owner" value="TechLabID" placeholder="GitHub Owner">
-<input id="repo" value="techlabid" placeholder="Repo Name">
-<button onclick="loadStats()">Check Downloads</button>
+<div class="controls">
+  <input id="owner" value="TechLabID" placeholder="GitHub Owner">
+  <input id="repo" value="techlabid" placeholder="Repo Name">
+  <select id="limit">
+    <option value="10">Top 10</option>
+    <option value="20" selected>Top 20</option>
+    <option value="50">Top 50</option>
+    <option value="all">Show All Downloaded</option>
+  </select>
+  <button onclick="loadStats()">Check Downloads</button>
+</div>
 
 <div id="result"></div>
 
@@ -36,50 +77,102 @@ function cleanAssetName(name){
     .trim();
 }
 
-async function loadStats(){
-  const owner = document.getElementById("owner").value.trim();
-  const repo = document.getElementById("repo").value.trim();
-  const url = `https://api.github.com/repos/${owner}/${repo}/releases`;
+function formatDate(dateString){
+  if(!dateString) return "Unknown date";
+  return new Date(dateString).toLocaleDateString();
+}
 
-  const result = document.getElementById("result");
-  result.innerHTML = "Loading...";
+async function fetchAllReleases(owner, repo){
+  let page = 1;
+  let releases = [];
 
-  try {
+  while(true){
+    const url = `https://api.github.com/repos/${owner}/${repo}/releases?per_page=100&page=${page}`;
     const res = await fetch(url, {
       headers: { "Accept": "application/vnd.github+json" }
     });
 
-    if (!res.ok) throw new Error("Repo tidak ditemukan / rate limit API");
+    if(!res.ok){
+      throw new Error("Repo tidak ditemukan, GitHub API limit, atau koneksi bermasalah.");
+    }
 
-    const releases = await res.json();
-    let total = 0;
-    let assets = [];
+    const data = await res.json();
+    releases = releases.concat(data);
+
+    if(data.length < 100) break;
+    page++;
+  }
+
+  return releases;
+}
+
+async function loadStats(){
+  const owner = document.getElementById("owner").value.trim();
+  const repo = document.getElementById("repo").value.trim();
+  const limitValue = document.getElementById("limit").value;
+  const result = document.getElementById("result");
+
+  if(!owner || !repo){
+    result.innerHTML = `<p class="error">Owner dan repo wajib diisi.</p>`;
+    return;
+  }
+
+  result.innerHTML = "Loading...";
+
+  try{
+    const releases = await fetchAllReleases(owner, repo);
+
+    let totalDownloads = 0;
+    let allAssets = [];
+    let downloadedAssets = [];
 
     releases.forEach(release => {
       release.assets.forEach(asset => {
-        total += asset.download_count;
-        assets.push({
+        const item = {
           name: cleanAssetName(asset.name),
           file: asset.name,
-          downloads: asset.download_count,
+          downloads: asset.download_count || 0,
           release: release.name || release.tag_name,
           tag: release.tag_name,
+          published: release.published_at,
           url: asset.browser_download_url
-        });
+        };
+
+        totalDownloads += item.downloads;
+        allAssets.push(item);
+
+        if(item.downloads > 0){
+          downloadedAssets.push(item);
+        }
       });
     });
 
-    assets.sort((a, b) => b.downloads - a.downloads);
+    downloadedAssets.sort((a, b) => {
+      if(b.downloads !== a.downloads) return b.downloads - a.downloads;
+      return new Date(b.published || 0) - new Date(a.published || 0);
+    });
+
+    const totalReleases = releases.length;
+    const totalAssets = allAssets.length;
+    const latestRelease = releases[0] ? (releases[0].name || releases[0].tag_name) : "-";
+    const mostDownloaded = downloadedAssets[0] ? downloadedAssets[0].name : "Belum ada";
+
+    let shownAssets = downloadedAssets;
+    if(limitValue !== "all"){
+      shownAssets = downloadedAssets.slice(0, Number(limitValue));
+    }
 
     let topHtml = "";
 
-    assets.forEach((asset, index) => {
+    shownAssets.forEach((asset, index) => {
       topHtml += `
         <div class="asset">
           <div class="rank">${index + 1}</div>
           <div>
-            <div>${asset.name}</div>
-            <small>${asset.release} • ${asset.file}</small>
+            <a href="${asset.url}" target="_blank" rel="noopener">
+              <div class="asset-name">${asset.name}</div>
+            </a>
+            <small>${asset.release} • ${asset.file} • ${formatDate(asset.published)}</small>
           </div>
           <div class="downloads">${asset.downloads} downloads</div>
         </div>
@@ -87,19 +180,39 @@ async function loadStats(){
     });
 
     result.innerHTML = `
-      <div class="card">
-        <h2>🏆 Top Downloaded Assets</h2>
-        ${topHtml || "<p>Belum ada asset release.</p>"}
+      <div class="card grid">
+        <div>
+          <div class="stat-title">⬇️ Total Downloads</div>
+          <div class="stat-value">${totalDownloads}</div>
+        </div>
+        <div>
+          <div class="stat-title">📦 Total Releases</div>
+          <div class="stat-value stat-green">${totalReleases}</div>
+        </div>
+        <div>
+          <div class="stat-title">🧩 Total Assets</div>
+          <div class="stat-value stat-orange">${totalAssets}</div>
+        </div>
+        <div>
+          <div class="stat-title">🏆 Most Downloaded</div>
+          <div class="stat-value" style="font-size:20px">${mostDownloaded}</div>
+        </div>
       </div>
 
       <div class="card">
-        <h2>Total Downloads</h2>
-        <div class="total">${total}</div>
+        <h2>🏆 Top Downloaded Assets</h2>
+        ${topHtml || `<p class="empty">Belum ada asset yang didownload. Asset 0 download otomatis disembunyikan dari ranking.</p>`}
+        <div class="footer-note">Asset dengan 0 download tidak ditampilkan agar release baru tidak mengubah ranking top download.</div>
+      </div>
+
+      <div class="card">
+        <h2>🆕 Latest Release</h2>
+        <p>${latestRelease}</p>
       </div>
     `;
 
-  } catch (err) {
-    result.innerHTML = `<p style="color:#f87171">${err.message}</p>`;
+  }catch(err){
+    result.innerHTML = `<p class="error">${err.message}</p>`;
   }
 }
 
