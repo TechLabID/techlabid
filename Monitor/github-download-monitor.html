@@ -24,6 +24,11 @@ input,button,select{padding:12px 14px;border-radius:8px;border:0;font-size:16px}
 input{min-width:220px}
 button{background:var(--blue);cursor:pointer;font-weight:bold;color:#020617}
 button:hover{filter:brightness(1.08)}
+.menu-card{text-align:center}
+.menu-btn{display:inline-block;margin:6px;background:var(--green);color:white;padding:14px 22px;border-radius:10px;font-weight:bold;font-size:17px;text-decoration:none}
+.menu-btn.secondary{background:var(--blue);color:#020617}
+.menu-btn.youtube{background:var(--orange);color:#020617}
+.menu-btn:hover{text-decoration:none;filter:brightness(1.08)}
 .card{background:var(--card);padding:20px;border-radius:14px;margin-bottom:18px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
 .stat-title{color:var(--muted);font-size:14px;margin-bottom:8px}
@@ -52,6 +57,18 @@ a:hover{text-decoration:underline}
 <body>
 
 <h1>GitHub Release Download Monitor</h1>
+
+<div class="card menu-card">
+  <a href="https://github.com/TechLabID/techlabid/releases" target="_blank" rel="noopener" class="menu-btn">
+    📦 Free 3D Asset Downloads
+  </a>
+  <a href="https://techlabid.github.io/techlabid/free-3d-assets/" target="_blank" rel="noopener" class="menu-btn secondary">
+    🌐 Asset Catalog
+  </a>
+  <a href="https://youtube.com/@techlabgamedev" target="_blank" rel="noopener" class="menu-btn youtube">
+    🎬 YouTube Channel
+  </a>
+</div>
 
 <div class="controls">
   <input id="owner" value="TechLabID" placeholder="GitHub Owner">
