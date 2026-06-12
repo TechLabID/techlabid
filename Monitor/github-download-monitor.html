@@ -102,7 +102,7 @@ async function fetchAllReleases(owner, repo){
   let releases = [];
 
   while(true){
-    const url = `https://api.github.com/repos/${owner}/${repo}/releases?per_page=100&page=${page}`;
+    const url = `https://api.github.com/repos/${owner}/${repo}/releases?per_page=100&page=${page}&t=${Date.now()}`;
     const res = await fetch(url, {
       headers: { "Accept": "application/vnd.github+json" }
     });
@@ -171,7 +171,16 @@ async function loadStats(){
 
     const totalReleases = releases.length;
     const totalAssets = allAssets.length;
-    const latestRelease = releases[0] ? (releases[0].name || releases[0].tag_name) : "-";
+
+    const latestReleaseObj = [...releases].sort((a, b) =>
+      new Date(b.published_at || b.created_at || 0) -
+      new Date(a.published_at || a.created_at || 0)
+    )[0];
+
+    const latestRelease = latestReleaseObj
+      ? (latestReleaseObj.name || latestReleaseObj.tag_name)
+      : "-";
+
     const mostDownloaded = downloadedAssets[0] ? downloadedAssets[0].name : "Belum ada";
 
     let shownAssets = downloadedAssets;
