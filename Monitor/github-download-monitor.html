@@ -80,7 +80,9 @@ a:hover{text-decoration:underline}
     <option value="all">Show All Downloaded</option>
   </select>
   <button onclick="loadStats()">Check Downloads</button>
+  <button onclick="clearReleaseCache()" title="Force refresh from GitHub API">Force Refresh</button>
 </div>
+<div class="footer-note">Data memakai cache browser 20 menit supaya tidak cepat kena GitHub API rate limit. Gunakan Force Refresh hanya saat perlu.</div>
 
 <div id="result"></div>
 
@@ -99,6 +101,46 @@ function formatDate(dateString){
   return new Date(dateString).toLocaleDateString();
 }
 
+
+
+const CACHE_MINUTES = 20;
+
+function getCacheKey(owner, repo){
+  return `github_release_cache_${owner}_${repo}`.toLowerCase();
+}
+
+function getCachedReleases(owner, repo){
+  try{
+    const raw = localStorage.getItem(getCacheKey(owner, repo));
+    if(!raw) return null;
+
+    const cache = JSON.parse(raw);
+    const ageMs = Date.now() - cache.savedAt;
+    const maxAgeMs = CACHE_MINUTES * 60 * 1000;
+
+    if(ageMs > maxAgeMs) return null;
+    return cache.releases;
+  }catch(e){
+    return null;
+  }
+}
+
+function saveCachedReleases(owner, repo, releases){
+  try{
+    localStorage.setItem(getCacheKey(owner, repo), JSON.stringify({
+      savedAt: Date.now(),
+      releases
+    }));
+  }catch(e){}
+}
+
+function clearReleaseCache(){
+  const owner = document.getElementById("owner").value.trim();
+  const repo = document.getElementById("repo").value.trim();
+  localStorage.removeItem(getCacheKey(owner, repo));
+  loadStats(true);
+}
+
 function isRealDownloadAsset(assetName){
   const name = assetName.toLowerCase();
 
@@ -114,18 +156,23 @@ function isRealDownloadAsset(assetName){
   );
 }
 
-async function fetchAllReleases(owner, repo){
+async function fetchAllReleases(owner, repo, forceRefresh = false){
+  if(!forceRefresh){
+    const cached = getCachedReleases(owner, repo);
+    if(cached) return cached;
+  }
+
   let page = 1;
   let releases = [];
 
   while(true){
-    const url = `https://api.github.com/repos/${owner}/${repo}/releases?per_page=100&page=${page}&t=${Date.now()}`;
+    const url = `https://api.github.com/repos/${owner}/${repo}/releases?per_page=100&page=${page}`;
     const res = await fetch(url, {
       headers: { "Accept": "application/vnd.github+json" }
     });
 
     if(!res.ok){
-      throw new Error("Repo tidak ditemukan, GitHub API limit, atau koneksi bermasalah.");
+      throw new Error("GitHub API limit / repo tidak ditemukan / koneksi bermasalah. Coba lagi nanti atau gunakan data cache.");
     }
 
     const data = await res.json();
@@ -135,10 +182,11 @@ async function fetchAllReleases(owner, repo){
     page++;
   }
 
+  saveCachedReleases(owner, repo, releases);
   return releases;
 }
 
-async function loadStats(){
+async function loadStats(forceRefresh = false){
   const owner = document.getElementById("owner").value.trim();
   const repo = document.getElementById("repo").value.trim();
   const limitValue = document.getElementById("limit").value;
@@ -152,7 +200,7 @@ async function loadStats(){
   result.innerHTML = "Loading...";
 
   try{
-    const releases = await fetchAllReleases(owner, repo);
+    const releases = await fetchAllReleases(owner, repo, forceRefresh);
 
     let totalDownloads = 0;
     let allAssets = [];
