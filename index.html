@@ -3,1078 +3,994 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TechLabID – Game-Ready Unity Assets</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+<meta name="description" content="TechLabID — AI Software Engineer & AI Automation Consultant. Building intelligent software using AI, LLMs, and Python Automation. Available for hire.">
+<meta name="keywords" content="AI Software Engineer Indonesia, Python Developer Indonesia, FastAPI Developer, AI Automation Consultant, LLM Engineer, AI Agent Developer, TechLabID">
+<meta property="og:title" content="TechLabID — AI Software Engineer">
+<meta property="og:description" content="Building intelligent software using AI, LLMs, and Python Automation.">
+<meta property="og:url" content="https://techlabid.github.io/techlabid/">
+<title>TechLabID — AI Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #c9a84c;
-    --gold-light: #f0d080;
-    --gold-dim: #7a5f20;
-    --dark: #0a0a0e;
-    --dark2: #111118;
-    --dark3: #1a1a24;
-    --dark4: #22222f;
-    --text: #e8e0cc;
-    --text-dim: #d4af37;   /* ← Classic Gold */
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--dark);
-    color: var(--text);
-    font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
-
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: .4;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.2rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(to bottom, rgba(10,10,14,.95), transparent);
-    backdrop-filter: blur(4px);
-    border-bottom: 1px solid rgba(201,168,76,.12);
-  }
-
-  .logo {
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: .2em;
-    color: var(--gold);
-    text-decoration: none;
-  }
-
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {    
-    font-size: .8rem;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    text-decoration: none;
-    transition: color .3s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    padding: 6rem 2rem 4rem;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.08) 0%, transparent 70%),
-      linear-gradient(180deg, #0a0a0e 0%, #0e0e18 50%, #0a0a0e 100%);
-  }
-
-  /* animated grid lines */
-  .hero-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridMove 20s linear infinite;
-  }
-
-  @keyframes gridMove {
-    0% { background-position: 0 0; }
-    100% { background-position: 60px 60px; }
-  }
-
-  .hero-content { position: relative; z-index: 1; max-width: 860px; }
-
-  .hero-badge {
-    display: inline-block;
-    border: 1px solid var(--gold-dim);
-    color: var(--gold);
-    font-size: .7rem;
-    letter-spacing: .25em;
-    text-transform: uppercase;
-    padding: .4rem 1.2rem;
-    border-radius: 2px;
-    margin-bottom: 2rem;
-    animation: fadeUp .8s ease both;
-  }
-
-  .hero h1 {
-    font-family: 'Cinzel', serif;
-    font-weight: 900;
-    font-size: clamp(2.4rem, 6vw, 5rem);
-    line-height: 1.05;
-    letter-spacing: .02em;
-    animation: fadeUp .8s .15s ease both;
-  }
-
-  .hero h1 span {
-    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dim));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    margin-top: 1.5rem;
-    font-size: 1.05rem;
-    color: var(--text-dim);
-    line-height: 1.7;
-    max-width: 560px;
-    margin-left: auto;
-    margin-right: auto;
-    animation: fadeUp .8s .3s ease both;
-  }
-
-  .hero-cta {
-    margin-top: 2.5rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    animation: fadeUp .8s .45s ease both;
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--gold), #a07828);
-    color: #000;
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: .78rem;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    padding: .9rem 2.2rem;
-    border-radius: 2px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all .3s;
-    box-shadow: 0 0 30px rgba(201,168,76,.3);
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 50px rgba(201,168,76,.5);
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--gold);
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: .78rem;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    padding: .9rem 2.2rem;
-    border-radius: 2px;
-    text-decoration: none;
-    border: 1px solid var(--gold-dim);
-    cursor: pointer;
-    transition: all .3s;
-  }
-  .btn-outline:hover {
-    border-color: var(--gold);
-    background: rgba(201,168,76,.05);
-  }
-
-  /* floating orbs */
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-    animation: float 8s ease-in-out infinite;
-  }
-  .orb1 { width:400px; height:400px; background: rgba(201,168,76,.07); top:-100px; left:-150px; }
-  .orb2 { width:300px; height:300px; background: rgba(100,80,200,.05); bottom:-50px; right:-100px; animation-delay: -3s; }
-
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
-
-  /* ── SECTIONS ── */
-  section { padding: 6rem 2rem; }
-
-  .container { max-width: 1100px; margin: 0 auto; }
-
-  .section-label {
-    font-size: .7rem;
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: .8rem;
-  }
-
-  .section-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-  }
-
-  .gold-line {
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, var(--gold), transparent);
-    margin-bottom: 2rem;
-  }
-
-  /* ── ABOUT ── */
-  .about { background: var(--dark2); }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
-  .about-text p {
-    color: var(--text-dim);
-    line-height: 1.8;
-    margin-bottom: 1rem;
-    font-size: .95rem;
-  }
-
-  .stat-row { display: flex; gap: 3rem; margin-top: 2.5rem; }
-  .stat h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 2rem;
-    color: var(--gold);
-    font-weight: 900;
-  }
-  .stat p { font-size: .75rem; color: var(--text-dim); letter-spacing: .1em; text-transform: uppercase; margin-top: .2rem; }
-
-  .about-visual {
-    position: relative;
-    aspect-ratio: 3/4;
-    max-height: 420px;
-    overflow: hidden;
-    border-radius: 2px;
-    border: 1px solid rgba(201,168,76,.2);
-  }
-
-  .about-visual img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: sepia(.15) brightness(.9);
-  }
-
-  .about-visual-placeholder {
-    width: 100%; height: 100%;
-    background: var(--dark3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: .8rem;
-    color: var(--text-dim);
-  }
-
-  .about-visual-placeholder svg { opacity: .3; }
-  .about-visual-placeholder p { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; opacity: .5; }
-
-  .about-visual::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(10,10,14,.8) 0%, transparent 50%);
-  }
-
-  /* ── FEATURED ASSET ── */
-  .featured { background: var(--dark); }
-
-  .asset-card {
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,.15);
-    border-radius: 2px;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-  }
-
-  .asset-visual {
-    background: var(--dark2);
-    position: relative;
-    min-height: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .asset-visual img { width: 100%; height: 100%; object-fit: cover; }
-
-  .asset-visual-placeholder {
-    width: 100%; height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    color: var(--text-dim);
-    background: linear-gradient(135deg, #111118, #1a1a24);
-  }
-
-  .asset-tag {
-    position: absolute;
-    top: 1.2rem; left: 1.2rem;
-    background: var(--gold);
-    color: #000;
-    font-size: .65rem;
-    font-weight: 700;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    padding: .3rem .8rem;
-    font-family: 'Cinzel', serif;
-  }
-
-  .asset-info { padding: 3rem; }
-
-  .asset-name {
-    font-family: 'Cinzel', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: .8rem;
-  }
-
-  .asset-desc {
-    color: var(--text-dim);
-    line-height: 1.75;
-    font-size: .9rem;
-    margin-bottom: 2rem;
-  }
-
-  .feature-list { list-style: none; margin-bottom: 2.5rem; }
-
-  .feature-list li {
-    display: flex;
-    align-items: center;
-    gap: .8rem;
-    padding: .55rem 0;
-    border-bottom: 1px solid rgba(201,168,76,.07);
-    font-size: .88rem;
-    color: var(--text);
-  }
-
-  .feature-list li::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* ── VIDEO ── */
-  .video-section { background: var(--dark2); }
-
-  .video-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .video-embed {
-    aspect-ratio: 16/9;
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,.15);
-    border-radius: 2px;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 1.5rem;
-  }
-
-  .video-embed iframe { width: 100%; height: 100%; border: none; }
-
-  .video-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    background: linear-gradient(135deg, #111118, #1a1a24);
-  }
-
-  .play-btn {
-    width: 72px; height: 72px;
-    border-radius: 50%;
-    border: 2px solid var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all .3s;
-    box-shadow: 0 0 30px rgba(201,168,76,.2);
-  }
-  .play-btn:hover { background: rgba(201,168,76,.1); box-shadow: 0 0 50px rgba(201,168,76,.4); }
-  .play-btn svg { fill: var(--gold); margin-left: 4px; }
-
-  .video-note { font-size: .8rem; color: var(--text-dim); }
-  .video-note span { color: var(--gold); }
-
-  /* ── UPCOMING ── */
-  .upcoming { background: var(--dark); }
-
-  .upcoming-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1px;
-    background: rgba(201,168,76,.1);
-    border: 1px solid rgba(201,168,76,.1);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .upcoming-item {
-    background: var(--dark3);
-    padding: 2rem 1.8rem;
-    position: relative;
-    overflow: hidden;
-    transition: background .3s;
-  }
-
-  .upcoming-item:hover { background: var(--dark4); }
-
-  .upcoming-item::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 0;
-    background: var(--gold);
-    transition: height .3s;
-  }
-  .upcoming-item:hover::before { height: 100%; }
-
-  .upcoming-badge {
-    font-size: .65rem;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--gold-dim);
-    background: rgba(201,168,76,.07);
-    padding: .25rem .6rem;
-    border-radius: 2px;
-    display: inline-block;
-    margin-bottom: 1rem;
-    border: 1px solid rgba(201,168,76,.15);
-  }
-
-  .upcoming-name {
-    font-family: 'Cinzel', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.3;
-  }
-
-  .upcoming-sub { font-size: .78rem; color: var(--text-dim); margin-top: .4rem; }
-
-  /* ── CTA BANNER ── */
-  .cta-banner {
-    background: var(--dark2);
-    border-top: 1px solid rgba(201,168,76,.12);
-    border-bottom: 1px solid rgba(201,168,76,.12);
-  }
-
-  .cta-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .cta-inner h2 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-    font-weight: 700;
-  }
-  .cta-inner h2 span { color: var(--gold); }
-  .cta-inner p { color: var(--text-dim); font-size: .9rem; margin-top: .4rem; }
-
-  /* ── CONTACT ── */
-  .contact { background: var(--dark); }
-
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-
-  .contact-info p { color: var(--text-dim); line-height: 1.8; font-size: .9rem; margin-bottom: 2rem; }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    text-decoration: none;
-    color: var(--text);
-    padding: 1.2rem 1.5rem;
-    border: 1px solid rgba(201,168,76,.15);
-    border-radius: 2px;
-    transition: all .3s;
-    background: var(--dark3);
-  }
-  .contact-link:hover { border-color: var(--gold); color: var(--gold); }
-
-  .contact-icon {
-    width: 40px; height: 40px;
-    border-radius: 2px;
-    background: rgba(201,168,76,.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .contact-text strong { display: block; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: .2rem; font-weight: 600; }
-  .contact-text span { font-size: .95rem; }
-
-  .contact-tagline {
-    font-family: 'Cinzel', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    line-height: 1.3;
-  }
-
-  .contact-tagline span { color: var(--gold); }
-
-  .shield-deco {
-    margin-top: 2rem;
-    opacity: .08;
-    font-size: 8rem;
-    font-family: 'Cinzel', serif;
-    line-height: 1;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid rgba(201,168,76,.1);
-    padding: 2rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  footer .logo { font-size: .9rem; }
-  footer p { font-size: .75rem; color: var(--text-dim); }
-
-  .footer-links { display: flex; gap: 1.5rem; }
-  .footer-links a { font-size: .75rem; color: var(--text-dim); text-decoration: none; }
-  .footer-links a:hover { color: var(--gold); }
-
-  /* ── VIDEO GALLERY ── */
-  .main-player {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 2rem;
-    margin-bottom: 2.5rem;
-    align-items: start;
-  }
-
-  .main-video-embed {
-    aspect-ratio: 16/9;
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,.2);
-    border-radius: 2px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .main-video-embed iframe { width:100%; height:100%; border:none; }
-
-  .main-video-info { padding: 1.5rem 0; }
-
-  .main-video-label {
-    font-size: .7rem;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: .5rem;
-  }
-
-  .main-video-title {
-    font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-  }
-
-  .main-video-desc {
-    font-size: .85rem;
-    color: var(--text-dim);
-    line-height: 1.7;
-  }
-
-  .video-tabs {
-    display: flex;
-    gap: .5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .vtab {
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,.15);
-    color: var(--text-dim);
-    font-family: 'Raleway', sans-serif;
-    font-size: .75rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    padding: .5rem 1.2rem;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all .2s;
-  }
-
-  .vtab:hover { border-color: var(--gold-dim); color: var(--text); }
-  .vtab.active { background: rgba(201,168,76,.12); border-color: var(--gold); color: var(--gold); }
-
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
-  }
-
-  .vcard {
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,.1);
-    border-radius: 2px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all .25s;
-  }
-
-  .vcard:hover { border-color: rgba(201,168,76,.4); transform: translateY(-3px); }
-  .vcard.active { border-color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,.15); }
-  .vcard.hidden { display: none; }
-
-  .vcard-thumb {
-    aspect-ratio: 16/9;
-    background: var(--dark2);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .vcard-thumb img { width:100%; height:100%; object-fit:cover; transition: transform .3s; }
-  .vcard:hover .vcard-thumb img { transform: scale(1.05); }
-
-  .vcard-play {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,.4);
-    opacity: 0;
-    transition: opacity .2s;
-  }
-
-  .vcard-play svg { filter: drop-shadow(0 0 8px rgba(201,168,76,.6)); transform: scale(1.5); }
-  .vcard:hover .vcard-play { opacity: 1; }
-  .vcard.active .vcard-play { opacity: 1; background: rgba(201,168,76,.15); }
-
-  .vcard-info { padding: .9rem 1rem; }
-
-  .vcard-tag {
-    font-size: .62rem;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--gold-dim);
-    background: rgba(201,168,76,.07);
-    border: 1px solid rgba(201,168,76,.12);
-    padding: .2rem .5rem;
-    border-radius: 2px;
-    display: inline-block;
-    margin-bottom: .5rem;
-  }
-
-  .vcard-title { font-size: .85rem; font-weight: 600; line-height: 1.35; color: var(--text); }
-  .vcard-duration { font-size: .72rem; color: var(--text-dim); margin-top: .3rem; }
-
-  @media (max-width: 768px) {
-    .main-player { grid-template-columns: 1fr; }
-    .video-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 480px) {
-    .video-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity .7s ease, transform .7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .about-grid, .asset-card, .contact-grid { grid-template-columns: 1fr; }
-    .asset-visual { min-height: 260px; }
-    .stat-row { gap: 1.5rem; }
-    footer { flex-direction: column; text-align: center; }
-    .cta-inner { flex-direction: column; text-align: center; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050816;
+  --bg2:#0a0f1e;
+  --bg3:#0d1326;
+  --cyan:#00D4FF;
+  --purple:#8A5CFF;
+  --mint:#00FFB3;
+  --white:#ffffff;
+  --gray:#8892a4;
+  --gray2:#4a5568;
+  --glass:rgba(255,255,255,0.04);
+  --glass-border:rgba(255,255,255,0.08);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+  font-weight:400;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+/* scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--purple);border-radius:2px}
+
+/* ── CANVAS PARTICLES ── */
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.6}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:1rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(5,8,22,.8);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--glass-border);
+  transition:all .3s;
+}
+.nav-logo{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;font-size:1.1rem;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-decoration:none;
+}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  font-size:.82rem;font-weight:500;letter-spacing:.05em;
+  color:var(--gray);text-decoration:none;
+  transition:color .2s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:1px;background:var(--cyan);
+  transform:scaleX(0);transition:transform .3s;
+}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-hire{
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  color:#000!important;font-weight:600!important;
+  padding:.45rem 1.2rem;border-radius:6px;
+  font-size:.8rem!important;letter-spacing:.05em;
+}
+.nav-hire:hover{opacity:.9;transform:translateY(-1px)}
+.nav-hire::after{display:none!important}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+  padding:6rem 2rem 4rem;
+  text-align:center;
+}
+.hero-inner{max-width:860px;position:relative}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(0,212,255,.08);
+  border:1px solid rgba(0,212,255,.2);
+  border-radius:100px;
+  padding:.4rem 1.1rem;
+  font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:2rem;
+  animation:fadeUp .6s ease both;
+}
+.hero-dot{width:6px;height:6px;background:var(--mint);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+
+.hero-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(2.8rem,7vw,5.5rem);
+  font-weight:700;line-height:1;
+  letter-spacing:-.02em;
+  margin-bottom:.8rem;
+  animation:fadeUp .6s .1s ease both;
+}
+.hero-name span{
+  background:linear-gradient(135deg,var(--cyan) 0%,var(--purple) 50%,var(--mint) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-title-wrap{
+  height:2.2rem;overflow:hidden;margin-bottom:1.5rem;
+  animation:fadeUp .6s .2s ease both;
+}
+.hero-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1.1rem,2.5vw,1.5rem);
+  font-weight:500;color:var(--gray);
+  display:flex;flex-direction:column;gap:.2rem;
+  animation:slideUp 6s infinite;
+}
+@keyframes slideUp{
+  0%,28%{transform:translateY(0)}
+  33%,61%{transform:translateY(-2.2rem)}
+  66%,94%{transform:translateY(-4.4rem)}
+  100%{transform:translateY(0)}
+}
+.hero-title span{display:block;line-height:2.2rem}
+.hero-title span b{color:var(--white)}
+
+.hero-desc{
+  font-size:1.05rem;color:var(--gray);line-height:1.75;
+  max-width:560px;margin:0 auto 2.5rem;
+  animation:fadeUp .6s .3s ease both;
+}
+.hero-desc strong{color:var(--cyan)}
+
+.hero-cta{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .6s .4s ease both;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;
+  font-size:.85rem;letter-spacing:.03em;
+  padding:.8rem 1.8rem;border-radius:8px;
+  text-decoration:none;cursor:pointer;border:none;
+  transition:all .25s;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  color:#000;
+  box-shadow:0 0 30px rgba(0,212,255,.25);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,212,255,.4)}
+.btn-secondary{
+  background:var(--glass);
+  color:var(--white);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(10px);
+}
+.btn-secondary:hover{border-color:rgba(138,92,255,.5);background:rgba(138,92,255,.08);transform:translateY(-2px)}
+.btn-outline{
+  background:transparent;color:var(--mint);
+  border:1px solid rgba(0,255,179,.3);
+}
+.btn-outline:hover{background:rgba(0,255,179,.06);border-color:var(--mint)}
+
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:var(--gray2);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
+  animation:fadeIn 1s 1s ease both;
+}
+.scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--purple),transparent);
+  animation:scrollLine 2s ease infinite;
+}
+@keyframes scrollLine{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(0);transform-origin:bottom}}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1;padding:6rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+
+.section-eyebrow{
+  font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:.8rem;
+  display:flex;align-items:center;gap:.6rem;
+}
+.section-eyebrow::before{content:'';width:24px;height:1px;background:var(--cyan)}
+.section-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:700;line-height:1.15;letter-spacing:-.02em;
+  margin-bottom:1rem;
+}
+.section-sub{color:var(--gray);font-size:.95rem;max-width:560px;line-height:1.7;margin-bottom:3rem}
+
+/* ── ABOUT ── */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:center}
+.about-photo{
+  position:relative;
+  aspect-ratio:4/5;max-height:480px;
+  border-radius:16px;overflow:hidden;
+  border:1px solid var(--glass-border);
+}
+.about-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(.9)}
+.about-photo-placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,var(--bg3),#0f1635);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;
+  color:var(--gray2);
+}
+.about-photo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(5,8,22,.6) 0%,transparent 50%);
+}
+.about-badge{
+  position:absolute;bottom:1.2rem;left:1.2rem;z-index:2;
+  background:rgba(0,212,255,.1);
+  border:1px solid rgba(0,212,255,.3);
+  backdrop-filter:blur(10px);
+  border-radius:8px;padding:.6rem 1rem;
+  font-size:.75rem;font-weight:600;color:var(--cyan);
+  letter-spacing:.05em;
+}
+.about-text p{color:var(--gray);line-height:1.8;margin-bottom:1.2rem;font-size:.95rem}
+.about-text p strong{color:var(--white);font-weight:600}
+.about-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.tag{
+  font-size:.72rem;font-weight:500;letter-spacing:.05em;
+  padding:.35rem .8rem;border-radius:100px;
+  background:rgba(138,92,255,.1);border:1px solid rgba(138,92,255,.25);
+  color:rgba(138,92,255,.9);
+}
+
+/* ── EXPERTISE ── */
+#expertise{background:var(--bg)}
+.expertise-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.expertise-card{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:12px;padding:1.8rem;
+  backdrop-filter:blur(10px);
+  transition:all .3s;
+  position:relative;overflow:hidden;
+}
+.expertise-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at top left,rgba(0,212,255,.06),transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.expertise-card:hover{border-color:rgba(0,212,255,.3);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.expertise-card:hover::before{opacity:1}
+.expertise-icon{font-size:1.8rem;margin-bottom:1rem}
+.expertise-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.05rem;font-weight:600;margin-bottom:.8rem;
+}
+.skill-pills{display:flex;flex-wrap:wrap;gap:.4rem}
+.pill{
+  font-size:.68rem;font-weight:500;
+  padding:.25rem .65rem;border-radius:4px;
+  background:rgba(0,212,255,.07);
+  border:1px solid rgba(0,212,255,.15);
+  color:rgba(0,212,255,.8);
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ── PROJECTS ── */
+#projects{background:var(--bg2)}
+.projects-grid{display:grid;gap:1.5rem}
+.project-card{
+  position:relative;border-radius:16px;overflow:hidden;
+  background:var(--bg3);
+  border:1px solid var(--glass-border);
+  padding:2.5rem;
+  display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;
+  transition:all .3s;
+}
+.project-card::before{
+  content:'';position:absolute;inset:0;
+  background:conic-gradient(from var(--angle,0deg),var(--cyan),var(--purple),var(--mint),var(--cyan));
+  animation:rotateBorder 4s linear infinite paused;
+  opacity:0;transition:opacity .4s;
+  padding:1px;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+}
+.project-card:hover{transform:translateY(-4px);box-shadow:0 30px 60px rgba(0,0,0,.4);border-color:transparent}
+.project-card:hover::before{opacity:1;animation-play-state:running}
+@property --angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes rotateBorder{to{--angle:360deg}}
+.project-number{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;color:var(--cyan);letter-spacing:.1em;margin-bottom:.8rem;
+  opacity:.7;
+}
+.project-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.3rem;font-weight:700;margin-bottom:.6rem;
+}
+.project-subtitle{font-size:.85rem;color:var(--cyan);font-weight:500;margin-bottom:.8rem}
+.project-desc{font-size:.9rem;color:var(--gray);line-height:1.7;margin-bottom:1.5rem}
+.project-stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem}
+.stack-tag{
+  font-size:.68rem;font-family:'JetBrains Mono',monospace;
+  padding:.25rem .6rem;border-radius:4px;
+  background:rgba(138,92,255,.1);border:1px solid rgba(138,92,255,.2);
+  color:rgba(138,92,255,.9);
+}
+.project-links{display:flex;gap:.8rem;flex-wrap:wrap}
+.project-btn{
+  font-size:.75rem;font-weight:600;letter-spacing:.05em;
+  padding:.45rem 1.1rem;border-radius:6px;
+  text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;
+  transition:all .2s;
+}
+.project-btn-primary{
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  color:#000;
+}
+.project-btn-primary:hover{opacity:.85;transform:scale(1.03)}
+.project-btn-secondary{
+  background:var(--glass);border:1px solid var(--glass-border);
+  color:var(--gray);
+}
+.project-btn-secondary:hover{border-color:var(--purple);color:var(--white)}
+.project-badge{
+  flex-shrink:0;
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.3rem .8rem;border-radius:100px;
+  background:rgba(0,255,179,.1);border:1px solid rgba(0,255,179,.25);
+  color:var(--mint);
+  white-space:nowrap;height:fit-content;
+}
+
+/* ── SERVICES ── */
+#services{background:var(--bg)}
+.services-list{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;
+}
+.service-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:10px;padding:1.4rem;
+  transition:all .25s;
+}
+.service-item:hover{border-color:rgba(0,255,179,.25);background:rgba(0,255,179,.03)}
+.service-check{
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;
+  background:rgba(0,255,179,.15);border:1px solid rgba(0,255,179,.3);
+  display:flex;align-items:center;justify-content:center;margin-top:2px;
+}
+.service-check svg{width:11px;height:11px}
+.service-text{font-size:.9rem;font-weight:500;color:var(--white)}
+.service-sub{font-size:.78rem;color:var(--gray);margin-top:.2rem}
+
+/* ── COUNTERS ── */
+#why{background:var(--bg2)}
+.counters-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;
+  margin-bottom:4rem;
+}
+.counter-card{
+  text-align:center;padding:2.5rem 1rem;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:12px;
+  position:relative;overflow:hidden;
+  transition:border-color .3s;
+}
+.counter-card:hover{border-color:rgba(0,212,255,.3)}
+.counter-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.counter-card:hover::before{opacity:1}
+.counter-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:3rem;font-weight:700;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.counter-label{font-size:.8rem;color:var(--gray);margin-top:.4rem;font-weight:500;letter-spacing:.05em}
+
+/* ── TECH STACK ── */
+#stack{background:var(--bg)}
+.stack-grid{
+  display:flex;flex-wrap:wrap;gap:1rem;
+}
+.stack-item{
+  display:flex;align-items:center;gap:.7rem;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:8px;padding:.7rem 1.2rem;
+  font-size:.82rem;font-weight:500;
+  transition:all .25s;cursor:default;
+  font-family:'JetBrains Mono',monospace;
+}
+.stack-item:hover{
+  border-color:rgba(0,212,255,.35);
+  background:rgba(0,212,255,.06);
+  transform:translateY(-2px);
+  color:var(--cyan);
+}
+.stack-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ── CV DOWNLOAD ── */
+#cv{background:var(--bg2)}
+.cv-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.cv-card{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:12px;padding:2rem;
+  position:relative;overflow:hidden;
+  transition:all .3s;
+}
+.cv-card:hover{border-color:rgba(138,92,255,.4);transform:translateY(-3px);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.cv-card::after{
+  content:'';position:absolute;
+  top:-50%;right:-20%;
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(138,92,255,.1),transparent 70%);
+  pointer-events:none;
+}
+.cv-type{
+  font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--purple);margin-bottom:.6rem;
+}
+.cv-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.1rem;font-weight:700;margin-bottom:.6rem;
+}
+.cv-desc{font-size:.82rem;color:var(--gray);line-height:1.6;margin-bottom:1.5rem}
+.cv-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:linear-gradient(135deg,var(--purple),var(--cyan));
+  color:#fff;font-weight:600;font-size:.8rem;
+  padding:.65rem 1.4rem;border-radius:6px;text-decoration:none;
+  transition:all .25s;
+}
+.cv-btn:hover{opacity:.85;transform:scale(1.03)}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-headline{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1.6rem,3.5vw,2.4rem);
+  font-weight:700;line-height:1.2;margin-bottom:1rem;
+}
+.contact-headline span{
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.contact-sub{font-size:.9rem;color:var(--gray);line-height:1.7;margin-bottom:2.5rem}
+.contact-links{display:flex;flex-direction:column;gap:.8rem}
+.contact-link{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.2rem;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:10px;text-decoration:none;color:var(--white);
+  transition:all .25s;
+}
+.contact-link:hover{border-color:rgba(0,212,255,.3);background:rgba(0,212,255,.04);transform:translateX(4px)}
+.contact-icon{
+  width:40px;height:40px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+}
+.contact-text strong{display:block;font-size:.7rem;color:var(--gray);letter-spacing:.1em;text-transform:uppercase;font-weight:500;margin-bottom:.1rem}
+.contact-text span{font-size:.9rem;font-weight:500}
+
+.availability{
+  background:rgba(0,255,179,.06);border:1px solid rgba(0,255,179,.2);
+  border-radius:12px;padding:2rem;
+  margin-top:2rem;
+}
+.avail-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1rem;font-weight:700;margin-bottom:.5rem;
+  display:flex;align-items:center;gap:.6rem;
+}
+.avail-dot{width:8px;height:8px;background:var(--mint);border-radius:50%;animation:pulse 2s infinite}
+.avail-desc{font-size:.82rem;color:var(--gray);line-height:1.6}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--glass-border);
+  padding:3rem 2rem;text-align:center;
+  background:var(--bg);position:relative;z-index:1;
+}
+.footer-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.2rem;font-weight:700;margin-bottom:.3rem;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  display:inline-block;
+}
+.footer-role{font-size:.82rem;color:var(--gray);margin-bottom:.3rem}
+.footer-tagline{font-size:.78rem;color:var(--gray2);margin-bottom:2rem;letter-spacing:.05em}
+.footer-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+.footer-links a{font-size:.75rem;color:var(--gray2);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--cyan)}
+.footer-copy{margin-top:2rem;font-size:.72rem;color:var(--gray2)}
+
+/* ── REVEAL ANIMATION ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .about-photo{max-height:300px;aspect-ratio:16/9}
+  .counters-grid{grid-template-columns:repeat(2,1fr)}
+  .project-card{grid-template-columns:1fr}
+  .cv-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  nav{padding:.8rem 1.2rem}
+  .nav-links{display:none}
+  .counters-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .counter-num{font-size:2.2rem}
+  .hero-name{letter-spacing:-.03em}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
 
+<!-- PARTICLE CANVAS -->
+<canvas id="particles"></canvas>
+
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">TechLabID</a>
+  <a href="#hero" class="nav-logo">DS.</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#asset">Assets</a></li>
-    <li><a href="https://techlabid.github.io/techlabid/free-3d-assets/" target="_blank" class="free-asset-link">Free 3D Asset</a></li>
-    <li><a href="#demo">Demo</a></li>
-    <li><a href="#upcoming">Upcoming</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#services">Services</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="mailto:techlabid@gmail.com" class="nav-hire">Hire Me</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero-bg"></div>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-
-  <div class="hero-content">
-    <div class="hero-badge">Unity Asset Store · Game-Ready 3D</div>
-    <h1>
-      <span>TechLabID</span><br>
-      Game-Ready Unity Assets
-    </h1>
-    <p class="hero-sub">
-      High-quality 3D assets for game developers.<br>
-      Optimized, ready-to-use, and built for performance.
-    </p>
-    <div class="hero-cta">
-      <a href="#asset" class="btn-primary">🛡️ View Featured Asset</a>
-      <a href="#demo" class="btn-outline">🎬 Watch Demo</a>
+<!-- ██ HERO ██ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="hero-dot"></span>
+      Available for hire · Remote Ready
     </div>
+
+    <h1 class="hero-name"><span>TechLabID</span></h1>
+
+    <div class="hero-title-wrap">
+      <div class="hero-title">
+        <span><b>AI Software Engineer</b></span>
+        <span><b>AI Automation Consultant</b></span>
+        <span><b>Python Developer</b></span>
+      </div>
+    </div>
+
+    <p class="hero-desc">
+      Building intelligent software using<br>
+      <strong>Artificial Intelligence</strong>, Large Language Models,<br>
+      and <strong>Python Automation</strong>.
+    </p>
+
+    <div class="hero-cta">
+      <a href="mailto:techlabid@gmail.com" class="btn btn-primary">⚡ Hire Me</a>
+      <a href="#cv" class="btn btn-secondary">↓ Download CV</a>
+      <a href="#projects" class="btn btn-outline">View Portfolio →</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    scroll
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="about" id="about">
+<!-- ██ ABOUT ██ -->
+<section id="about">
   <div class="container">
     <div class="about-grid">
-      <div class="about-text reveal">
-        <p class="section-label">Who We Are</p>
-        <h2 class="section-title">About TechLabID</h2>
-        <div class="gold-line"></div>
-        <p>
-          TechLabID is an independent game development studio focused on creating
-          high-quality, game-ready assets for Unity developers.
-        </p>
-        <p>
-          Our goal is to help developers save time and build better games with
-          optimized and easy-to-use assets that meet the highest standards.
-        </p>
-
-        <div class="stat-row">
-          <div class="stat">
-            <h3>100%</h3>
-            <p>Unity Compatible</p>
-          </div>
-          <div class="stat">
-            <h3>HD</h3>
-            <p>Quality Assets</p>
-          </div>
-          <div class="stat">
-            <h3>URP</h3>
-            <p>Ready Pipeline</p>
-          </div>
+      <div class="about-photo reveal">
+        <!-- Replace with your professional photo -->
+        <!-- <img src="YOUR_PHOTO.jpg" alt="TechLabID"> -->
+        <div class="about-photo-placeholder">
+          <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24" opacity=".3">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <span style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.5rem">Your Photo Here</span>
         </div>
+        <div class="about-badge">🇮🇩 Pontianak, Indonesia</div>
       </div>
 
-      <div class="about-visual reveal">
-        <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/TechLabID_Guard_Idle.jpg" alt="TechLabID Guard Character">
+      <div class="about-text">
+        <p class="section-eyebrow reveal">About Me</p>
+        <h2 class="section-title reveal">Hi, I'm<br><span style="background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">TechLabID.</span></h2>
+
+        <p class="reveal reveal-delay-1">
+          I build <strong>AI-powered software</strong> for engineering, education, automation, and business productivity.
+        </p>
+        <p class="reveal reveal-delay-1">
+          I specialize in combining <strong>Large Language Models</strong>, Python, FastAPI, and AI Agents to create practical solutions that solve real problems — not just demos.
+        </p>
+        <p class="reveal reveal-delay-2">
+          From <strong>AI tutors</strong> for Indonesian students, to <strong>electrical design automation</strong> for engineers — I build things that work in the real world.
+        </p>
+
+        <div class="about-tags reveal reveal-delay-2">
+          <span class="tag">LLM Integration</span>
+          <span class="tag">AI Agents</span>
+          <span class="tag">Python</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Backend Dev</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FEATURED ASSET -->
-<section class="featured" id="asset">
+<!-- ██ EXPERTISE ██ -->
+<section id="expertise">
   <div class="container">
-    <div style="text-align:center; margin-bottom: 3rem;" class="reveal">
-      <p class="section-label">Now Available</p>
-      <h2 class="section-title">Featured Asset</h2>
-      <div class="gold-line" style="margin: 0 auto;"></div>
-    </div>
+    <p class="section-eyebrow reveal">Core Skills</p>
+    <h2 class="section-title reveal">My Expertise</h2>
+    <p class="section-sub reveal">Technologies and disciplines I use to build production-grade AI solutions.</p>
 
-    <div class="asset-card reveal">
-      <!-- LEFT: Visual -->
-      <div class="asset-visual">
-        <img src="https://raw.githubusercontent.com/TechLabID/techlabid/main/TechLabID_Guard_Idle.jpg" alt="Medieval NPC Guard">
-        <div class="asset-tag">Featured</div>
+    <div class="expertise-grid">
+      <div class="expertise-card reveal">
+        <div class="expertise-icon">🧠</div>
+        <div class="expertise-name">Artificial Intelligence</div>
+        <div class="skill-pills">
+          <span class="pill">LLM Integration</span>
+          <span class="pill">AI Agents</span>
+          <span class="pill">Prompt Engineering</span>
+          <span class="pill">RAG</span>
+          <span class="pill">Ollama</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-1">
+        <div class="expertise-icon">⚙️</div>
+        <div class="expertise-name">Backend Development</div>
+        <div class="skill-pills">
+          <span class="pill">Python</span>
+          <span class="pill">FastAPI</span>
+          <span class="pill">REST API</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">Docker</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-2">
+        <div class="expertise-icon">🤖</div>
+        <div class="expertise-name">AI Automation</div>
+        <div class="skill-pills">
+          <span class="pill">Workflow Automation</span>
+          <span class="pill">AI Pipelines</span>
+          <span class="pill">Data Processing</span>
+          <span class="pill">Web Scraping</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal">
+        <div class="expertise-icon">🌐</div>
+        <div class="expertise-name">Frontend & Tools</div>
+        <div class="skill-pills">
+          <span class="pill">HTML/CSS/JS</span>
+          <span class="pill">Git & GitHub</span>
+          <span class="pill">Unity</span>
+          <span class="pill">Blender</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-1">
+        <div class="expertise-icon">🔑</div>
+        <div class="expertise-name">AI APIs & Platforms</div>
+        <div class="skill-pills">
+          <span class="pill">OpenAI API</span>
+          <span class="pill">Claude API</span>
+          <span class="pill">Gemini</span>
+          <span class="pill">Whisper STT</span>
+          <span class="pill">TTS</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-2">
+        <div class="expertise-icon">📱</div>
+        <div class="expertise-name">Mobile & App Dev</div>
+        <div class="skill-pills">
+          <span class="pill">Python Kivy</span>
+          <span class="pill">Android APK</span>
+          <span class="pill">KivyMD</span>
+          <span class="pill">CustomTkinter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ██ PROJECTS ██ -->
+<section id="projects">
+  <div class="container">
+    <p class="section-eyebrow reveal">Portfolio</p>
+    <h2 class="section-title reveal">Featured Projects</h2>
+    <p class="section-sub reveal">Production-grade AI applications built from scratch.</p>
+
+    <div class="projects-grid">
+
+      <!-- PROJECT 1 -->
+      <div class="project-card reveal">
+        <div>
+          <div class="project-number">01 / FLAGSHIP</div>
+          <h3 class="project-title">TechLabID AI Electrical Designer</h3>
+          <div class="project-subtitle">AI-Powered Engineering Automation</div>
+          <p class="project-desc">
+            Web-based AI CAD tool using Claude Vision API to analyze floor plans and generate IEC/SNI-compliant electrical diagrams. Features DXF export for AutoCAD, component detection, and a full PDF output pipeline — reducing manual drafting time by 80%.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">Claude API</span>
+            <span class="stack-tag">OpenAI</span>
+            <span class="stack-tag">Vision AI</span>
+            <span class="stack-tag">DXF/AutoCAD</span>
+          </div>
+          <div class="project-links">
+            <a href="mailto:techlabid@gmail.com" class="project-btn project-btn-primary">⚡ Request Demo</a>
+            <a href="https://github.com/TechLabID" target="_blank" class="project-btn project-btn-secondary">GitHub →</a>
+          </div>
+        </div>
+        <span class="project-badge">AI + Engineering</span>
       </div>
 
-      <!-- RIGHT: Info -->
-      <div class="asset-info">
-        <p class="section-label">NPC Character Pack</p>
-        <h3 class="asset-name">Medieval NPC Pack: Guard</h3>
-        <p class="asset-desc">
-          A fully rigged humanoid guard character designed for seamless integration
-          into Unity projects. Includes essential animations and a ready-to-use
-          demo controller — drop in, play immediately.
-        </p>
+      <!-- PROJECT 2 -->
+      <div class="project-card reveal">
+        <div>
+          <div class="project-number">02 / EDTECH</div>
+          <h3 class="project-title">MathApp AI Tutor</h3>
+          <div class="project-subtitle">Adaptive Mathematics Learning for Indonesian Students</div>
+          <p class="project-desc">
+            Android educational app with an AI tutor character "Budi" — combining Claude API, Whisper STT, OpenAI TTS, gamification, and AR hologram effects. Built for Grade 1 Indonesian elementary students with AdMob integration and Bahasa Indonesia voice interaction.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag">Python Kivy</span>
+            <span class="stack-tag">Claude API</span>
+            <span class="stack-tag">Whisper STT</span>
+            <span class="stack-tag">OpenAI TTS</span>
+            <span class="stack-tag">Android</span>
+            <span class="stack-tag">AdMob</span>
+          </div>
+          <div class="project-links">
+            <a href="mailto:techlabid@gmail.com" class="project-btn project-btn-primary">⚡ Request Demo</a>
+            <a href="https://github.com/TechLabID" target="_blank" class="project-btn project-btn-secondary">GitHub →</a>
+          </div>
+        </div>
+        <span class="project-badge">AI + EdTech</span>
+      </div>
 
-        <ul class="feature-list">
-          <li>Idle, Walk, Run Animations</li>
-          <li>Attack (Melee) Animation</li>
-          <li>Death Animation Included</li>
-          <li>Humanoid Rig (Unity Compatible)</li>
-          <li>Demo Scene Included</li>
-          <li>URP / Built-in Pipeline Ready</li>
-        </ul>
+      <!-- PROJECT 3 -->
+      <div class="project-card reveal">
+        <div>
+          <div class="project-number">03 / AUTOMATION</div>
+          <h3 class="project-title">AI Automation Solutions</h3>
+          <div class="project-subtitle">Business Workflow Automation with LLMs</div>
+          <p class="project-desc">
+            Suite of AI automation tools including a Google Maps business data scraper (Python + Playwright + SQLite), multi-strategy AI trading agent with LLM sentiment analysis, and a navigation web app with Bahasa Indonesia voice guidance — all deployed for commercial use.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">LLM</span>
+            <span class="stack-tag">Playwright</span>
+            <span class="stack-tag">Binance API</span>
+            <span class="stack-tag">Leaflet.js</span>
+            <span class="stack-tag">Web Speech API</span>
+          </div>
+          <div class="project-links">
+            <a href="mailto:techlabid@gmail.com" class="project-btn project-btn-primary">⚡ Discuss Project</a>
+            <a href="https://github.com/TechLabID" target="_blank" class="project-btn project-btn-secondary">GitHub →</a>
+          </div>
+        </div>
+        <span class="project-badge">AI + Automation</span>
+      </div>
 
-        <a href="https://assetstore.unity.com/preview/377956/1340742" target="_blank" class="btn-primary" style="display:inline-block;">
-          🔗 View on Unity Asset Store
+    </div>
+  </div>
+</section>
+
+<!-- ██ SERVICES ██ -->
+<section id="services">
+  <div class="container">
+    <p class="section-eyebrow reveal">What I Offer</p>
+    <h2 class="section-title reveal">Services</h2>
+    <p class="section-sub reveal">End-to-end AI software development — from concept to production.</p>
+
+    <div class="services-list">
+      <div class="service-item reveal">
+        <div class="service-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#00FFB3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="service-text">AI Software Development</div><div class="service-sub">Custom AI applications end-to-end</div></div>
+      </div>
+      <div class="service-item reveal reveal-delay-1">
+        <div class="service-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#00FFB3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="service-text">Python Automation</div><div class="service-sub">Scripting & workflow automation</div></div>
+      </div>
+      <div class="service-item reveal reveal-delay-2">
+        <div class="service-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#00FFB3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="service-text">AI Agents</div><div class="service-sub">Autonomous task-solving agents</div></div>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#00FFB3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="service-text">FastAPI Backend</div><div class="service-sub">Production-ready REST APIs</div></div>
+      </div>
+      <div class="service-item reveal reveal-delay-1">
+        <div class="service-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#00FFB3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="service-text">LLM Integration</div><div class="service-sub">OpenAI, Claude, Gemini, Ollama</div></div>
+      </div>
+      <div class="service-item reveal reveal-delay-2">
+        <div class="service-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#00FFB3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="service-text">Prompt Engineering</div><div class="service-sub">Optimized prompts for any use case</div></div>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#00FFB3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="service-text">AI Consulting</div><div class="service-sub">Strategy & implementation roadmap</div></div>
+      </div>
+      <div class="service-item reveal reveal-delay-1">
+        <div class="service-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#00FFB3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="service-text">Technical Documentation</div><div class="service-sub">Clear docs for complex systems</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ██ WHY HIRE ME ██ -->
+<section id="why">
+  <div class="container">
+    <p class="section-eyebrow reveal">Why Me</p>
+    <h2 class="section-title reveal">Numbers That Speak</h2>
+
+    <div class="counters-grid">
+      <div class="counter-card reveal">
+        <div class="counter-num" data-target="3">0</div>
+        <div style="font-size:1.2rem;color:var(--cyan);font-weight:700">+</div>
+        <div class="counter-label">Years Experience</div>
+      </div>
+      <div class="counter-card reveal reveal-delay-1">
+        <div class="counter-num" data-target="15">0</div>
+        <div style="font-size:1.2rem;color:var(--cyan);font-weight:700">+</div>
+        <div class="counter-label">AI Projects</div>
+      </div>
+      <div class="counter-card reveal reveal-delay-2">
+        <div class="counter-num" data-target="10">0</div>
+        <div style="font-size:1.2rem;color:var(--cyan);font-weight:700">+</div>
+        <div class="counter-label">Production Apps</div>
+      </div>
+      <div class="counter-card reveal reveal-delay-3">
+        <div class="counter-num" data-target="100">0</div>
+        <div style="font-size:1.2rem;color:var(--mint);font-weight:700">%</div>
+        <div class="counter-label">Remote Ready</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ██ TECH STACK ██ -->
+<section id="stack">
+  <div class="container">
+    <p class="section-eyebrow reveal">Tools & Tech</p>
+    <h2 class="section-title reveal">Technology Stack</h2>
+    <p class="section-sub reveal">The tools I use to build, ship, and scale AI solutions.</p>
+
+    <div class="stack-grid reveal">
+      <div class="stack-item"><span class="stack-dot" style="background:#3776ab"></span>Python</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#009688"></span>FastAPI</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#10a37f"></span>OpenAI</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#d97706"></span>Claude</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#4285f4"></span>Gemini</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#f05032"></span>Git</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#24292e"></span>GitHub</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#e34f26"></span>HTML/CSS</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#f7df1e"></span>JavaScript</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#336791"></span>PostgreSQL</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#2496ed"></span>Docker</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#00d4ff"></span>Ollama</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#000000"></span>Unity</div>
+      <div class="stack-item"><span class="stack-dot" style="background:#f5792a"></span>Blender</div>
+    </div>
+  </div>
+</section>
+
+<!-- ██ CV DOWNLOAD ██ -->
+<section id="cv">
+  <div class="container">
+    <p class="section-eyebrow reveal">Resume</p>
+    <h2 class="section-title reveal">Download CV</h2>
+    <p class="section-sub reveal">Choose the CV that matches your hiring needs.</p>
+
+    <div class="cv-grid">
+      <div class="cv-card reveal">
+        <div class="cv-type">Primary Role</div>
+        <div class="cv-title">AI Software Engineer CV</div>
+        <div class="cv-desc">Full-stack AI development, LLM integration, Python automation, FastAPI backend, and production app deployment.</div>
+        <a href="mailto:techlabid@gmail.com?subject=CV Request - AI Software Engineer" class="cv-btn">
+          ↓ Download CV
+        </a>
+      </div>
+      <div class="cv-card reveal reveal-delay-1">
+        <div class="cv-type">Freelance / Contract</div>
+        <div class="cv-title">AI Evaluator CV</div>
+        <div class="cv-desc">AI output evaluation, prompt quality assessment, RLHF data annotation, and LLM benchmarking for platforms like Outlier, TELUS, Scale AI.</div>
+        <a href="mailto:techlabid@gmail.com?subject=CV Request - AI Evaluator" class="cv-btn">
+          ↓ Download CV
         </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VIDEO DEMO GALLERY -->
-<section class="video-section" id="demo">
-  <div class="container">
-    <div class="reveal" style="text-align:center; margin-bottom: 3rem;">
-      <p class="section-label">Animation & Gameplay</p>
-      <h2 class="section-title">Demo & In-Game Preview</h2>
-      <div class="gold-line" style="margin: 0 auto 1rem;"></div>
-      <p style="color:var(--text-dim); font-size:.9rem;">
-        Watch our asset demos, tutorials, and in-game previews
-      </p>
-    </div>
-
-    <!-- MAIN VIDEO PLAYER -->
-    <div class="main-player reveal">
-      <div class="main-video-embed" id="mainPlayer">
-        <iframe src="https://www.youtube.com/embed/bPMPlXjvRRw?rel=0" allowfullscreen></iframe>
-      </div>
-      <div class="main-video-info" id="mainInfo">
-        <p class="main-video-label">Featured Demo</p>
-        <h3 class="main-video-title" id="mainVideoTitle">Medieval NPC Guard — Full Demo</h3>
-        <p class="main-video-desc" id="mainVideoDesc">
-          Animation showcase and real-time gameplay demo — WASD movement, attack, and death system.
-        </p>
-      </div>
-    </div>
-
-    <!-- VIDEO TABS / FILTER -->
-    <div class="video-tabs reveal">
-      <button class="vtab active" onclick="filterVideos('all', this)">All Videos</button>
-      <button class="vtab" onclick="filterVideos('demo', this)">Asset Demo</button>
-      <button class="vtab" onclick="filterVideos('tutorial', this)">Tutorial</button>
-      <button class="vtab" onclick="filterVideos('showcase', this)">Showcase</button>
-    </div>
-
-    <!-- VIDEO GRID -->
-    <div class="video-grid reveal" id="videoGrid">
-
-      <!-- ═══════════════════════════════════════════
-           CARA TAMBAH VIDEO BARU:
-           1. Copy satu blok <div class="vcard ..."> di bawah
-           2. Ganti data-id="VIDEO_ID" dengan YouTube video ID kamu
-           3. Ganti data-title, data-desc, data-tag sesuai video
-           4. Ganti background thumbnail (opsional)
-           ═══════════════════════════════════════════ -->
-
-      <div class="vcard active" data-tag="demo"
-           data-id="bPMPlXjvRRw"
-           data-title="Medieval NPC Guard — Full Demo"
-           data-desc="Animation showcase and real-time gameplay demo with WASD movement, attack, and death system."
-           onclick="selectVideo(this)">
-        <div class="vcard-thumb">
-          <img src="https://img.youtube.com/vi/bPMPlXjvRRw/mqdefault.jpg"
-               onerror="this.style.display='none'" alt="thumb">
-          <div class="vcard-play">
-            <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
-          </div>
-        </div>
-        <div class="vcard-info">
-          <span class="vcard-tag">Asset Demo</span>
-          <p class="vcard-title">Medieval NPC Guard — Full Demo</p>
-          <p class="vcard-duration">—</p>
-        </div>
-      </div>
-
-      <div class="vcard" data-tag="Development"
-           data-id="bYKq3PqYLps"
-           data-title="PLAYABLE MEDIEVAL DEFENSE PROTOTYPE III "
-           data-desc="PLAYABLE MEDIEVAL DEFENSE PROTOTYPE III ⚔️ Kingdom Siege Game Development #1"
-           onclick="selectVideo(this)">
-        <div class="vcard-thumb">
-          <img src="https://img.youtube.com/vi/bYKq3PqYLps/mqdefault.jpg"
-               onerror="this.style.display='none'" alt="thumb">
-          <div class="vcard-play">
-            <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
-          </div>
-        </div>
-        <div class="vcard-info">
-          <span class="vcard-tag">Development</span>
-          <p class="vcard-title">PLAYABLE MEDIEVAL DEFENSE PROTOTYPE III</p>
-          <p class="vcard-duration">5:45</p>
-        </div>
-      </div>
-
-      <div class="vcard" data-tag="showcase"
-           data-id="YOUR_VIDEO_ID_3"
-           data-title="Animation Showcase — All Clips"
-           data-desc="Full animation breakdown: idle, walk, run, attack, and death — recorded in Unity Timeline."
-           onclick="selectVideo(this)">
-        <div class="vcard-thumb">
-          <img src="https://img.youtube.com/vi/YOUR_VIDEO_ID_3/mqdefault.jpg"
-               onerror="this.style.display='none'" alt="thumb">
-          <div class="vcard-play">
-            <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
-          </div>
-        </div>
-        <div class="vcard-info">
-          <span class="vcard-tag">Showcase</span>
-          <p class="vcard-title">Animation Showcase — All Clips</p>
-          <p class="vcard-duration">3:15</p>
-        </div>
-      </div>
-
-      <!-- ADD MORE VIDEOS HERE — copy a vcard block above -->
-
-    </div>
-
-    <!-- ADD VIDEO BUTTON (for your reference only — remove before publish) -->
-    <div class="reveal" style="text-align:center; margin-top:2rem;">
-      <p style="font-size:.75rem; color:var(--gold-dim); letter-spacing:.1em; text-transform:uppercase;">
-        ➕ To add more videos: duplicate a <code style="color:var(--gold);">.vcard</code> block in the HTML and update the <code style="color:var(--gold);">data-id</code>
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<!-- CTA BANNER -->
-<section class="cta-banner">
-  <div class="container">
-    <div class="cta-inner reveal">
-      <div>
-        <h2>Ready to level up <span>your game?</span></h2>
-        <p>Download the Medieval NPC Pack: Guard — available now on Unity Asset Store.</p>
-      </div>
-      <a href="https://assetstore.unity.com/preview/377956/1340742" target="_blank" class="btn-primary">🔗 View on Unity Asset Store</a>
-    </div>
-  </div>
-</section>
-
-<!-- UPCOMING -->
-<section class="upcoming" id="upcoming">
-  <div class="container">
-    <div style="text-align:center; margin-bottom: 3rem;" class="reveal">
-      <p class="section-label">What's Next</p>
-      <h2 class="section-title">Upcoming Assets</h2>
-      <div class="gold-line" style="margin: 0 auto;"></div>
-    </div>
-
-    <div class="upcoming-grid reveal">
-      <div class="upcoming-item">
-        <div class="upcoming-badge">Coming Soon</div>
-        <h3 class="upcoming-name">Villager NPC Pack</h3>
-        <p class="upcoming-sub">Humanoid civilian characters for open-world games</p>
-      </div>
-      <div class="upcoming-item">
-        <div class="upcoming-badge">Coming Soon</div>
-        <h3 class="upcoming-name">Merchant NPC Pack</h3>
-        <p class="upcoming-sub">Shop keeper &amp; trader characters with animations</p>
-      </div>
-      <div class="upcoming-item">
-        <div class="upcoming-badge">Coming Soon</div>
-        <h3 class="upcoming-name">Knight Character Pack</h3>
-        <p class="upcoming-sub">Heavy armored knight with combat animations</p>
-      </div>
-      <div class="upcoming-item">
-        <div class="upcoming-badge">Coming Soon</div>
-        <h3 class="upcoming-name">Medieval Environment Pack</h3>
-        <p class="upcoming-sub">Modular building &amp; prop assets for level design</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
+<!-- ██ CONTACT ██ -->
+<section id="contact">
   <div class="container">
     <div class="contact-grid">
-      <div class="reveal">
-        <p class="section-label">Get In Touch</p>
-        <h2 class="section-title">Contact</h2>
-        <div class="gold-line"></div>
-        <p>
-          For business inquiries, collaborations, or support,
-          feel free to reach out. We respond to all messages
-          within 48 hours.
+      <div>
+        <p class="section-eyebrow reveal">Let's Work Together</p>
+        <h2 class="contact-headline reveal">
+          Ready to build<br><span>something great?</span>
+        </h2>
+        <p class="contact-sub reveal">
+          Whether you need an AI tool, Python automation, or a full backend — I'm open to freelance, contract, and full-time remote opportunities.
         </p>
 
-        <a href="mailto:techlabid77@gmail.com" class="contact-link">
-          <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.5">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <path d="M2 8l10 6 10-6"/>
-            </svg>
-          </div>
-          <div class="contact-text">
-            <strong>Email</strong>
-            <span>techlabid77@gmail.com</span>
-          </div>
-        </a>
+        <div class="availability reveal">
+          <div class="avail-title"><span class="avail-dot"></span> Currently Available</div>
+          <div class="avail-desc">Open for remote work · Freelance · Contract · Full-time<br>Response within 24 hours.</div>
+        </div>
       </div>
 
-      <div class="reveal" style="display:flex; flex-direction:column; justify-content:center;">
-        <p class="contact-tagline">
-          Build great games<br>with <span>great assets.</span>
-        </p>
-        <div class="shield-deco">🛡</div>
+      <div>
+        <div class="contact-links reveal">
+          <a href="mailto:techlabid@gmail.com" class="contact-link">
+            <div class="contact-icon" style="background:rgba(0,212,255,.1)">📧</div>
+            <div class="contact-text">
+              <strong>Email</strong>
+              <span>techlabid@gmail.com</span>
+            </div>
+          </a>
+          <a href="https://wa.me/62" target="_blank" class="contact-link">
+            <div class="contact-icon" style="background:rgba(0,255,179,.1)">💬</div>
+            <div class="contact-text">
+              <strong>WhatsApp</strong>
+              <span>Chat directly</span>
+            </div>
+          </a>
+          <a href="https://github.com/TechLabID" target="_blank" class="contact-link">
+            <div class="contact-icon" style="background:rgba(138,92,255,.1)">🐙</div>
+            <div class="contact-text">
+              <strong>GitHub</strong>
+              <span>github.com/TechLabID</span>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/diman-susanto" target="_blank" class="contact-link">
+            <div class="contact-icon" style="background:rgba(0,119,181,.15)">💼</div>
+            <div class="contact-text">
+              <strong>LinkedIn</strong>
+              <span>linkedin.com/in/diman-susanto</span>
+            </div>
+          </a>
+          <a href="https://techlabid.github.io/techlabid/" target="_blank" class="contact-link">
+            <div class="contact-icon" style="background:rgba(0,212,255,.08)">🌐</div>
+            <div class="contact-text">
+              <strong>Portfolio</strong>
+              <span>techlabid.github.io/techlabid</span>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -1082,72 +998,152 @@
 
 <!-- FOOTER -->
 <footer>
-  <a href="#top" class="logo">TechLabID</a>
-  <p>© 2025 TechLabID. All rights reserved.</p>
+  <div class="footer-name">TechLabID</div>
+  <div class="footer-role">AI Software Engineer & AI Automation Consultant</div>
+  <div class="footer-tagline">Building the Future with AI.</div>
   <div class="footer-links">
-    <a href="#asset">Assets</a>
-    <a href="#demo">Demo</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#services">Services</a>
+    <a href="#cv">CV</a>
     <a href="#contact">Contact</a>
+    <a href="mailto:techlabid@gmail.com">techlabid@gmail.com</a>
   </div>
+  <div class="footer-copy">© 2025 TechLabID · TechLabID · Pontianak, Indonesia</div>
 </footer>
 
-<!-- SCROLL REVEAL + VIDEO GALLERY SCRIPT -->
 <script>
-  // ── Scroll Reveal ──
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => io.observe(el));
+// ── PARTICLE SYSTEM ──
+(function(){
+  const canvas=document.getElementById('particles');
+  const ctx=canvas.getContext('2d');
+  let W,H,particles=[];
+  const COLORS=['#00D4FF','#8A5CFF','#00FFB3'];
+  let mouse={x:W/2,y:H/2};
 
-  // ── Video Gallery ──
-  function selectVideo(card) {
-    // Mark active card
-    document.querySelectorAll('.vcard').forEach(c => c.classList.remove('active'));
-    card.classList.add('active');
+  function resize(){
+    W=canvas.width=window.innerWidth;
+    H=canvas.height=window.innerHeight;
+  }
 
-    const id    = card.dataset.id;
-    const title = card.dataset.title;
-    const desc  = card.dataset.desc;
-
-    // Update main player
-    const player = document.getElementById('mainPlayer');
-    if (id && !id.startsWith('YOUR_VIDEO')) {
-      player.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
-    } else {
-      player.innerHTML = `
-        <div class="video-placeholder">
-          <div class="play-btn">
-            <svg width="28" height="28" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#c9a84c"/></svg>
-          </div>
-          <p style="color:var(--text-dim);font-size:.8rem;margin-top:.5rem;">Replace YOUR_VIDEO_ID with real YouTube ID</p>
-        </div>`;
+  function Particle(){
+    this.reset();
+  }
+  Particle.prototype.reset=function(){
+    this.x=Math.random()*W;
+    this.y=Math.random()*H;
+    this.size=Math.random()*1.5+.5;
+    this.speedX=(Math.random()-.5)*.4;
+    this.speedY=(Math.random()-.5)*.4;
+    this.color=COLORS[Math.floor(Math.random()*COLORS.length)];
+    this.alpha=Math.random()*.5+.1;
+    this.life=Math.random()*200+100;
+    this.maxLife=this.life;
+  };
+  Particle.prototype.update=function(){
+    const dx=mouse.x-this.x, dy=mouse.y-this.y;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<120){
+      this.x-=(dx/dist)*1.2;
+      this.y-=(dy/dist)*1.2;
     }
+    this.x+=this.speedX; this.y+=this.speedY;
+    this.life--;
+    this.alpha=(.5+.1)*(this.life/this.maxLife);
+    if(this.life<=0||this.x<0||this.x>W||this.y<0||this.y>H) this.reset();
+  };
+  Particle.prototype.draw=function(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle=this.color;
+    ctx.globalAlpha=this.alpha;
+    ctx.fill();
+  };
 
-    // Update info panel
-    document.getElementById('mainVideoTitle').textContent = title;
-    document.getElementById('mainVideoDesc').textContent  = desc;
+  function init(){
+    resize();
+    particles=[];
+    for(let i=0;i<120;i++) particles.push(new Particle());
+  }
 
-    // Scroll to player on mobile
-    if (window.innerWidth < 768) {
-      document.getElementById('demo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  function drawConnections(){
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx=particles[i].x-particles[j].x;
+        const dy=particles[i].y-particles[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<90){
+          ctx.beginPath();
+          ctx.strokeStyle='#8A5CFF';
+          ctx.globalAlpha=.06*(1-d/90);
+          ctx.lineWidth=.5;
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.stroke();
+        }
+      }
     }
   }
 
-  function filterVideos(tag, btn) {
-    // Update active tab
-    document.querySelectorAll('.vtab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    // Show/hide cards
-    document.querySelectorAll('.vcard').forEach(card => {
-      const match = tag === 'all' || card.dataset.tag === tag;
-      card.classList.toggle('hidden', !match);
-    });
+  function animate(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{p.update();p.draw()});
+    drawConnections();
+    ctx.globalAlpha=1;
+    requestAnimationFrame(animate);
   }
+
+  window.addEventListener('resize',init);
+  window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+  init(); animate();
+})();
+
+// ── SCROLL REVEAL ──
+const reveals=document.querySelectorAll('.reveal');
+const revealIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealIO.unobserve(e.target)}});
+},{threshold:.1});
+reveals.forEach(el=>revealIO.observe(el));
+
+// ── ANIMATED COUNTERS ──
+function animateCounter(el, target, duration=1800){
+  let start=0, startTime=null;
+  function step(timestamp){
+    if(!startTime) startTime=timestamp;
+    const progress=Math.min((timestamp-startTime)/duration,1);
+    const eased=1-Math.pow(1-progress,3);
+    el.textContent=Math.floor(eased*target);
+    if(progress<1) requestAnimationFrame(step);
+    else el.textContent=target;
+  }
+  requestAnimationFrame(step);
+}
+
+const counterIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target.querySelector('.counter-num');
+      if(el&&!el.dataset.animated){
+        el.dataset.animated='1';
+        animateCounter(el,parseInt(el.dataset.target));
+      }
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('.counter-card').forEach(el=>counterIO.observe(el));
+
+// ── SMOOTH ACTIVE NAV ──
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-120) current=s.id;
+  });
+  navLinks.forEach(a=>{
+    a.style.color=a.getAttribute('href')==='#'+current?'var(--white)':'';
+  });
+});
 </script>
-
 </body>
 </html>
