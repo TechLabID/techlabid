@@ -1,71 +1,86 @@
-# 🛡️ TechLabID – Unity Game Assets
+# TechLabID 🛡️
 
-Welcome to **TechLabID**, a collection of high-quality, game-ready assets designed for Unity developers.
+> **AI Software Engineer · AI Automation Consultant · Python Developer**
+> 
+> Building intelligent software using Artificial Intelligence, Large Language Models, and Python Automation.
 
-We focus on performance, clean structure, and easy integration to help you build games faster.
+🌐 **Portfolio:** [techlabid.github.io/techlabid](https://techlabid.github.io/techlabid)  
+📧 **Email:** techlabid@gmail.com  
+📍 **Location:** Pontianak, West Kalimantan, Indonesia
 
 ---
 
-## 🎮 Featured Asset
+## 🚀 Featured Projects
+
+### 🔌 TechLabID AI Electrical Designer
+AI-powered engineering automation tool using Claude Vision API to analyze floor plans and generate IEC/SNI-compliant electrical diagrams with DXF export.
+`Python` `FastAPI` `Claude API` `OpenAI` `Vision AI` `AutoCAD`
+
+### 📚 MathApp AI Tutor
+Android educational app for Indonesian elementary students with AI tutor character, voice interaction, gamification, and AR hologram effects.
+`Python Kivy` `Claude API` `Whisper STT` `OpenAI TTS` `Android`
+
+### ⚙️ AI Automation Solutions
+Suite of business automation tools: Google Maps scraper, AI trading agent with LLM sentiment analysis, and Bahasa Indonesia voice navigation app.
+`Python` `LLM` `Playwright` `Binance API` `Web Speech API`
 
 ### 🛡️ Medieval NPC Pack: Guard
-
-A fully rigged humanoid character designed for seamless integration into Unity projects.
-
-### ✨ Features:
-- Idle, Walk, Run animations  
-- Attack (Melee)  
-- Death animation  
-- Humanoid rig (Unity compatible)  
-- Demo scene included  
+Game-ready Unity Asset — fully rigged humanoid guard character with animations.
+`Unity` `Blender` `3D Assets` `C#`
+👉 [View on Unity Asset Store](https://assetstore.unity.com/preview/377956/1340742)
 
 ---
 
-## 🎬 Demo Video
+## 🧠 Tech Stack
 
-Watch the full demo on YouTube:  
-👉 https://youtu.be/bPMPlXjvRRw?si=IG0iSrYrqxzzyttC
-
-Includes:
-- Animation showcase  
-- In-game demo (WASD movement, attack, death)
-
----
-
-## 🚀 Unity Asset Store
-
-Get the asset here:  
-👉 https://assetstore.unity.com/packages/slug/377956
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-10A37F?style=flat&logo=openai&logoColor=white)
+![Claude](https://img.shields.io/badge/Claude_API-D97706?style=flat&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Unity](https://img.shields.io/badge/Unity-000000?style=flat&logo=unity&logoColor=white)
 
 ---
 
-## 🏰 Upcoming Assets
+## 📊 GitHub Stats
 
-- Villager NPC Pack  
-- Merchant NPC Pack  
-- Knight Character Pack  
-- Medieval Environment Pack  
+![TechLabID GitHub Stats](https://github-readme-stats.vercel.app/api?username=TechLabID&show_icons=true&theme=tokyonight&hide_border=true&bg_color=050816&title_color=00D4FF&icon_color=8A5CFF&text_color=8892a4)
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=TechLabID&layout=compact&theme=tokyonight&hide_border=true&bg_color=050816&title_color=00D4FF&text_color=8892a4)
 
 ---
 
-## 👨‍💻 About
+## 🎯 Services
 
-TechLabID is an independent developer focused on creating professional Unity assets for indie and commercial use.
+- ✔ AI Software Development
+- ✔ Python Automation
+- ✔ AI Agents
+- ✔ FastAPI Backend & REST API
+- ✔ LLM Integration (OpenAI · Claude · Gemini · Ollama)
+- ✔ Prompt Engineering
+- ✔ AI Consulting
+- ✔ Technical Documentation
 
 ---
 
 ## 📩 Contact
 
-Email: techlabid77@gmail.com
-       skyhan045@gmail.com
-## Support
-Support TechLabID on Patreon:
-https://patreon.com/techlabid
-https://saweria.co/TechLabID
+| Platform | Link |
+|---|---|
+| 🌐 Portfolio | [techlabid.github.io/techlabid](https://techlabid.github.io/techlabid) |
+| 📧 Email | techlabid@gmail.com |
+| 🐙 GitHub | [github.com/TechLabID](https://github.com/TechLabID) |
 
 ---
 
-## ⚡ License
+<div align="center">
 
-This repository is for portfolio and showcase purposes only.  
-Assets are distributed via Unity Asset Store.
+**Building the Future with AI.** 🤖
+
+*© 2025 TechLabID · Pontianak, Indonesia*
+
+</div>
