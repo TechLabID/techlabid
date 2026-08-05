@@ -6,7 +6,7 @@
 
 🌐 **Portfolio:** [techlabid.github.io/techlabid](https://techlabid.github.io/techlabid)  
 📧 **Email:** techlabid@gmail.com  
-📍 **Location:** Pontianak, West Kalimantan, Indonesia
+📍 **Location:** Indonesia
 
 ---
 
@@ -81,6 +81,6 @@ Game-ready Unity Asset — fully rigged humanoid guard character with animations
 
 **Building the Future with AI.** 🤖
 
-*© 2025 TechLabID · Pontianak, Indonesia*
+*© 2025 TechLabID · Indonesia*
 
 </div>
